@@ -1,13 +1,19 @@
 .menu {
-  background-color: #838084; }
+  background-color: #B0B2B3;
+  height: 100vh; }
   .menu .logo-menu {
-    background-image: url("../img/logo-menu.png");
-    width: 90px;
+    background: url("../img/logo_menu.png") no-repeat;
+    width: 130px;
     height: 30px; }
+  .menu .submenu {
+    heigth: 20px; }
+    .menu .submenu.active {
+      background-color: #E4E4E5; }
+    .menu .submenu p {
+      color: #fff; }
 
 .work-area {
-  background-color: #E4E4E5;
-  height: 100%;
-  width: 100%; }
+  background-color: #D8D9DA;
+  height: 100vh; }
 
 /*# sourceMappingURL=main.css.map */
