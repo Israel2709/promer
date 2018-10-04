@@ -1,0 +1,13 @@
+.menu {
+  background-color: #838084; }
+  .menu .logo-menu {
+    background-image: url("../img/logo-menu.png");
+    width: 90px;
+    height: 30px; }
+
+.work-area {
+  background-color: #E4E4E5;
+  height: 100%;
+  width: 100%; }
+
+/*# sourceMappingURL=main.css.map */
