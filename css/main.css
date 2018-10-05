@@ -46,6 +46,8 @@
 .work-area {
   background-color: #D8D9DA;
   height: 100vh; }
+  .work-area .align-items-center {
+    margin: auto; }
   .work-area .box-background {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 20px;
