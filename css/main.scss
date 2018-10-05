@@ -97,12 +97,12 @@ $grayTrans: #E4E4E5;
 	    z-index: 999;
 		margin-bottom: 40px;
 	}
-	.btn-login{
+	.btn-input{
 		border-radius: 20px;
-		width: 40%;
 		z-index: 9999;
 		border: 1px solid $grayStrong;
 		&.user{
+			width: 40%;
 			background-image: url(../img/icon-user.png);
 			background-repeat: no-repeat;
 			background-position: 8px center;
@@ -110,6 +110,7 @@ $grayTrans: #E4E4E5;
 			margin-bottom: 10px;
 		}
 		&.password{
+			width: 40%;
 			background-image: url(../img/icon-password.png);
 			background-repeat: no-repeat;
 			background-position: 8px center;

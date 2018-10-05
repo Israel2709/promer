@@ -73,18 +73,19 @@
     background-size: contain;
     z-index: 999;
     margin-bottom: 40px; }
-  .work-area .btn-login {
+  .work-area .btn-input {
     border-radius: 20px;
-    width: 40%;
     z-index: 9999;
     border: 1px solid #838084; }
-    .work-area .btn-login.user {
+    .work-area .btn-input.user {
+      width: 40%;
       background-image: url(../img/icon-user.png);
       background-repeat: no-repeat;
       background-position: 8px center;
       padding-left: 30px;
       margin-bottom: 10px; }
-    .work-area .btn-login.password {
+    .work-area .btn-input.password {
+      width: 40%;
       background-image: url(../img/icon-password.png);
       background-repeat: no-repeat;
       background-position: 8px center;
