@@ -1,3 +1,6 @@
+p, li, span {
+  color: #838084; }
+
 .no-gutters {
   margin-right: 0;
   margin-left: -15px; }
@@ -55,15 +58,15 @@
   .work-area .box-background {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 20px;
-    width: 480px;
-    height: 250px;
+    width: 520px;
+    height: 310px;
     transform: rotate(-10deg);
     position: absolute; }
   .work-area .box-area {
     background-color: #fff;
     border-radius: 20px;
-    width: 480px;
-    height: 250px; }
+    width: 520px;
+    height: 310px; }
   .work-area .logo-login {
     background-image: url(../img/logo-principal.png);
     width: 100%;
@@ -92,5 +95,25 @@
       padding-left: 30px; }
   .work-area button {
     z-index: 999; }
+  .work-area .title-settings {
+    color: #B0B2B3;
+    padding-top: 10px; }
+    .work-area .title-settings .icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block; }
+      .work-area .title-settings .icon.users {
+        background: url("../img/users.png") no-repeat; }
+      .work-area .title-settings .icon.edit-user {
+        background: url("../img/icon-user.png") no-repeat; }
+  .work-area .separator {
+    border: 1px solid #838084; }
+  .work-area .secondary-users {
+    padding-inline-start: 0px; }
+    .work-area .secondary-users li {
+      list-style: none; }
+  .work-area .add-plus {
+    padding-left: 5px;
+    padding-top: 5px; }
 
 /*# sourceMappingURL=main.css.map */
