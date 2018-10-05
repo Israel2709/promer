@@ -18,16 +18,16 @@
  function getUsers() {
      var starCountRef = database.ref('usuarios/');
      starCountRef.once('value', function(snapshot) {
-     		var dataUsers = snapshot.val()
-         	$.each(dataUsers, function (indice, valor) {
-         		usersRegister.push({
-         			id: indice,
-         			usuario: valor.correo,
-         			password: valor.passwordUser
-         		})
-         	});
-         	console.log(usersRegister)
-         	console.log(usersRegister.length)
+         var dataUsers = snapshot.val()
+         $.each(dataUsers, function(indice, valor) {
+             usersRegister.push({
+                 id: indice,
+                 usuario: valor.correo,
+                 password: valor.passwordUser
+             })
+         });
+         console.log(usersRegister)
+         console.log(usersRegister.length)
      });
  }
 
@@ -46,8 +46,8 @@
          alert("El usuario no existe")
      } else {
          if (usersRegister[j].password == passLogin) {
-         	idUserActive = usersRegister[j].id
-            $("#list-settings-list").trigger("click")
+             idUserActive = usersRegister[j].id
+             $("#list-settings-list").trigger("click")
          } else {
              alert("El password no es correcto")
          }
@@ -55,16 +55,16 @@
  }
 
  function changeView(nameView) {
- 	switch(nameView){
- 		case 'login':
- 			window.location.href = 'index.html';
- 			console.log("esta habilitado")
- 			break;
- 		case 'configuracion.html':
- 			$("#wrapper-section").load("views/" + nameView)
- 			getInfoUsers(idUserActive)
- 			break;
- 	}
+     switch (nameView) {
+         case 'login':
+             window.location.href = 'index.html';
+             console.log("esta habilitado")
+             break;
+         case 'configuracion.html':
+             $("#wrapper-section").load("views/" + nameView)
+             getInfoUsers(idUserActive)
+             break;
+     }
  }
 
 
@@ -84,8 +84,9 @@
      $(idPhoto).trigger("click")
  }
 
- function updateUser(idUser) {
-     var starCountRef = database.ref('usuarios/' + idUser);
+ function updateUser() {
+     var idSave = $("#save-edit").attr("value")
+     var starCountRef = database.ref('usuarios/' + idSave);
      starCountRef.once('value', function(snapshot) {
          var dataUsers = snapshot.val()
          var nameComplete = $("#nameComplete").val()
@@ -120,7 +121,7 @@
                      celular: cellphone,
                      passwordUser: pass
                  };
-                 firebase.database().ref('usuarios/' + idUser).update(newInfo);
+                 firebase.database().ref('usuarios/' + idSave).update(newInfo);
                  $(".box-area input").val("")
                  $("#img_prev").attr("src", "#")
              });
@@ -138,10 +139,49 @@
     return true
 }
 
-function getInfoUsers(idUser){
-	
+function getInfoUsers(idUser) {
+    var starCountRef = database.ref('usuarios/' + idUser);
+    var key = database.ref('usuarios/' + idUser).key
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+            /*$(".principal-user img").attr("src", dataInfo.foto)*/
+        $(".principal-user span").html("<img id='img_prev' src='img/mini-user-2.png' class='hidden' onclick=\"edit(\'" + key + "\')\">" + dataInfo.nombre)
+    });
+    var starCountRef = database.ref('usuarios/');
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo2 = snapshot.val()
+        var i = 0;
+        $.each(dataInfo2, function(indice, valor) {
+            if (indice == idUser) {
+                console.log("jiji")
+            } else {
+                $(".secondary-users li:eq(" + i + ")").html("<img src='img/mini-user-2.png' onclick=\"edit(\'" + indice + "\')\">" + valor.nombre)
+                i = i + 1;
+            }
+        });
+    });
 }
 
+
+function edit(idUser) {
+    $(".user-list").hide()
+    $(".settings").show()
+    var starCountRef = database.ref('usuarios/' + idUser);
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        $("#nameComplete").val(dataInfo.nombre)
+        $("#password").val(dataInfo.passwordUser)
+        $("#email").val(dataInfo.correo)
+        $("#phone").val(dataInfo.telefono)
+        $("#cellphone").val(dataInfo.celular)
+        $("#save-edit").attr("value", idUser)
+        if (dataInfo.privilegios == "S") {
+            $("#exampleRadios1").prop("checked", true)
+        } else {
+            $("#exampleRadios2").prop("checked", true)
+        }
+    });
+}
 
 /*function altaUser() {
      var nameComplete = $("#nameComplete").val()
