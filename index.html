@@ -14,39 +14,36 @@
   <body>
     <div class="container-fluid">
       <div class="row no-gutters">
-        <div class="col-2 menu">
-          <div class="logo-menu mt-5 mb-5"></div>
-          <div class="left-nav-wrapper">
-            <div class="list-group" id="left-nav" role="tablist">
-              <a class="list-group-item list-group-item-action active icon-login" id="list-login-list" data-toggle="list" href="#list-login" role="tab" aria-controls="login" onclick="changeView('login')">Login</a>
-              <a class="list-group-item list-group-item-action icon-search" id="list-search-list" data-toggle="list" href="#list-search" role="tab" aria-controls="search" onclick="changeView('login')">Buscar</a>
-              <a class="list-group-item list-group-item-action icon-quoting" id="list-quoting-list" data-toggle="list" href="#list-quoting" role="tab" aria-controls="quoting" onclick="changeView('login')">Cotizador</a>
-              <a class="list-group-item list-group-item-action icon-settings" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings" onclick="changeView('configuracion.html')">Configuración</a>
+        <div class="col-2 menu d-flex flex-column">
+          <div class="wrapper-menu-left  justify-content-between">
+            <div class="logo-menu mt-5 mb-5"></div>
+            <div class="left-nav-wrapper">
+              <div class="list-group" id="left-nav" role="tablist">
+                <a class="list-group-item list-group-item-action active icon-login" id="list-login-list" data-toggle="list" href="#list-login" role="tab" aria-controls="login"  onclick="changeView('login')">Login</a>
+                <a class="list-group-item list-group-item-action icon-search" id="list-search-list" data-toggle="list" href="#list-search" role="tab" aria-controls="search"  onclick="changeView('login')">Buscar</a>
+                <a class="list-group-item list-group-item-action icon-quoting" id="list-quoting-list" data-toggle="list" href="#list-quoting" role="tab" aria-controls="quoting"  onclick="changeView('login')">Cotizador</a>
+                <a class="list-group-item list-group-item-action icon-settings" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings"  onclick="changeView('configuracion.html')">Configuración</a>
+              </div>
             </div>
           </div>
-          <div class="align-items-end">
-            <p class="privacy-policy">PROMER / Politica de privacidad</p>
-          </div>
+          <div class="privacy-policy">PROMER / Politica de privacidad</div>
         </div>
-        <div class="col-10 d-flex align-items-stretch work-area">
+        <div class="col-10 d-flex work-area">
           <div class="row align-items-center">
             <div class="col-12" id="wrapper-section">
               <div class="box-background"></div>
               <div class="box-area">
-                <div class="logo-login"></div>
+                <div class="pt-4">
+                  <div class="logo-login"></div>
+                </div>
                 <div class="d-flex flex-column bd-highlight align-items-center">
-                  <input type="text" class="btn-login user mb-2" placeholder="Usuario">
-                  <input type="text" class="btn-login password" placeholder="Password">
+                  <input type="text" class="btn-input user" placeholder="Usuario" id="login-user">
+                  <input type="password" class="btn-input password" placeholder="Password" id="login-pass">
+                  <button class="btn btn-primary" onclick="login()">Entrar</button>
                 </div>
               </div>
             </div>
           </div>
-          <!--div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="list-login" role="tabpanel" aria-labelledby="list-login-list">...</div>
-          <div class="tab-pane fade" id="list-search" role="tabpanel" aria-labelledby="list-search-list">...</div>
-          <div class="tab-pane fade" id="list-quoting" role="tabpanel" aria-labelledby="list-quoting-list">...</div>
-          <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
-        </div-->
       </div>
     </div>
   </div>

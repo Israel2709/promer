@@ -1,14 +1,15 @@
 .no-gutters {
   margin-right: 0;
   margin-left: -15px; }
-  .no-gutters > .col,
-  .no-gutters > [class*="col-"] {
-    padding-right: 0;
-    padding-left: 0; }
+
+.container-fluid {
+  padding-right: 0px; }
 
 .menu {
   background-color: #B0B2B3;
   height: 100vh; }
+  .menu .wrapper-menu-left {
+    height: 100vh; }
   .menu .logo-menu {
     background-image: url(../img/logo-menu.png);
     width: 100%;
@@ -45,7 +46,10 @@
 
 .work-area {
   background-color: #D8D9DA;
-  height: 100vh; }
+  background-image: url("../img/icon-tree.png");
+  background-repeat: no-repeat;
+  background-position: 116% 137%;
+  background-size: auto; }
   .work-area .align-items-center {
     margin: auto; }
   .work-area .box-background {
@@ -67,20 +71,26 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    z-index: 999; }
-  .work-area .btn-login {
+    z-index: 999;
+    margin-bottom: 40px; }
+  .work-area .btn-input {
     border-radius: 20px;
-    width: 40%;
-    z-index: 9999; }
-    .work-area .btn-login.user {
+    z-index: 9999;
+    border: 1px solid #838084; }
+    .work-area .btn-input.user {
+      width: 40%;
       background-image: url(../img/icon-user.png);
       background-repeat: no-repeat;
       background-position: 8px center;
-      padding-left: 30px; }
-    .work-area .btn-login.password {
+      padding-left: 30px;
+      margin-bottom: 10px; }
+    .work-area .btn-input.password {
+      width: 40%;
       background-image: url(../img/icon-password.png);
       background-repeat: no-repeat;
       background-position: 8px center;
       padding-left: 30px; }
+  .work-area button {
+    z-index: 999; }
 
 /*# sourceMappingURL=main.css.map */

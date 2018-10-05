@@ -11,22 +11,60 @@
  // imagesRef now points to 'images'
 
  var database = firebase.database();
+ var usersRegister = []
+ var idUserActive;
 
 
  function getUsers() {
-     var starCountRef = database.ref('Usuarios/');
+     var starCountRef = database.ref('usuarios/');
      starCountRef.once('value', function(snapshot) {
-         console.log(snapshot)
+     		var dataUsers = snapshot.val()
+         	$.each(dataUsers, function (indice, valor) {
+         		usersRegister.push({
+         			id: indice,
+         			usuario: valor.correo,
+         			password: valor.passwordUser
+         		})
+         	});
+         	console.log(usersRegister)
+         	console.log(usersRegister.length)
      });
  }
 
- function changeView(nameView) {
-     var nameViews = $(nameView).text()
-     if (nameViews == "login") {
-        window.location.href = 'index.html';
-     } else {
-         $("#wrapper-section").load("views/" + nameViews)
+ function login() {
+     console.log("entra a la funcion")
+     var emailLogin = $("#login-user").val()
+     var passLogin = $("#login-pass").val()
+     var i;
+     var j = null;
+     for (i = 0; i < usersRegister.length; i++) {
+         if (usersRegister[i].usuario == emailLogin) {
+             j = i;
+         }
      }
+     if (j == null) {
+         alert("El usuario no existe")
+     } else {
+         if (usersRegister[j].password == passLogin) {
+         	idUserActive = usersRegister[j].id
+            $("#list-settings-list").trigger("click")
+         } else {
+             alert("El password no es correcto")
+         }
+     }
+ }
+
+ function changeView(nameView) {
+ 	switch(nameView){
+ 		case 'login':
+ 			window.location.href = 'index.html';
+ 			console.log("esta habilitado")
+ 			break;
+ 		case 'configuracion.html':
+ 			$("#wrapper-section").load("views/" + nameView)
+ 			getInfoUsers(idUserActive)
+ 			break;
+ 	}
  }
 
 
@@ -100,7 +138,9 @@
     return true
 }
 
-
+function getInfoUsers(idUser){
+	
+}
 
 
 /*function altaUser() {
