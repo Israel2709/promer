@@ -22,11 +22,10 @@
 
  function changeView(nameView) {
      var nameViews = $(nameView).text()
-     if (nameViews == "Login") {
-         /*window.location.href = 'index.html';*/
-         console.log("incio")
+     if (nameViews == "login") {
+        window.location.href = 'index.html';
      } else {
-         $("#wrapper-section").load("views/" + nameViews + ".html")
+         $("#wrapper-section").load("views/" + nameViews)
      }
  }
 
@@ -47,40 +46,99 @@
      $(idPhoto).trigger("click")
  }
 
- function updateUser() {
-     debugger
+ function updateUser(idUser) {
+     var starCountRef = database.ref('usuarios/' + idUser);
+     starCountRef.once('value', function(snapshot) {
+         var dataUsers = snapshot.val()
+         var nameComplete = $("#nameComplete").val()
+         var pass = $("#password").val()
+         var email = $("#email").val()
+         var phone = $("#phone").val()
+         var cellphone = $("#cellphone").val()
+         var privilegys;
+         var collectionImg = $("#picture").prop("files")[0];
+         var imageRefName = storageRef.child(collectionImg.name);
+         var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
+         var uploadTask = imagesRefName.put(collectionImg);
+         uploadTask.on('state_changed', function(snapshot) {
+             var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+             console.log(progress)
+         }, function(error) {
+             console.log(error)
+         }, function() {
+             uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                 var userImage = downloadURL;
+                 if ($("#exampleRadios1").is(":checked")) {
+                     privilegys = "S"
+                 } else {
+                     privilegys = "N"
+                 }
+                 var newInfo = {
+                     nombre: nameComplete,
+                     foto: userImage,
+                     privilegios: privilegys,
+                     correo: email,
+                     telefono: phone,
+                     celular: cellphone,
+                     passwordUser: pass
+                 };
+                 firebase.database().ref('usuarios/' + idUser).update(newInfo);
+                 $(".box-area input").val("")
+                 $("#img_prev").attr("src", "#")
+             });
+         });
+
+     });
+ }
+
+ function restrictToNumber(event) {
+    event = (event) ? event : window.event
+    var charCode = (event.which) ? event.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+    }
+    return true
+}
+
+
+
+
+/*function altaUser() {
      var nameComplete = $("#nameComplete").val()
      var pass = $("#password").val()
      var email = $("#email").val()
      var phone = $("#phone").val()
      var cellphone = $("#cellphone").val()
      var privilegys;
-     var collectionImg = $("#img_prev").prop("files")[0];
-     var imagesRefName = storageRef.child('usersPhoto/' + nameComplete);
+     var collectionImg = $("#picture").prop("files")[0];
+     var imageRefName = storageRef.child(collectionImg.name);
+     var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
      var uploadTask = imagesRefName.put(collectionImg);
      uploadTask.on('state_changed', function(snapshot) {
          var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
          console.log(progress)
      }, function(error) {
-         console.log("error")
+         console.log(error)
      }, function() {
          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-             var collectionCover = downloadURL;
+             var userImage = downloadURL;
              if ($("#exampleRadios1").is(":checked")) {
                  privilegys = "S"
              } else {
                  privilegys = "N"
              }
-             var collectionObject = {
+             var userObject = {
                  nombre: nameComplete,
-                 foto: collectionCover,
+                 foto: userImage,
                  privilegios: privilegys,
                  correo: email,
                  telefono: phone,
                  celular: cellphone,
                  passwordUser: pass
              };
-             firebase.database().ref('usuarios/').push(collectionObject);
+             firebase.database().ref('usuarios/').push(userObject);
+             $(".box-area input").val("")
+             $("#img_prev").attr("src", "#")
          });
      });
- }
+ }*/
