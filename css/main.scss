@@ -8,16 +8,16 @@ $grayTrans: #E4E4E5;
 .no-gutters {
   margin-right: 0;
   margin-left: -15px;
-
-  > .col,
-  > [class*="col-"] {
-    padding-right: 0;
-    padding-left: 0;
-  }
+}
+.container-fluid{
+	padding-right: 0px;
 }
 .menu{
 	background-color: $grayMedium;
 	height: 100vh;
+	.wrapper-menu-left{
+		height: 100vh;
+	}
 	.logo-menu{
 	    background-image: url(../img/logo-menu.png);
 	    width: 100%;
@@ -66,7 +66,10 @@ $grayTrans: #E4E4E5;
 
 .work-area{
 	background-color: $grayLight;
-	height: 100vh;
+	background-image: url("../img/icon-tree.png");
+	background-repeat: no-repeat;
+	background-position: 116% 137%;
+	background-size: auto;
 	.align-items-center{
 		margin: auto;
 	}
@@ -92,16 +95,19 @@ $grayTrans: #E4E4E5;
 	    background-repeat: no-repeat;
 	    background-size: contain;
 	    z-index: 999;
+		margin-bottom: 40px;
 	}
 	.btn-login{
 		border-radius: 20px;
 		width: 40%;
 		z-index: 9999;
+		border: 1px solid $grayStrong;
 		&.user{
 			background-image: url(../img/icon-user.png);
 			background-repeat: no-repeat;
 			background-position: 8px center;
 			padding-left: 30px;
+			margin-bottom: 10px;
 		}
 		&.password{
 			background-image: url(../img/icon-password.png);
