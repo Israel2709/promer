@@ -23,21 +23,13 @@
   <div class="container settings">
     <h3 class="title-settings"><span class="icon users"></span>Editar usuario</h3>
     <div class="separator"></div>
-<<<<<<< HEAD:views/Configuración.html
     <div class="row mt-2">
       <div class="col-2">
         <div class="photo">
           <img id="img_prev" src="img/icon-camera.png"/>
-          <p class="change-photo" onclick="addPhoto('#picture')">Cambiar</p>
+          <p class="change-photo" >Cambiar</p> <!-- onclick="addPhoto('#picture')" -->
           <input type="file" name="files" id="picture"  accept="image/*" style="display: none" class="hidden" onchange="readImage(this, '#img_prev')"/>
         </div>
-=======
-    <div class="row">
-      <div class="photo col-2">
-        <img id="img_prev" src="#" alt="your image"  class="hidden"/>
-        <p >Cambiar</p> <!-- onclick="addPhoto('#picture')" -->
-        <input type="file" name="files" id="picture"  accept="image/*" style="display: none" class="hidden" onchange="readImage(this, '#img_prev')"   />
->>>>>>> 316439eb59ce9ae4db2bb197ed5a2c896de9d079:views/configuracion.html
       </div>
       <div class="col-10 no-gutters">
         <form>
@@ -77,11 +69,7 @@
               Sin privilegios sólo cotizador y ver clientes
             </label>
           </div>
-<<<<<<< HEAD:views/Configuración.html
-          <button class="btn btn-success" onclick="updateUser()">Guardar</button>
-=======
           <button class="btn btn-primary" onclick="updateUser()" id="save-edit">Guardar</button>
->>>>>>> 316439eb59ce9ae4db2bb197ed5a2c896de9d079:views/configuracion.html
         </form>
       </div>
     </div>
