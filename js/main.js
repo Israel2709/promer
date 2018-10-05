@@ -222,3 +222,33 @@ function edit(idUser) {
          });
      });
  }*/
+
+ /*function getInfoUsers(idUser) {
+    var starCountRef = database.ref('usuarios/' + idUser);
+    var key = database.ref('usuarios/' + idUser).key
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+            $(".principal-user img").attr("src", dataInfo.foto)
+        $(".principal-user span").html("<img src='img/mini-user-2.png'>"+ dataInfo.nombre +" <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
+        $(".principal-user span").on("hover",function(){
+            $(".edit").removeClass("d-none")
+        })
+    });
+
+    var starCountRef = database.ref('usuarios/');
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo2 = snapshot.val()
+        var i = 0;
+        $.each(dataInfo2, function(indice, valor) {
+            if (indice == idUser) {
+                console.log("jiji")
+            } else {
+                $(".secondary-users li:eq(" + i + ")").html("<img src='img/mini-user-2.png'>"+ valor.nombre +" <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span>")
+                $(".secondary-users li:eq(" + i + ")").on("hover",function(){
+                    $(".edit").removeClass("d-none")
+                })
+                i = i + 1;
+            }
+        });
+    });
+}*/
