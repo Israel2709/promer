@@ -5,6 +5,9 @@ $grayMedium: #B0B2B3;
 $grayStrong: #838084;
 $grayTrans: #E4E4E5;
 
+p,li,span{
+	color: $grayStrong;
+}
 .no-gutters {
   margin-right: 0;
   margin-left: -15px;
@@ -76,16 +79,16 @@ $grayTrans: #E4E4E5;
 	.box-background{
 		background-color: rgba(255,255,255,.2);
 		border-radius: 20px;
-		width: 480px;
-		height: 250px;
+		width: 520px;
+		height: 310px;
 		transform: rotate(-10deg);
 		position: absolute;
 	}
 	.box-area{
 		background-color: #fff;
 		border-radius: 20px;
-		width: 480px;
-		height: 250px;
+		width: 520px;
+		height: 310px;
 	}
 	.logo-login{
 		background-image: url(../img/logo-principal.png);
@@ -116,5 +119,33 @@ $grayTrans: #E4E4E5;
 			background-position: 8px center;
 			padding-left: 30px;
 		}
+	}
+	.title-settings{
+		color: $grayMedium;
+		padding-top: 10px;
+		.icon{
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			&.users{
+				background: url("../img/users.png") no-repeat;
+			}
+			&.edit-user{
+				background: url("../img/icon-user.png") no-repeat;
+			}
+		}
+	}
+	.separator{
+		border: 1px solid $grayStrong;
+	}
+	.secondary-users{
+		padding-inline-start: 0px;
+		li{
+			list-style:none;
+		}
+	}
+	.add-plus{
+		padding-left: 5px;
+		padding-top: 5px;
 	}
 }
