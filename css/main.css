@@ -135,4 +135,37 @@ p, li, span {
       background-color: #8FAC19;
       border-color: #8FAC19; }
 
+/* Create a custom radio button */
+.form-check-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%; }
+
+/* When the radio button is checked, add a blue background */
+.form-check input:checked ~ .form-check-input {
+  background-color: #2196F3; }
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.form-check-input:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+/* Show the indicator (dot/circle) when checked */
+.form-check input:checked ~ .form-check-input:after {
+  display: block; }
+
+/* Style the indicator (dot/circle) */
+.form-check .form-check-input:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white; }
+
 /*# sourceMappingURL=main.css.map */
