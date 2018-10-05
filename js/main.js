@@ -17,7 +17,7 @@
      var starCountRef = database.ref('Usuarios/');
      starCountRef.once('value', function(snapshot) {
          console.log(snapshot)
-     });c
+     });
  }
 
  function changeView(nameView) {
