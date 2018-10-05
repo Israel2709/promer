@@ -1,4 +1,4 @@
-p, li, span {
+p, li, span, label {
   color: #838084; }
 
 .no-gutters {
@@ -9,7 +9,7 @@ p, li, span {
   padding-right: 0px; }
 
 .btn {
-  height: auto; }
+  padding: 0px 15px; }
 
 .menu {
   background-color: #B0B2B3;
@@ -98,6 +98,8 @@ p, li, span {
       padding-left: 30px; }
   .work-area button {
     z-index: 999; }
+  .work-area .settings {
+    display: none; }
   .work-area .title-settings {
     color: #B0B2B3;
     padding-top: 10px; }
@@ -134,6 +136,8 @@ p, li, span {
     .work-area .btn-success :hover {
       background-color: #8FAC19;
       border-color: #8FAC19; }
+  .work-area .form-group input {
+    height: 30px; }
 
 /* Create a custom radio button */
 .form-check-input {

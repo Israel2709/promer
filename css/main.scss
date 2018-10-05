@@ -5,7 +5,7 @@ $grayMedium: #B0B2B3;
 $grayStrong: #838084;
 $grayTrans: #E4E4E5;
 
-p,li,span{
+p,li,span,label{
 	color: $grayStrong;
 }
 .no-gutters{
@@ -17,7 +17,7 @@ p,li,span{
 }
 
 .btn{
-	height: auto;
+	padding: 0px 15px;
 }
 
 .menu{
@@ -128,6 +128,9 @@ p,li,span{
 	button{
 		z-index: 999;
 	}
+	.settings{
+		display: none;
+	}
 	.title-settings{
 		color: $grayMedium;
 		padding-top: 10px;
@@ -176,6 +179,11 @@ p,li,span{
 		:hover{
 			background-color: $green;
 		    border-color: $green;
+		}
+	}
+	.form-group{
+		input{
+			height: 30px;
 		}
 	}
 }

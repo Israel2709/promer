@@ -145,7 +145,7 @@ function getInfoUsers(idUser) {
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
             /*$(".principal-user img").attr("src", dataInfo.foto)*/
-        $(".principal-user span").html("<img id='img_prev' src='img/mini-user-2.png' class='hidden' onclick=\"edit(\'" + key + "\')\">" + dataInfo.nombre)
+        $(".principal-user span").html("<img id='img_prev' src='img/mini-user-2.png' onclick=\"edit(\'" + key + "\')\">" + dataInfo.nombre)
     });
     var starCountRef = database.ref('usuarios/');
     starCountRef.once('value', function(snapshot) {
