@@ -1,6 +1,6 @@
 <div class="box-background"></div>
 <div class="box-area">
-  <div class="container user-list">
+  <div class="container user-list d-none">
     <h3 class="title-settings"><span class="icon users"></span>Usuarios</h3>
     <div class="row">
       <div class="col-12">
@@ -13,24 +13,26 @@
         <div class="separator"></div>
         <span class="font-weight-bold">Secundarios</span>
         <ul class="secondary-users">
-          <li><img src="img/mini-user-2.png">Nombre Apellido</li>
-          <li><img src="img/mini-user-2.png">Nombre Apellido</li>
-          <li><img src="img/mini-user-2.png">Nombre Apellido</li>
+          <li class="secondary-list"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
+          <li class="secondary-list"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
+          <li class="secondary-list"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
           <img src="img/add-plus.png" class="add-plus">
         </ul>
       </div>
     </div>
   </div>
-  <div class="settings" style="display:none">
-    <p>Editar usuario</p>
+  <div class="container settings">
+    <h3 class="title-settings"><span class="icon users"></span>Editar usuario</h3>
     <div class="separator"></div>
-    <div class="row">
-      <div class="photo col-2">
-        <img id="img_prev" src="#" alt="your image"  class="hidden"/>
-        <p onclick="addPhoto('#picture')">Cambiar</p>
-        <input type="file" name="files" id="picture"  accept="image/*" style="display: none" class="hidden" onchange="readImage(this, '#img_prev')"   />
+    <div class="row mt-2">
+      <div class="col-2">
+        <div class="photo">
+          <img id="img_prev" src="img/icon-camera.png"/>
+          <p class="change-photo" onclick="addPhoto('#picture')">Cambiar</p>
+          <input type="file" name="files" id="picture"  accept="image/*" style="display: none" class="hidden" onchange="readImage(this, '#img_prev')"/>
+        </div>
       </div>
-      <div class="col-10">
+      <div class="col-10 no-gutters">
         <form>
           <div class="form-row">
             <div class="form-group col-7">
@@ -42,17 +44,19 @@
               <!-- <small id="emailHelp" class="form-text text-muted">Ingrese contraseña.</small> -->
             </div>
           </div>
-          <div class="form-group col-8">
-            <input type="email" class="form-control btn-input" id="email" aria-describedby="emailHelp" placeholder="Correo electrónico">
-            <!--  <small id="emailHelp" class="form-text text-muted">Ingresa tu correo electrónico.</small> -->
-          </div>
-          <div class="form-group col-8">
-            <input type="text" class="form-control btn-input" id="phone" aria-describedby="emailHelp" placeholder="Teléfono">
-            <!--  <small id="emailHelp" class="form-text text-muted">Ingrese teléfono.</small> -->
-          </div>
-          <div class="form-group col-8">
-            <input type="text" class="form-control btn-input" id="cellphone" aria-describedby="emailHelp" placeholder="Celular">
-            <!--  <small id="emailHelp" class="form-text text-muted">Ingrese celular.</small> -->
+          <div class="form-row">
+            <div class="form-group col-8">
+              <input type="email" class="form-control btn-input" id="email" aria-describedby="emailHelp" placeholder="Correo electrónico">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingresa tu correo electrónico.</small> -->
+            </div>
+            <div class="form-group col-8">
+              <input type="text" class="form-control btn-input" id="phone" aria-describedby="emailHelp" placeholder="Teléfono">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingrese teléfono.</small> -->
+            </div>
+            <div class="form-group col-8">
+              <input type="text" class="form-control btn-input" id="cellphone" aria-describedby="emailHelp" placeholder="Celular">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingrese celular.</small> -->
+            </div>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
@@ -66,7 +70,7 @@
               Sin privilegios sólo cotizador y ver clientes
             </label>
           </div>
-          <button class="btn btn-primary" onclick="updateUser()">Guardar</button>
+          <button class="btn btn-success" onclick="updateUser()">Guardar</button>
         </form>
       </div>
     </div>

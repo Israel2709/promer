@@ -8,13 +8,14 @@ $grayTrans: #E4E4E5;
 p,li,span{
 	color: $grayStrong;
 }
-.no-gutters {
+.no-gutters{
   margin-right: 0;
   margin-left: -15px;
 }
 .container-fluid{
 	padding-right: 0px;
 }
+
 .menu{
 	background-color: $grayMedium;
 	height: 100vh;
@@ -98,7 +99,7 @@ p,li,span{
 	    background-repeat: no-repeat;
 	    background-size: contain;
 	    z-index: 999;
-		margin-bottom: 40px;
+		margin-bottom: 50px;
 	}
 	.btn-input{
 		border-radius: 20px;
@@ -142,10 +143,28 @@ p,li,span{
 		padding-inline-start: 0px;
 		li{
 			list-style:none;
+			.edit{
+				color: $green;
+			}
+			&:hover{
+				color: $green;
+			}
 		}
 	}
 	.add-plus{
 		padding-left: 5px;
 		padding-top: 5px;
+	}
+	.photo{
+		padding-left: 10px;
+		.change-photo{
+			color: $green;
+			font-size: 10px;
+		}
+	}
+	.btn-success{
+		background-color: $green;
+		border-radius: 20px;
+		border-color: $green;
 	}
 }
