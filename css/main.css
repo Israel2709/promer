@@ -8,6 +8,9 @@ p, li, span {
 .container-fluid {
   padding-right: 0px; }
 
+.btn {
+  height: auto; }
+
 .menu {
   background-color: #B0B2B3;
   height: 100vh; }
@@ -75,7 +78,7 @@ p, li, span {
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 999;
-    margin-bottom: 50px; }
+    margin-bottom: 40px; }
   .work-area .btn-input {
     border-radius: 20px;
     z-index: 9999;
@@ -128,5 +131,8 @@ p, li, span {
     background-color: #8FAC19;
     border-radius: 20px;
     border-color: #8FAC19; }
+    .work-area .btn-success :hover {
+      background-color: #8FAC19;
+      border-color: #8FAC19; }
 
 /*# sourceMappingURL=main.css.map */
