@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="css/main.css" type="text/css">
-
     <title>Promer</title>
   </head>
   <body>
@@ -20,10 +19,10 @@
             <div class="logo-menu mt-5 mb-5"></div>
             <div class="left-nav-wrapper">
               <div class="list-group" id="left-nav" role="tablist">
-                <a class="list-group-item list-group-item-action active icon-login" id="list-login-list" data-toggle="list" href="#list-login" role="tab" aria-controls="login">Login</a>
-                <a class="list-group-item list-group-item-action icon-search" id="list-search-list" data-toggle="list" href="#list-search" role="tab" aria-controls="search">Buscar</a>
-                <a class="list-group-item list-group-item-action icon-quoting" id="list-quoting-list" data-toggle="list" href="#list-quoting" role="tab" aria-controls="quoting">Cotizador</a>
-                <a class="list-group-item list-group-item-action icon-settings" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Configuración</a>
+                <a class="list-group-item list-group-item-action active icon-login" id="list-login-list" data-toggle="list" href="#list-login" role="tab" aria-controls="login"  onclick="changeView(this)">Login</a>
+                <a class="list-group-item list-group-item-action icon-search" id="list-search-list" data-toggle="list" href="#list-search" role="tab" aria-controls="search"  onclick="changeView(this)">Buscar</a>
+                <a class="list-group-item list-group-item-action icon-quoting" id="list-quoting-list" data-toggle="list" href="#list-quoting" role="tab" aria-controls="quoting"  onclick="changeView(this)">Cotizador</a>
+                <a class="list-group-item list-group-item-action icon-settings" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings"  onclick="changeView(this)">Configuración</a>
               </div>
             </div>
           </div>
@@ -31,7 +30,7 @@
         </div>
         <div class="col-10 d-flex work-area">
           <div class="row align-items-center">
-            <div class="col-12">
+            <div class="col-12" id="wrapper-section">
               <div class="box-background"></div>
               <div class="box-area">
                 <div class="pt-4">
@@ -45,31 +44,38 @@
             </div>
           </div>
           <!--div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="list-login" role="tabpanel" aria-labelledby="list-login-list">...</div>
-            <div class="tab-pane fade" id="list-search" role="tabpanel" aria-labelledby="list-search-list">...</div>
-            <div class="tab-pane fade" id="list-quoting" role="tabpanel" aria-labelledby="list-quoting-list">...</div>
-            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
-          </div-->
-        </div>
+          <div class="tab-pane fade show active" id="list-login" role="tabpanel" aria-labelledby="list-login-list">...</div>
+          <div class="tab-pane fade" id="list-search" role="tabpanel" aria-labelledby="list-search-list">...</div>
+          <div class="tab-pane fade" id="list-quoting" role="tabpanel" aria-labelledby="list-quoting-list">...</div>
+          <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+        </div-->
       </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
-  </body>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
   <script>
   // Initialize Firebase
   var config = {
-  apiKey: "AIzaSyD5lbfNoAXq5n511Guqd0FG6dKJ4Wi4cyc",
-  authDomain: "promer-792f3.firebaseapp.com",
-  databaseURL: "https://promer-792f3.firebaseio.com",
-  projectId: "promer-792f3",
-  storageBucket: "promer-792f3.appspot.com",
-  messagingSenderId: "836872210809"
+    apiKey: "AIzaSyD5lbfNoAXq5n511Guqd0FG6dKJ4Wi4cyc",
+    authDomain: "promer-792f3.firebaseapp.com",
+    databaseURL: "https://promer-792f3.firebaseio.com",
+    projectId: "promer-792f3",
+    storageBucket: "promer-792f3.appspot.com",
+    messagingSenderId: "836872210809"
   };
   firebase.initializeApp(config);
   </script>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="text/javascript">
+      $( document ).ready(function() {
+        getUsers()
+      });
+  </script>
+</body>
 </html>
+
