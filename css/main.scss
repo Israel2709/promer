@@ -121,6 +121,9 @@ p,li,span{
 			padding-left: 30px;
 		}
 	}
+	button{
+		z-index: 999;
+	}
 	.title-settings{
 		color: $grayMedium;
 		padding-top: 10px;

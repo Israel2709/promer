@@ -93,6 +93,8 @@ p, li, span {
       background-repeat: no-repeat;
       background-position: 8px center;
       padding-left: 30px; }
+  .work-area button {
+    z-index: 999; }
   .work-area .title-settings {
     color: #B0B2B3;
     padding-top: 10px; }
