@@ -16,6 +16,10 @@ p,li,span{
 	padding-right: 0px;
 }
 
+.btn{
+	height: auto;
+}
+
 .menu{
 	background-color: $grayMedium;
 	height: 100vh;
@@ -99,7 +103,7 @@ p,li,span{
 	    background-repeat: no-repeat;
 	    background-size: contain;
 	    z-index: 999;
-		margin-bottom: 50px;
+		margin-bottom: 40px;
 	}
 	.btn-input{
 		border-radius: 20px;
@@ -169,6 +173,10 @@ p,li,span{
 		background-color: $green;
 		border-radius: 20px;
 		border-color: $green;
+		:hover{
+			background-color: $green;
+		    border-color: $green;
+		}
 	}
 }
 
