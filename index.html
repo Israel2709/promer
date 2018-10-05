@@ -5,17 +5,57 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Hello, world!</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+
+    <title>Promer</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    <p>Holi bebeeee</p>
+    <div class="container-fluid">
+      <div class="row no-gutters">
+        <div class="col-2 menu">
+          <div class="logo-menu mt-5 mb-5"></div>
+          <div class="left-nav-wrapper">
+            <div class="list-group" id="left-nav" role="tablist">
+              <a class="list-group-item list-group-item-action active icon-login" id="list-login-list" data-toggle="list" href="#list-login" role="tab" aria-controls="login">Login</a>
+              <a class="list-group-item list-group-item-action icon-search" id="list-search-list" data-toggle="list" href="#list-search" role="tab" aria-controls="search">Buscar</a>
+              <a class="list-group-item list-group-item-action icon-quoting" id="list-quoting-list" data-toggle="list" href="#list-quoting" role="tab" aria-controls="quoting">Cotizador</a>
+              <a class="list-group-item list-group-item-action icon-settings" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Configuración</a>
+            </div>
+          </div>
+          <div class="align-items-end">
+            <p class="privacy-policy">PROMER / Politica de privacidad</p>
+          </div>
+        </div>
+        <div class="col-10 d-flex align-items-stretch work-area">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <div class="box-background"></div>
+              <div class="box-area">
+                <div class="logo-login"></div>
+                <div class="d-flex flex-column bd-highlight align-items-center">
+                  <input type="text" class="btn-login user mb-2" placeholder="Usuario">
+                  <input type="text" class="btn-login password" placeholder="Password">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-login" role="tabpanel" aria-labelledby="list-login-list">...</div>
+            <div class="tab-pane fade" id="list-search" role="tabpanel" aria-labelledby="list-search-list">...</div>
+            <div class="tab-pane fade" id="list-quoting" role="tabpanel" aria-labelledby="list-quoting-list">...</div>
+            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+          </div-->
+        </div>
+      </div>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
   <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
   <script>

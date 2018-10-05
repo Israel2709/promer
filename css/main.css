@@ -1,0 +1,84 @@
+.no-gutters {
+  margin-right: 0;
+  margin-left: -15px; }
+  .no-gutters > .col,
+  .no-gutters > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0; }
+
+.menu {
+  background-color: #B0B2B3;
+  height: 100vh; }
+  .menu .logo-menu {
+    background-image: url(../img/logo-menu.png);
+    width: 100%;
+    height: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain; }
+  .menu .left-nav-wrapper .list-group-item {
+    background-color: #B0B2B3;
+    border-color: #B0B2B3;
+    color: #fff;
+    background-repeat: no-repeat;
+    background-position: 40px center;
+    padding: 3px 0px 3px 65px; }
+    .menu .left-nav-wrapper .list-group-item:first-child, .menu .left-nav-wrapper .list-group-item:last-child {
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px; }
+    .menu .left-nav-wrapper .list-group-item.active {
+      background-color: rgba(255, 255, 255, 0.2); }
+    .menu .left-nav-wrapper .list-group-item.icon-login {
+      background-image: url("../img/icon-login.png"); }
+    .menu .left-nav-wrapper .list-group-item.icon-search {
+      background-image: url("../img/icon-search.png"); }
+    .menu .left-nav-wrapper .list-group-item.icon-quoting {
+      background-image: url("../img/icon-quoting.png"); }
+    .menu .left-nav-wrapper .list-group-item.icon-settings {
+      background-image: url("../img/icon-settings.png"); }
+  .menu .privacy-policy {
+    font-size: 8px;
+    color: #fff;
+    text-align: center; }
+
+.work-area {
+  background-color: #D8D9DA;
+  height: 100vh; }
+  .work-area .box-background {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    width: 480px;
+    height: 250px;
+    transform: rotate(-10deg);
+    position: absolute; }
+  .work-area .box-area {
+    background-color: #fff;
+    border-radius: 20px;
+    width: 480px;
+    height: 250px; }
+  .work-area .logo-login {
+    background-image: url(../img/logo-principal.png);
+    width: 100%;
+    height: 70px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 999; }
+  .work-area .btn-login {
+    border-radius: 20px;
+    width: 40%;
+    z-index: 9999; }
+    .work-area .btn-login.user {
+      background-image: url(../img/icon-user.png);
+      background-repeat: no-repeat;
+      background-position: 8px center;
+      padding-left: 30px; }
+    .work-area .btn-login.password {
+      background-image: url(../img/icon-password.png);
+      background-repeat: no-repeat;
+      background-position: 8px center;
+      padding-left: 30px; }
+
+/*# sourceMappingURL=main.css.map */
