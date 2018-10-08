@@ -261,6 +261,9 @@ function getInfoLote(key){
     //Mostrar informacion en la nueva pantalla
 }
 
+
+
+
 /*function altaUser() {
      var nameComplete = $("#nameComplete").val()
      var pass = $("#password").val()
@@ -304,7 +307,7 @@ function getInfoLote(key){
 
  function addTerreno(){
     var nameTerreno = $("#ejemplo").val()
-    firebase.database().ref('desarrollos/').push(nameTerreno);
+    firebase.database().ref('desarrollos/').push({nombreTerreno: nameTerreno});
     $("#ejemplo").val("")
 }
 
@@ -315,6 +318,7 @@ function addLote(){
     var calle = $("#calle").val()
     var colonia = $("#colonia").val()
     var delegacion = $("#delegacion").val()
+    var keyDesarrollo = $("#inlineFormCustomSelect option:selected").attr("value")
 
     var arrayLotes = {
         clave: nameTerreno,
@@ -325,17 +329,17 @@ function addLote(){
         delegacion: delegacion,
         propietario: "s/n"
     }
-    firebase.database().ref('desarrollos/-LOAb5EmHo-CLwmRIKHH/lotes').push(arrayLotes);
+    var lotesKey = firebase.database().ref('lotes/').push(arrayLotes).key;
+    firebase.database().ref('desarrollos/'+keyDesarrollo+"/lotes").push(lotesKey)
     $("#clave, #lote, #manzana, #calle, #colonia, #delegacion").val("")
 }
-
 
 function addClientes(){
     var nombreCliente = $("#nombre").val()
     var telefono = $("#telefono").val()
     var celular = $("#celular").val()
     var email = $("#email").val()
-    var terreno = $("#terreno").val()
+    var lotes = $("#inlineFormCustomSelect option:selected").attr("value")
 
     var arrayCliente = {
         nombre: nombreCliente,
@@ -344,11 +348,54 @@ function addClientes(){
         email: email
     }
     var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
-    firebase.database().ref('clientes/'+keyCliente+"/terrenos").push(terreno)
-    addTerrenoToClient(keyCliente)
+    firebase.database().ref('clientes/'+keyCliente+"/lotes").push(lotes)
+    addLoteToClient(keyCliente, lotes)
     $("#nombre, #telefono, #celular, #email, #terreno").val("")
 }
 
-function addTerrenoToClient(key){
-    firebase.database().ref('desarrollos/-LOAb5EmHo-CLwmRIKHH/lotes/-LOFix8sKsFqA_dJP1Sm').update({propietario: key})
+function addLoteToClient(keyClient, lote){
+    firebase.database().ref('lotes/'+lote).update({propietario: keyClient})
+}
+
+
+
+function appendDesarrollos(){
+    //Esta funcion es para seleccionar el Desarrollo al dar de alta un lote
+    var starCountRef = database.ref('desarrollos/');
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        $.each(dataInfo, function(indice, valor) {
+           var selectOption = "<option value='"+indice+"'>"+valor.nombreTerreno+"</option>"
+           $("#inlineFormCustomSelect").append(selectOption)
+       });
+    });
+}
+
+function appendClientes(){
+    //Esta funcion es para seleccionar el terreno al dar de alta un cliente
+    var starCountRef = database.ref('lotes/');
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        $.each(dataInfo, function(indice, valor) {
+           var selectOption = "<option value='"+indice+"'>"+valor.clave+"</option>"
+           $("#inlineFormCustomSelect").append(selectOption)
+       });
+    });
+}
+
+function NosePorqueLoHiceAsi(keyClient, lote){
+    var starCountRef = database.ref('desarrollos/');
+    var keyFromDesarrollo;
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        $.each(dataInfo, function(indice, valor) {
+            var lotesFromDesarrollo = valor.lotes
+           $.each(lotesFromDesarrollo, function(indice2, valor2) {
+               if(valor2 == lote){
+                 keyDesarrollo = indice
+               }
+           });
+       });
+    });
+    firebase.database().ref('').update({propietario: key})
 }*/
