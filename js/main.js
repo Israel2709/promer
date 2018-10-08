@@ -32,7 +32,6 @@
  }
 
  function login() {
-     console.log("entra a la funcion")
      var emailLogin = $("#login-user").val()
      var passLogin = $("#login-pass").val()
      var i;
@@ -63,6 +62,10 @@
          case 'configuracion.html':
              $("#wrapper-section").load("views/" + nameView)
              getInfoUsers(idUserActive)
+             break;
+         case 'buscar.html':
+             $("#wrapper-section").load("views/" + nameView)
+             getListDesarrollos()
              break;
      }
  }
@@ -144,18 +147,19 @@ function getInfoUsers(idUser) {
     var key = database.ref('usuarios/' + idUser).key
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
-            /*$(".principal-user img").attr("src", dataInfo.foto)*/
-        $(".principal-user span").html("<img id='img_prev' src='img/mini-user-2.png' onclick=\"edit(\'" + key + "\')\">" + dataInfo.nombre)
+        //$(".principal-user img").attr("src", dataInfo.foto)
+        $(".principal-user p").html("<img src="+dataInfo.foto+" width='35px' height='33px'>"+ dataInfo.nombre +" <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
     });
+
     var starCountRef = database.ref('usuarios/');
     starCountRef.once('value', function(snapshot) {
         var dataInfo2 = snapshot.val()
         var i = 0;
         $.each(dataInfo2, function(indice, valor) {
             if (indice == idUser) {
-                console.log("jiji")
+                console.log("ya existe el usuario")
             } else {
-                $(".secondary-users li:eq(" + i + ")").html("<img src='img/mini-user-2.png' onclick=\"edit(\'" + indice + "\')\">" + valor.nombre)
+                $(".secondary-users li:eq(" + i + ")").html("<img src="+valor.foto+" width='35px' height='33px'>"+ valor.nombre +" <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span>")
                 i = i + 1;
             }
         });
@@ -181,6 +185,80 @@ function edit(idUser) {
             $("#exampleRadios2").prop("checked", true)
         }
     });
+}
+
+
+function viewAction(element){
+    $(element).find("span").removeClass("d-none")
+}
+
+function hideAction(element){
+    $(element).find("span").addClass("d-none")
+}
+
+
+function getListDesarrollos(){
+    setTimeout(function(){
+         $("#list-desarrollos").empty()
+         var i=0
+        var starCountRef = database.ref('desarrollos/');
+        starCountRef.once('value', function(snapshot) {
+             var dataUsers = snapshot.val()
+             $.each(dataUsers, function(indice, valor) {
+                i= i+1;
+                var liFill = "<li onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span>"+i+"</span>"
+                +valor.nombreTerreno+"<span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\')\">Pagados</span></li>"
+                $("#list-desarrollos").append(liFill)
+             });
+         });
+    }, 50)
+}
+
+
+var arrayNameClients = []
+
+function clientsBy(indice, keyDesarrollo){
+    $(".list-view").addClass("d-none")
+    $(".search-clients").removeClass("d-none")
+    var starClientsRef = database.ref('clientes/');
+    starClientsRef.once("value", function(snapshot){
+        var infoClient = snapshot.val()
+        $.each(infoClient, function(indice, valor) {
+            arrayNameClients.push({
+                key: indice,
+                name: valor.nombre,
+                celular: valor.celular,
+                telefono: valor.telefono,
+                email: valor.email
+            })
+        });
+    })
+    console.log(arrayNameClients)
+    var starCountRef = database.ref('desarrollos/' + keyDesarrollo+"/lotes");
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        console.log(dataInfo)
+        $.each(dataInfo, function(indice, valor) {
+            var j = null;
+            for(var i=0; i<arrayNameClients.length; i++){
+                if(arrayNameClients[i].key == valor.propietario){
+                    j = i
+                }
+            }
+
+            if(j == null){
+                var liAppend  = "<li onclick='getInfoLote(this)' value='"+indice+"'>"+valor.clave+" - Sin propietario </li>"
+            }
+            else{
+                var liAppend  = "<li onclick='getInfoLote(this)' value='"+indice+"'>"+valor.clave+" - "+arrayNameClients[j].name+"</li>"
+            }
+            $("#list-lotes").append(liAppend)
+        });
+    });
+}
+
+function getInfoLote(key){
+    //Mostrar informacion en la nueva pantalla
 }
 
 /*function altaUser() {
@@ -221,34 +299,56 @@ function edit(idUser) {
              $("#img_prev").attr("src", "#")
          });
      });
- }*/
+ }
 
- /*function getInfoUsers(idUser) {
-    var starCountRef = database.ref('usuarios/' + idUser);
-    var key = database.ref('usuarios/' + idUser).key
-    starCountRef.once('value', function(snapshot) {
-        var dataInfo = snapshot.val()
-            $(".principal-user img").attr("src", dataInfo.foto)
-        $(".principal-user span").html("<img src='img/mini-user-2.png'>"+ dataInfo.nombre +" <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
-        $(".principal-user span").on("hover",function(){
-            $(".edit").removeClass("d-none")
-        })
-    });
 
-    var starCountRef = database.ref('usuarios/');
-    starCountRef.once('value', function(snapshot) {
-        var dataInfo2 = snapshot.val()
-        var i = 0;
-        $.each(dataInfo2, function(indice, valor) {
-            if (indice == idUser) {
-                console.log("jiji")
-            } else {
-                $(".secondary-users li:eq(" + i + ")").html("<img src='img/mini-user-2.png'>"+ valor.nombre +" <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span>")
-                $(".secondary-users li:eq(" + i + ")").on("hover",function(){
-                    $(".edit").removeClass("d-none")
-                })
-                i = i + 1;
-            }
-        });
-    });
+ function addTerreno(){
+    var nameTerreno = $("#ejemplo").val()
+    firebase.database().ref('desarrollos/').push(nameTerreno);
+    $("#ejemplo").val("")
+}
+
+function addLote(){
+    var nameTerreno = $("#clave").val()
+    var lote = $("#lote").val()
+    var manzana = $("#manzana").val()
+    var calle = $("#calle").val()
+    var colonia = $("#colonia").val()
+    var delegacion = $("#delegacion").val()
+
+    var arrayLotes = {
+        clave: nameTerreno,
+        lote: lote,
+        manzana: manzana,
+        calle: calle,
+        colonia: colonia,
+        delegacion: delegacion,
+        propietario: "s/n"
+    }
+    firebase.database().ref('desarrollos/-LOAb5EmHo-CLwmRIKHH/lotes').push(arrayLotes);
+    $("#clave, #lote, #manzana, #calle, #colonia, #delegacion").val("")
+}
+
+
+function addClientes(){
+    var nombreCliente = $("#nombre").val()
+    var telefono = $("#telefono").val()
+    var celular = $("#celular").val()
+    var email = $("#email").val()
+    var terreno = $("#terreno").val()
+
+    var arrayCliente = {
+        nombre: nombreCliente,
+        telefono: telefono,
+        celular: celular,
+        email: email
+    }
+    var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
+    firebase.database().ref('clientes/'+keyCliente+"/terrenos").push(terreno)
+    addTerrenoToClient(keyCliente)
+    $("#nombre, #telefono, #celular, #email, #terreno").val("")
+}
+
+function addTerrenoToClient(key){
+    firebase.database().ref('desarrollos/-LOAb5EmHo-CLwmRIKHH/lotes/-LOFix8sKsFqA_dJP1Sm').update({propietario: key})
 }*/

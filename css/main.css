@@ -113,6 +113,10 @@ p, li, span, label {
         background: url("../img/icon-user.png") no-repeat; }
   .work-area .separator {
     border: 1px solid #838084; }
+  .work-area .principal-user p:hover {
+    color: #8FAC19; }
+  .work-area .principal-user .edit {
+    color: #8FAC19; }
   .work-area .secondary-users {
     padding-inline-start: 0px; }
     .work-area .secondary-users li {

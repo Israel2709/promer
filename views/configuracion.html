@@ -7,14 +7,14 @@
         <div class="separator"></div>
         <span class="font-weight-bold">Principal</span>
         <div class="principal-user">
-          <span><img id="img_prev" src="img/mini-user-2.png" class="hidden">Nombre Apellido</span>
+          <p onmouseover="viewAction(this)" onmouseout="hideAction(this)"><img id="img_prev" src="img/mini-user-2.png" class="hidden">Nombre Apellido</p>
         </div>
         <div class="separator"></div>
         <span class="font-weight-bold">Secundarios</span>
         <ul class="secondary-users">
-          <li class="secondary-list"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
-          <li class="secondary-list"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
-          <li class="secondary-list"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
+          <li class="secondary-list" onmouseover="viewAction(this)" onmouseout="hideAction(this)"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
+          <li class="secondary-list" onmouseover="viewAction(this)" onmouseout="hideAction(this)"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
+          <li class="secondary-list" onmouseover="viewAction(this)" onmouseout="hideAction(this)"><img src="img/mini-user-2.png">Nombre Apellidos <span class="edit float-right d-none">Editar</span></li>
           <img src="img/add-plus.png" class="add-plus">
         </ul>
       </div>
@@ -26,8 +26,8 @@
     <div class="row mt-2">
       <div class="col-2">
         <div class="photo">
-          <img id="img_prev" src="img/icon-camera.png"/>
-          <p class="change-photo" >Cambiar</p> <!-- onclick="addPhoto('#picture')" -->
+          <img id="img_prev" src="img/icon-camera.png" width="33px" height="33px" />
+          <p class="change-photo" onclick="addPhoto('#picture')" >Cambiar</p> 
           <input type="file" name="files" id="picture"  accept="image/*" style="display: none" class="hidden" onchange="readImage(this, '#img_prev')"/>
         </div>
       </div>
@@ -73,7 +73,7 @@
             </label>
              <span class="checkmark"></span>
           </div>
-          <button class="btn btn-success" onclick="updateUser()" id="save-edit">Guardar</button>
+          <div class="btn btn-success" onclick="updateUser()" id="save-edit">Guardar</div>
         </form>
       </div>
     </div>

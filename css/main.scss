@@ -149,6 +149,14 @@ p,li,span,label{
 	.separator{
 		border: 1px solid $grayStrong;
 	}
+	.principal-user{
+		p:hover{
+			color: $green;
+		}
+		.edit{
+			color: $green;
+		}
+	}
 	.secondary-users{
 		padding-inline-start: 0px;
 		li{
