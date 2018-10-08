@@ -1,139 +1,137 @@
- // Initialize Firebase
+// Initialize Firebase
+var storage = firebase.storage();
 
+// Create a storage reference from our storage service
+var storageRef = storage.ref();
 
- var storage = firebase.storage();
+// Create a child reference
+var imagesRef = storageRef.child('images');
+// imagesRef now points to 'images'
 
- // Create a storage reference from our storage service
- var storageRef = storage.ref();
+var database = firebase.database();
+var usersRegister = []
+var idUserActive;
 
- // Create a child reference
- var imagesRef = storageRef.child('images');
- // imagesRef now points to 'images'
+function getUsers() {
+    var starCountRef = database.ref('usuarios/');
+    starCountRef.once('value', function(snapshot) {
+        var dataUsers = snapshot.val()
+        $.each(dataUsers, function(indice, valor) {
+            usersRegister.push({
+                id: indice,
+                usuario: valor.correo,
+                password: valor.passwordUser
+            })
+        });
+        console.log(usersRegister)
+        console.log(usersRegister.length)
+    });
+}
 
- var database = firebase.database();
- var usersRegister = []
- var idUserActive;
+function login() {
+    var emailLogin = $("#login-user").val()
+    var passLogin = $("#login-pass").val()
+    var i;
+    var j = null;
+    for (i = 0; i < usersRegister.length; i++) {
+        if (usersRegister[i].usuario == emailLogin) {
+            j = i;
+        }
+    }
+    if (j == null) {
+        alert("El usuario no existe")
+    } else {
+        if (usersRegister[j].password == passLogin) {
+            idUserActive = usersRegister[j].id
+            $("#list-settings-list").trigger("click")
+        } else {
+            alert("El password no es correcto")
+        }
+    }
+}
 
+function changeView(nameView) {
+    switch (nameView) {
+        case 'login':
+            window.location.href = 'index.html';
+            console.log("esta habilitado")
+            break;
+        case 'configuracion.html':
+            $("#wrapper-section").load("views/" + nameView)
+            getInfoUsers(idUserActive)
+            break;
+        case 'buscar.html':
+            $("#wrapper-section").load("views/" + nameView)
+            getListDesarrollos()
+            break;
+        case 'cotizador.html':
+            $("#wrapper-section").load("views/" + nameView)
+            break;
+    }
+}
 
- function getUsers() {
-     var starCountRef = database.ref('usuarios/');
-     starCountRef.once('value', function(snapshot) {
-         var dataUsers = snapshot.val()
-         $.each(dataUsers, function(indice, valor) {
-             usersRegister.push({
-                 id: indice,
-                 usuario: valor.correo,
-                 password: valor.passwordUser
-             })
-         });
-         console.log(usersRegister)
-         console.log(usersRegister.length)
-     });
- }
+function readImage(input, images) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $(images).attr('src', e.target.result);
+            $(images).removeClass("hidden");
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
- function login() {
-     var emailLogin = $("#login-user").val()
-     var passLogin = $("#login-pass").val()
-     var i;
-     var j = null;
-     for (i = 0; i < usersRegister.length; i++) {
-         if (usersRegister[i].usuario == emailLogin) {
-             j = i;
-         }
-     }
-     if (j == null) {
-         alert("El usuario no existe")
-     } else {
-         if (usersRegister[j].password == passLogin) {
-             idUserActive = usersRegister[j].id
-             $("#list-settings-list").trigger("click")
-         } else {
-             alert("El password no es correcto")
-         }
-     }
- }
+function addPhoto(idPhoto) {
+    $(idPhoto).trigger("click")
+}
 
- function changeView(nameView) {
-     switch (nameView) {
-         case 'login':
-             window.location.href = 'index.html';
-             console.log("esta habilitado")
-             break;
-         case 'configuracion.html':
-             $("#wrapper-section").load("views/" + nameView)
-             getInfoUsers(idUserActive)
-             break;
-         case 'buscar.html':
-             $("#wrapper-section").load("views/" + nameView)
-             getListDesarrollos()
-             break;
-     }
- }
+function updateUser() {
+    var idSave = $("#save-edit").attr("value")
+    var starCountRef = database.ref('usuarios/' + idSave);
+    starCountRef.once('value', function(snapshot) {
+        var dataUsers = snapshot.val()
+        var nameComplete = $("#nameComplete").val()
+        var pass = $("#password").val()
+        var email = $("#email").val()
+        var phone = $("#phone").val()
+        var cellphone = $("#cellphone").val()
+        var privilegys;
+        var collectionImg = $("#picture").prop("files")[0];
+        var imageRefName = storageRef.child(collectionImg.name);
+        var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
+        var uploadTask = imagesRefName.put(collectionImg);
+        uploadTask.on('state_changed', function(snapshot) {
+            var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+            console.log(progress)
+        }, function(error) {
+            console.log(error)
+        }, function() {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                var userImage = downloadURL;
+                if ($("#exampleRadios1").is(":checked")) {
+                    privilegys = "S"
+                } else {
+                    privilegys = "N"
+                }
+                var newInfo = {
+                    nombre: nameComplete,
+                    foto: userImage,
+                    privilegios: privilegys,
+                    correo: email,
+                    telefono: phone,
+                    celular: cellphone,
+                    passwordUser: pass
+                };
+                firebase.database().ref('usuarios/' + idSave).update(newInfo);
+                $(".box-area input").val("")
+                $("#img_prev").attr("src", "#")
+            });
+        });
 
+    });
+}
 
- function readImage(input, images) {
-     if (input.files && input.files[0]) {
-         var reader = new FileReader();
-         reader.onload = function(e) {
-             $(images).attr('src', e.target.result);
-             $(images).removeClass("hidden");
-         };
-         reader.readAsDataURL(input.files[0]);
-     }
- }
-
-
- function addPhoto(idPhoto) {
-     $(idPhoto).trigger("click")
- }
-
- function updateUser() {
-     var idSave = $("#save-edit").attr("value")
-     var starCountRef = database.ref('usuarios/' + idSave);
-     starCountRef.once('value', function(snapshot) {
-         var dataUsers = snapshot.val()
-         var nameComplete = $("#nameComplete").val()
-         var pass = $("#password").val()
-         var email = $("#email").val()
-         var phone = $("#phone").val()
-         var cellphone = $("#cellphone").val()
-         var privilegys;
-         var collectionImg = $("#picture").prop("files")[0];
-         var imageRefName = storageRef.child(collectionImg.name);
-         var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
-         var uploadTask = imagesRefName.put(collectionImg);
-         uploadTask.on('state_changed', function(snapshot) {
-             var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-             console.log(progress)
-         }, function(error) {
-             console.log(error)
-         }, function() {
-             uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                 var userImage = downloadURL;
-                 if ($("#exampleRadios1").is(":checked")) {
-                     privilegys = "S"
-                 } else {
-                     privilegys = "N"
-                 }
-                 var newInfo = {
-                     nombre: nameComplete,
-                     foto: userImage,
-                     privilegios: privilegys,
-                     correo: email,
-                     telefono: phone,
-                     celular: cellphone,
-                     passwordUser: pass
-                 };
-                 firebase.database().ref('usuarios/' + idSave).update(newInfo);
-                 $(".box-area input").val("")
-                 $("#img_prev").attr("src", "#")
-             });
-         });
-
-     });
- }
-
- function restrictToNumber(event) {
+function restrictToNumber(event) {
     event = (event) ? event : window.event
     var charCode = (event.which) ? event.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -147,8 +145,8 @@ function getInfoUsers(idUser) {
     var key = database.ref('usuarios/' + idUser).key
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
-        //$(".principal-user img").attr("src", dataInfo.foto)
-        $(".principal-user p").html("<img src="+dataInfo.foto+" width='35px' height='33px'>"+ dataInfo.nombre +" <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
+            //$(".principal-user img").attr("src", dataInfo.foto)
+        $(".principal-user p").html("<img src=" + dataInfo.foto + " width='35px' height='33px'>" + dataInfo.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
     });
 
     var starCountRef = database.ref('usuarios/');
@@ -159,7 +157,7 @@ function getInfoUsers(idUser) {
             if (indice == idUser) {
                 console.log("ya existe el usuario")
             } else {
-                $(".secondary-users li:eq(" + i + ")").html("<img src="+valor.foto+" width='35px' height='33px'>"+ valor.nombre +" <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span>")
+                $(".secondary-users li:eq(" + i + ")").html("<img src=" + valor.foto + " width='35px' height='33px'>" + valor.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span>")
                 i = i + 1;
             }
         });
@@ -217,11 +215,11 @@ function getListDesarrollos(){
 
 var arrayNameClients = []
 
-function clientsBy(indice, keyDesarrollo){
+function clientsBy(indice, keyDesarrollo) {
     $(".list-view").addClass("d-none")
     $(".search-clients").removeClass("d-none")
     var starClientsRef = database.ref('clientes/');
-    starClientsRef.once("value", function(snapshot){
+    starClientsRef.once("value", function(snapshot) {
         var infoClient = snapshot.val()
         $.each(infoClient, function(indice, valor) {
             arrayNameClients.push({
@@ -234,23 +232,22 @@ function clientsBy(indice, keyDesarrollo){
         });
     })
     console.log(arrayNameClients)
-    var starCountRef = database.ref('desarrollos/' + keyDesarrollo+"/lotes");
+    var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
         console.log(dataInfo)
         $.each(dataInfo, function(indice, valor) {
             var j = null;
-            for(var i=0; i<arrayNameClients.length; i++){
-                if(arrayNameClients[i].key == valor.propietario){
+            for (var i = 0; i < arrayNameClients.length; i++) {
+                if (arrayNameClients[i].key == valor.propietario) {
                     j = i
                 }
             }
 
-            if(j == null){
-                var liAppend  = "<li onclick='getInfoLote(this)' value='"+indice+"'>"+valor.clave+" - Sin propietario </li>"
-            }
-            else{
-                var liAppend  = "<li onclick='getInfoLote(this)' value='"+indice+"'>"+valor.clave+" - "+arrayNameClients[j].name+"</li>"
+            if (j == null) {
+                var liAppend = "<li onclick='getInfoLote(this)' value='" + indice + "'>" + valor.clave + " - Sin propietario </li>"
+            } else {
+                var liAppend = "<li onclick='getInfoLote(this)' value='" + indice + "'>" + valor.clave + " - " + arrayNameClients[j].name + "</li>"
             }
             $("#list-lotes").append(liAppend)
         });
