@@ -120,7 +120,8 @@ p, li, span, label {
   .work-area .secondary-users {
     padding-inline-start: 0px; }
     .work-area .secondary-users li {
-      list-style: none; }
+      list-style: none;
+      cursor: pointer; }
       .work-area .secondary-users li .edit {
         color: #8FAC19; }
       .work-area .secondary-users li:hover {

@@ -161,6 +161,7 @@ p,li,span,label{
 		padding-inline-start: 0px;
 		li{
 			list-style:none;
+			cursor: pointer;
 			.edit{
 				color: $green;
 			}
