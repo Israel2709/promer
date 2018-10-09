@@ -5,7 +5,7 @@
     <div class="icon-logo-color"></div>
     <div class="separator"></div>
     <div class="row">
-      <ul id="list-desarrollos ">
+      <ul id="list-desarrollos" class="col-12">
       </ul>
       <div class="col-2">
         <img src="img/add-plus.png" class="add-plus">
@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="container search-clients d-none">
-    <span>2</span>
-    <span>La joya</span>
+    <span id="number-desarrollo">1</span>
+    <span id="name-desarrollo">Nombre Desarrollo</span>
     <div class="separator"></div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -156,6 +156,6 @@
 </div>
 <script>
   $( document ).ready(function() {
-    appendDesarrollos()
+     getListDesarrollos()
   });
 </script>

@@ -62,7 +62,7 @@ function changeView(nameView) {
             break;
         case 'buscar.html':
             $("#wrapper-section").load("views/" + nameView)
-            getListDesarrollos()
+            /*getListDesarrollos()*/
             break;
         case 'cotizador.html':
             $("#wrapper-section").load("views/" + nameView)
@@ -187,16 +187,15 @@ function edit(idUser) {
 
 
 function viewAction(element){
-    $(element).find("span").removeClass("d-none")
+    $(element).find(".edit").removeClass("d-none")
 }
 
 function hideAction(element){
-    $(element).find("span").addClass("d-none")
+    $(element).find(".edit").addClass("d-none")
 }
 
 
 function getListDesarrollos(){
-    setTimeout(function(){
          $("#list-desarrollos").empty()
          var i=0
         var starCountRef = database.ref('desarrollos/');
@@ -205,19 +204,58 @@ function getListDesarrollos(){
              $.each(dataUsers, function(indice, valor) {
                 i= i+1;
                 var liFill = "<li onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span>"+i+"</span>"
-                +valor.nombreTerreno+"<span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\')\">Pagados</span></li>"
+                +valor.nombreTerreno+"<span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\', \'"+valor.nombreTerreno+"\')\">Pagados</span></li>"
                 $("#list-desarrollos").append(liFill)
              });
          });
-    }, 50)
 }
 
 
 var arrayNameClients = []
 
-function clientsBy(indice, keyDesarrollo) {
+function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     $(".list-view").addClass("d-none")
     $(".search-clients").removeClass("d-none")
+    $("#number-desarrollo").text(indice)
+    $("#name-desarrollo").text(nameDesarrollo)
+    getClients()
+    var arrayLotesFrom = []
+    var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        $.each(dataInfo, function(indice2, valor2) {
+            arrayLotesFrom.push(valor2)
+        });
+    });
+    var lotesRef = database.ref('lotes/')
+    lotesRef.once('value', function(snapshot){
+        var dataLotes = snapshot.val()
+        $.each(dataLotes, function(indice3, valor3) {
+            var nameCliente = null;
+            var claveLote;
+            for(var i=0; i < arrayLotesFrom.length; i++){
+                if(arrayLotesFrom[i] == indice3){
+                    claveLote = valor3.clave
+                }
+            }
+            for (var i = 0; i < arrayNameClients.length; i++) {
+                if (arrayNameClients[i].key == valor3.propietario) {
+                    nameCliente = arrayNameClients[i].name
+                }
+            }
+
+            if (nameCliente == null) {
+                var liAppend = "<li onclick=\"getInfoLote(\'"+indice3+"\', \'"+valor3.propietario+"\')\">" + claveLote + " - Sin propietario </li>"
+            } else {
+                var liAppend = "<li onclick=\"getInfoLote(\'"+indice3+"\', \'"+valor3.propietario+"\')\">" + claveLote + " - " + nameCliente + "</li>"
+            }
+            $("#list-lotes").append(liAppend)
+        });
+    })
+
+}
+
+function getClients(){
     var starClientsRef = database.ref('clientes/');
     starClientsRef.once("value", function(snapshot) {
         var infoClient = snapshot.val()
@@ -231,31 +269,26 @@ function clientsBy(indice, keyDesarrollo) {
             })
         });
     })
-    console.log(arrayNameClients)
-    var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
-    starCountRef.once('value', function(snapshot) {
-        var dataInfo = snapshot.val()
-        console.log(dataInfo)
-        $.each(dataInfo, function(indice, valor) {
-            var j = null;
-            for (var i = 0; i < arrayNameClients.length; i++) {
-                if (arrayNameClients[i].key == valor.propietario) {
-                    j = i
-                }
-            }
-
-            if (j == null) {
-                var liAppend = "<li onclick='getInfoLote(this)' value='" + indice + "'>" + valor.clave + " - Sin propietario </li>"
-            } else {
-                var liAppend = "<li onclick='getInfoLote(this)' value='" + indice + "'>" + valor.clave + " - " + arrayNameClients[j].name + "</li>"
-            }
-            $("#list-lotes").append(liAppend)
-        });
-    });
 }
 
-function getInfoLote(key){
-    //Mostrar informacion en la nueva pantalla
+function getInfoLote(keyLote, keyPropietario){
+    var i;
+    for(i=0; i<arrayNameClients.length; i++){
+        if(arrayNameClients[i].key == keyPropietario){
+            //LLENA TODS LOS DATOS DEL CLIENTE
+        }
+    }
+
+    var starCountRef = database.ref('lotes/' + keyLote);
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        $.each(dataInfo, function(indice, valor) {
+            if(indice == keyLote){
+                //Llena todos los datos del lote
+            }
+        });
+    });
+
 }
 
 
