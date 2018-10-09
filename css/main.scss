@@ -94,6 +94,10 @@ p,li,span,label{
 		border-radius: 20px;
 		width: 520px;
 		height: 310px;
+		&.big-box{
+			width: 880px!important;
+			height: 540px!important;
+		}
 	}
 	.logo-login{
 		background-image: url(../img/logo-principal-v1.png);

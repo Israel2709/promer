@@ -216,8 +216,8 @@ var arrayNameClients = []
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     $(".list-view").addClass("d-none")
     $(".search-clients").removeClass("d-none")
-    $("#number-desarrollo").text(indice)
-    $("#name-desarrollo").text(nameDesarrollo)
+    $(".number-desarrollo").text(indice)
+    $(".name-desarrollo").text(nameDesarrollo)
     getClients()
     var arrayLotesFrom = []
     var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
@@ -245,9 +245,9 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
             }
 
             if (nameCliente == null) {
-                var liAppend = "<li onclick=\"getInfoLote(\'"+indice3+"\', \'"+valor3.propietario+"\')\">" + claveLote + " - Sin propietario </li>"
+                var liAppend = "<li onclick=\"getInfoLote(\'"+indice3+"\', \'"+valor3.propietario+"\', this)\">" + claveLote + " - Sin propietario </li>"
             } else {
-                var liAppend = "<li onclick=\"getInfoLote(\'"+indice3+"\', \'"+valor3.propietario+"\')\">" + claveLote + " - " + nameCliente + "</li>"
+                var liAppend = "<li onclick=\"getInfoLote(\'"+indice3+"\', \'"+valor3.propietario+"\', this)\">" + claveLote + " - " + nameCliente + "</li>"
             }
             $("#list-lotes").append(liAppend)
         });
@@ -271,26 +271,29 @@ function getClients(){
     })
 }
 
-function getInfoLote(keyLote, keyPropietario){
+function getInfoLote(keyLote, keyPropietario, valueLi){
     var i;
+    var textLi = $(valueLi).text()
+    $(".box-area").addClass("big-box")
+    $(".detail-develop").removeClass("d-none")
+    $(".search-clients").addClass("d-none")
+    $(".lote-selected").text(textLi)
     for(i=0; i<arrayNameClients.length; i++){
         if(arrayNameClients[i].key == keyPropietario){
-            //LLENA TODS LOS DATOS DEL CLIENTE
+            $(".phone").text(arrayNameClients[i].telefono)
+            $(".cellphone").text(arrayNameClients[i].celular)
+            $(".email").text(arrayNameClients[i].email)
         }
     }
-
     var starCountRef = database.ref('lotes/' + keyLote);
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
-        $.each(dataInfo, function(indice, valor) {
-            if(indice == keyLote){
-                //Llena todos los datos del lote
-            }
-        });
+        $(".lote-manzana").text("Lote "+dataInfo.lote+" Manzana "+dataInfo.manzana)
+        var allDireccion = dataInfo.calle+" COL. "+dataInfo.colonia+", "+dataInfo.delegacion
+        $(".direccion").text(allDireccion.toUpperCase())           
     });
-
 }
-
+   
 
 
 

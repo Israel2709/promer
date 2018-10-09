@@ -70,6 +70,9 @@ p, li, span, label {
     border-radius: 20px;
     width: 520px;
     height: 310px; }
+    .work-area .box-area.big-box {
+      width: 880px !important;
+      height: 540px !important; }
   .work-area .logo-login {
     background-image: url(../img/logo-principal-v1.png);
     width: 100%;
