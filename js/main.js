@@ -212,47 +212,52 @@ function getListDesarrollos(){
 
 
 var arrayNameClients = []
+var globalKeyDesarrollo = null;
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     $(".list-view").addClass("d-none")
     $(".search-clients").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
+    globalKeyDesarrollo = keyDesarrollo;
     getClients()
     var arrayLotesFrom = []
     var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
-        $.each(dataInfo, function(indice2, valor2) {
-            arrayLotesFrom.push(valor2)
-        });
+        if (dataInfo == null) {
+            $(".error-lotes").removeClass("d-none")
+        } else {
+            $.each(dataInfo, function(indice2, valor2) {
+                arrayLotesFrom.push(valor2)
+            });
+            var lotesRef = database.ref('lotes/')
+            lotesRef.once('value', function(snapshot) {
+                var dataLotes = snapshot.val()
+                $.each(dataLotes, function(indice3, valor3) {
+                    var nameCliente = null;
+                    var claveLote;
+                    for (var i = 0; i < arrayLotesFrom.length; i++) {
+                        if (arrayLotesFrom[i] == indice3) {
+                            claveLote = valor3.clave
+                        }
+                    }
+                    for (var i = 0; i < arrayNameClients.length; i++) {
+                        if (arrayNameClients[i].key == valor3.propietario) {
+                            nameCliente = arrayNameClients[i].name
+                        }
+                    }
+
+                    if (nameCliente == null && claveLote != null) {
+                        var liAppend = "<li onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - Sin propietario </li>"
+                    } else if(nameCliente != null && claveLote != null){
+                        var liAppend = "<li onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
+                    }
+                    $("#list-lotes").append(liAppend)
+                });
+            })
+        }
     });
-    var lotesRef = database.ref('lotes/')
-    lotesRef.once('value', function(snapshot){
-        var dataLotes = snapshot.val()
-        $.each(dataLotes, function(indice3, valor3) {
-            var nameCliente = null;
-            var claveLote;
-            for(var i=0; i < arrayLotesFrom.length; i++){
-                if(arrayLotesFrom[i] == indice3){
-                    claveLote = valor3.clave
-                }
-            }
-            for (var i = 0; i < arrayNameClients.length; i++) {
-                if (arrayNameClients[i].key == valor3.propietario) {
-                    nameCliente = arrayNameClients[i].name
-                }
-            }
-
-            if (nameCliente == null) {
-                var liAppend = "<li onclick=\"getInfoLote(\'"+indice3+"\', \'"+valor3.propietario+"\', this)\">" + claveLote + " - Sin propietario </li>"
-            } else {
-                var liAppend = "<li onclick=\"getInfoLote(\'"+indice3+"\', \'"+valor3.propietario+"\', this)\">" + claveLote + " - " + nameCliente + "</li>"
-            }
-            $("#list-lotes").append(liAppend)
-        });
-    })
-
 }
 
 function getClients(){
@@ -417,7 +422,6 @@ function addLote(){
     var calle = $("#calle").val()
     var colonia = $("#colonia").val()
     var delegacion = $("#delegacion").val()
-    var keyDesarrollo = $("#inlineFormCustomSelect option:selected").attr("value")
 
     var arrayLotes = {
         clave: nameTerreno,
@@ -429,7 +433,7 @@ function addLote(){
         propietario: "s/n"
     }
     var lotesKey = firebase.database().ref('lotes/').push(arrayLotes).key;
-    firebase.database().ref('desarrollos/'+keyDesarrollo+"/lotes").push(lotesKey)
+    firebase.database().ref('desarrollos/'+globalKeyDesarrollo+"/lotes").push(lotesKey)
     $("#clave, #lote, #manzana, #calle, #colonia, #delegacion").val("")
 }
 
