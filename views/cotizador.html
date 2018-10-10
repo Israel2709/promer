@@ -1,69 +1,73 @@
-<div class="box-background"></div>
 <div class="box-area">
-  <div class="container quoting">
+  <div class="quoting">
     <div class="header">
+      <span class="icon ico-close"></span>
+      <span class="icon ico-print"></span>
+      <span class="icon ico-message"></span>
       <div class="icon-logo-search detail"></div>
-      <span></span>
-      <span></span>
-      <span>Adios</span>
     </div>
-    <div class="row">
-      <form>
-        <div class="form-row col-6">
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Metros</div>
-              </div>
-              <input type="text" class="form-control" id="metros">
+    <div class="title-quoting">
+      <div class="separator"></div>
+      <span class="title"><b>Cotizador </b></span> <span class="today float-right">16 Septiembre 2018</span>
+      <div class="separator"></div>
+    </div>
+    <form class="personalizados mt-4">
+      <div class="form-row ">
+        <div class="form-group col-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Metros</div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Costo m2</div>
-              </div>
-              <input type="text" class="form-control" id="costo-metro" onblur="changeToCurrency(this)">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Total</div>
-              </div>
-              <input type="text" class="form-control" id="total-metros" readonly>
-            </div>
+            <input type="text" class="form-control" id="metros" placeholder="Metros">
           </div>
         </div>
-        <div class="form-row col-6">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control" id="numero-pagos">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Pagos</div>
-              </div>
-              <input type="text" class="form-control" id="mensual-pagos" readonly>
+        <div class="form-group col-6">
+          <div class="input-group exception">
+            <input type="text" class="form-control exception" id="numero-pagos">
+            <div class="input-group-prepend exception">
+              <div class="input-group-text">Pagos</div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Enganche</div>
-              </div>
-              <input type="text" class="form-control" id="enganche" onblur="changeToCurrency(this)">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Total</div>
-              </div>
-              <input type="text" class="form-control" id="total-adeudo" readonly>
-            </div>
+            <input type="text" class="form-control num-exception" id="mensual-pagos" readonly>
           </div>
         </div>
-      </form>
-      <div class="btn-success" onclick="cotizar()">Cotizar</div>
-    </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Costo m2</div>
+            </div>
+            <input type="text" class="form-control" id="costo-metro" onblur="changeToCurrency(this)" placeholder="Costo m2">
+          </div>
+        </div>
+        <div class="form-group col-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Enganche</div>
+            </div>
+            <input type="text" class="form-control" id="enganche" onblur="changeToCurrency(this)" placeholder="Enganche">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Total</div>
+            </div>
+            <input type="text" class="form-control" id="total-metros" readonly>
+          </div>
+        </div>
+        <div class="form-group col-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Total</div>
+            </div>
+            <input type="text" class="form-control" id="total-adeudo" readonly>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="btn btn-success mt-3" onclick="cotizar()">Cotizar</div>
   </div>
 </div>

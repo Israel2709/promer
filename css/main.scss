@@ -81,22 +81,26 @@ p,li,span,label{
 	.align-items-center{
 		margin: auto;
 	}
-	.box-background{
-		background-color: rgba(255,255,255,.2);
-		border-radius: 20px;
-		width: 520px;
-		height: 310px;
-		transform: rotate(-10deg);
-		position: absolute;
-	}
 	.box-area{
 		background-color: #fff;
 		border-radius: 20px;
 		width: 520px;
 		height: 310px;
+		padding: 20px;
 		&.big-box{
 			width: 880px!important;
 			height: 540px!important;
+		}
+		&::before{ 
+			content: "";
+		    background-color: rgba(255,255,255,.2);
+			border-radius: 20px;
+			width: 520px;
+			height: 310px;
+			transform: rotate(-10deg);
+			position: absolute;
+			margin-left: -20px;
+			margin-top: -20px;
 		}
 	}
 	.logo-login{
@@ -134,10 +138,14 @@ p,li,span,label{
 	}
 	.settings{
 		display: none;
+		.form-settings{
+			.form-group{
+			margin-bottom: 5px;
+			}
+		}
 	}
 	.title-settings{
 		color: $grayMedium;
-		padding-top: 10px;
 		.icon{
 			width: 20px;
 			height: 20px;
@@ -154,6 +162,9 @@ p,li,span,label{
 		border: 1px solid $grayStrong;
 	}
 	.principal-user{
+		p{
+			margin-bottom: 0px;
+		}
 		p:hover{
 			color: $green;
 		}
@@ -177,9 +188,11 @@ p,li,span,label{
 	.add-plus{
 		padding-left: 5px;
 		padding-top: 5px;
+		cursor: pointer;
 	}
 	.photo{
 		padding-left: 10px;
+		cursor: pointer;
 		.change-photo{
 			color: $green;
 			font-size: 10px;
@@ -189,6 +202,8 @@ p,li,span,label{
 		background-color: $green;
 		border-radius: 20px;
 		border-color: $green;
+		cursor: pointer;
+		z-index: 9999;
 		:hover{
 			background-color: $green;
 		    border-color: $green;
@@ -197,6 +212,90 @@ p,li,span,label{
 	.form-group{
 		input{
 			height: 30px;
+		}
+	}
+	.header{
+		.icon-logo-search{
+		    background-image: url(../img/logo-principal-v1.png);
+		    height: 30px;
+		    background-size: contain;
+		    background-repeat: no-repeat;
+		    background-position: right;
+			&.detail{
+				background-position: center;
+			}
+		}
+		.icon{
+			height: 15px;
+			width: 15px;
+			display: inline-block;
+			float: right;
+			cursor: pointer;
+			&.ico-message{
+				background: url(../img/icon-message.png) no-repeat;
+				margin-top: 2px
+			}
+			&.ico-print{
+				background: url(../img/icon-print.png) no-repeat;
+				margin-left: 8px;
+			}
+			&.ico-close{
+				background: url(../img/icon-close.png) no-repeat;
+				margin-left: 8px;
+			}
+		}
+	}
+	.title-quoting{
+		margin-top: 15px;
+		.title{
+			font-size: 1.75rem;
+			text-align: center;
+			color: $grayMedium;
+		}
+		.today{
+			font-size: 17px;
+			padding-top: 10px;
+			color: $grayStrong;
+		}
+	}
+	form.personalizados{
+		.form-group{
+			margin-bottom: 5px;
+		}
+		.input-group{
+			height: 30px;
+		}
+		.input-group-prepend{
+			width: 50%;
+			&.exception{
+				width: 30%;
+			}
+		}
+		input.form-control{
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px;
+			width: 50%;
+			&.num-exception{
+				width: 40%;
+			}
+			&.exception{
+				border-top-right-radius: 0px;
+				border-bottom-right-radius: 0px;
+				border-top-left-radius: 20px;
+				border-bottom-left-radius: 20px;
+				width: 10%;
+			}
+		}
+		.input-group-text{
+			border-top-left-radius: 20px;
+			border-bottom-left-radius: 20px;
+			width: 100%
+		}
+		.form-control[readonly]{
+			background-color: #fff;
+		}
+		#total-adeudo{
+			color: $green;
 		}
 	}
 }
@@ -218,6 +317,7 @@ Radios costumizados */
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  margin-top: 10px;
 }
 
 /* Hide the browser's default radio button */
@@ -268,3 +368,4 @@ Radios costumizados */
   border-radius: 50%;
   background: $green;
 }
+

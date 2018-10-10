@@ -58,21 +58,25 @@ p, li, span, label {
   background-size: auto; }
   .work-area .align-items-center {
     margin: auto; }
-  .work-area .box-background {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    width: 520px;
-    height: 310px;
-    transform: rotate(-10deg);
-    position: absolute; }
   .work-area .box-area {
     background-color: #fff;
     border-radius: 20px;
     width: 520px;
-    height: 310px; }
+    height: 310px;
+    padding: 20px; }
     .work-area .box-area.big-box {
       width: 880px !important;
       height: 540px !important; }
+    .work-area .box-area::before {
+      content: "";
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      width: 520px;
+      height: 310px;
+      transform: rotate(-10deg);
+      position: absolute;
+      margin-left: -20px;
+      margin-top: -20px; }
   .work-area .logo-login {
     background-image: url(../img/logo-principal-v1.png);
     width: 100%;
@@ -103,9 +107,10 @@ p, li, span, label {
     z-index: 999; }
   .work-area .settings {
     display: none; }
+    .work-area .settings .form-settings .form-group {
+      margin-bottom: 5px; }
   .work-area .title-settings {
-    color: #B0B2B3;
-    padding-top: 10px; }
+    color: #B0B2B3; }
     .work-area .title-settings .icon {
       width: 20px;
       height: 20px;
@@ -116,6 +121,8 @@ p, li, span, label {
         background: url("../img/icon-user.png") no-repeat; }
   .work-area .separator {
     border: 1px solid #838084; }
+  .work-area .principal-user p {
+    margin-bottom: 0px; }
   .work-area .principal-user p:hover {
     color: #8FAC19; }
   .work-area .principal-user .edit {
@@ -131,21 +138,86 @@ p, li, span, label {
         color: #8FAC19; }
   .work-area .add-plus {
     padding-left: 5px;
-    padding-top: 5px; }
+    padding-top: 5px;
+    cursor: pointer; }
   .work-area .photo {
-    padding-left: 10px; }
+    padding-left: 10px;
+    cursor: pointer; }
     .work-area .photo .change-photo {
       color: #8FAC19;
       font-size: 10px; }
   .work-area .btn-success {
     background-color: #8FAC19;
     border-radius: 20px;
-    border-color: #8FAC19; }
+    border-color: #8FAC19;
+    cursor: pointer;
+    z-index: 9999; }
     .work-area .btn-success :hover {
       background-color: #8FAC19;
       border-color: #8FAC19; }
   .work-area .form-group input {
     height: 30px; }
+  .work-area .header .icon-logo-search {
+    background-image: url(../img/logo-principal-v1.png);
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right; }
+    .work-area .header .icon-logo-search.detail {
+      background-position: center; }
+  .work-area .header .icon {
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    float: right;
+    cursor: pointer; }
+    .work-area .header .icon.ico-message {
+      background: url(../img/icon-message.png) no-repeat;
+      margin-top: 2px; }
+    .work-area .header .icon.ico-print {
+      background: url(../img/icon-print.png) no-repeat;
+      margin-left: 8px; }
+    .work-area .header .icon.ico-close {
+      background: url(../img/icon-close.png) no-repeat;
+      margin-left: 8px; }
+  .work-area .title-quoting {
+    margin-top: 15px; }
+    .work-area .title-quoting .title {
+      font-size: 1.75rem;
+      text-align: center;
+      color: #B0B2B3; }
+    .work-area .title-quoting .today {
+      font-size: 17px;
+      padding-top: 10px;
+      color: #838084; }
+  .work-area form.personalizados .form-group {
+    margin-bottom: 5px; }
+  .work-area form.personalizados .input-group {
+    height: 30px; }
+  .work-area form.personalizados .input-group-prepend {
+    width: 50%; }
+    .work-area form.personalizados .input-group-prepend.exception {
+      width: 30%; }
+  .work-area form.personalizados input.form-control {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 50%; }
+    .work-area form.personalizados input.form-control.num-exception {
+      width: 40%; }
+    .work-area form.personalizados input.form-control.exception {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      width: 10%; }
+  .work-area form.personalizados .input-group-text {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 100%; }
+  .work-area form.personalizados .form-control[readonly] {
+    background-color: #fff; }
+  .work-area form.personalizados #total-adeudo {
+    color: #8FAC19; }
 
 /* 
 Radios costumizados */
@@ -160,7 +232,8 @@ Radios costumizados */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+  margin-top: 10px; }
 
 /* Hide the browser's default radio button */
 .form-check input {
