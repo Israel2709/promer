@@ -203,7 +203,7 @@ function getListDesarrollos(){
              var dataUsers = snapshot.val()
              $.each(dataUsers, function(indice, valor) {
                 i= i+1;
-                var liFill = "<li onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span>"+i+"</span>"
+                var liFill = "<li onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >"+i+"</span>"
                 +valor.nombreTerreno+"<span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\', \'"+valor.nombreTerreno+"\')\">Pagados</span></li>"
                 $("#list-desarrollos").append(liFill)
              });
@@ -271,9 +271,12 @@ function getClients(){
     })
 }
 
+var globalKeyLote = null;
+
 function getInfoLote(keyLote, keyPropietario, valueLi){
     var i;
     var textLi = $(valueLi).text()
+    globalKeyLote = keyLote;
     $(".box-area").addClass("big-box")
     $(".detail-develop").removeClass("d-none")
     $(".search-clients").addClass("d-none")
@@ -334,6 +337,36 @@ function changeToCurrency(input) {
         }
     }
 
+}
+
+
+function addPago(){
+    console.log(globalKeyLote)
+    var fechaPago = $("#fecha").val()
+    var montoPago = $("#monto").val()
+    var numeroPago = 1;
+
+    var knowPagos = database.ref('pagos/');
+    knowPagos.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        var lengthInfo = snapshot.numChildren();
+        console.log(dataInfo)
+        console.log(lengthInfo)
+        /*$.each(dataInfo, function(indice, valor) {
+           var selectOption = "<option value='"+indice+"'>"+valor.nombreTerreno+"</option>"
+           $("#inlineFormCustomSelect").append(selectOption)
+       });*/
+    });
+
+   /* firebase.database().ref('pagos/').push({
+        idLote: globalKeyLote,
+        fecha: fechaPago,
+        monto: montoPago,
+        numero: numeroPago
+    });*/
+    $(".box-area input").val("")
+
+    //Insertar una coleccion de pagos donde tenga propiedad idLote, fecha, letra, pago
 }
 
 
