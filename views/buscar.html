@@ -1,3 +1,29 @@
+<!-- Modal Agregar Desarrollo -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar desarrollo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label>Nombre desarrollo</label>
+          <input type="text" name="" id="desarrollo">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="addTerreno()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="box-area">
   <div class="list-view">
     <div class="header mb-3">
@@ -6,9 +32,9 @@
       </div>
     </div>
     <div class="separator"></div>
-    <ul id="list-desarrollos" class="mt-2">
+    <ul id="list-desarrollos" class="mt-2" style="z-index: 9">
     </ul>
-    <img src="img/add-plus.png" class="add-plus list-desarrollos">
+    <img src="img/add-plus.png" class="add-plus list-desarrollos" data-toggle="modal" data-target="#exampleModal">
   </div>
   <div class="search-clients d-none">
     <span class="number-desarrollo">1</span>
@@ -22,7 +48,7 @@
     </div>
     <div class="separator"></div>
     <div class="row">
-      <ul id="list-lotes">
+      <ul id="list-lotes" style="z-index: 9">
       </ul>
     </div>
   </div>

@@ -341,7 +341,7 @@ function changeToCurrency(input) {
 function viewPagos() {
     var totalPagado = 0;
     var knowPagos = database.ref('pagos/');
-    knowPagos.once('value', function(snapshot) {
+    knowPagos.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
              var addRow;
@@ -357,7 +357,13 @@ function viewPagos() {
     });
 }
 
-/*function altaUser() {
+
+
+
+
+/*Funciones para agregar a base de datos*/
+
+function altaUser() {
      var nameComplete = $("#nameComplete").val()
      var pass = $("#password").val()
      var email = $("#email").val()
@@ -399,9 +405,9 @@ function viewPagos() {
 
 
  function addTerreno(){
-    var nameTerreno = $("#ejemplo").val()
+    var nameTerreno = $("#desarrollo").val()
     firebase.database().ref('desarrollos/').push({nombreTerreno: nameTerreno});
-    $("#ejemplo").val("")
+    $("#desarrollo").val("")
 }
 
 function addLote(){
@@ -524,4 +530,4 @@ function addPago() {
         });
         $(".box-area input").val("")
     });
-}*/
+}
