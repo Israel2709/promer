@@ -134,7 +134,19 @@
     </div>
     <div class="row payment-list d-none">
       <div class="col-8">
-        lista de pagos
+        <input type="text" placeholder="Fecha">
+        <input type="text" name="" placeholder="Monto">
+        <div class="btn-success" onclick="addPago()">Guardar</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Letra</th>
+              <th>Mes</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody id="pagos-lotes"></tbody>
+        </table>
       </div>
       <div class="col-4">
         <div class="input-group">
