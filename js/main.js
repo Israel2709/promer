@@ -203,7 +203,7 @@ function getListDesarrollos(){
              var dataUsers = snapshot.val()
              $.each(dataUsers, function(indice, valor) {
                 i= i+1;
-                var liFill = "<li onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >"+i+"</span>"
+                var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >"+i+"</span>"
                 +valor.nombreTerreno+"<span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\', \'"+valor.nombreTerreno+"\')\">Pagados</span></li>"
                 $("#list-desarrollos").append(liFill)
              });

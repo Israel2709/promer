@@ -303,9 +303,14 @@ p,li,span,label{
 		}
 	}
 	.list-view{
+		position: relative;
+		z-index: 9999;
 		#list-desarrollos{
 			list-style: none;
 			padding-inline-start: 0px;
+			min-height: 145px;
+    		overflow-y: scroll;
+    		max-height: 145px;
 		}
 		.number-principal{
 			background-color: $grayMedium;
@@ -319,12 +324,37 @@ p,li,span,label{
 		    margin-right: 10px;
 		    padding-top: 1px;
 		}
-		.edit{
-			width: 100%;
-			background-color: $green;
-			border-radius: 20px;
+		.name-terreno{
+			color: $grayMedium;
+			margin-top: 5px;
+			&:hover{
+				color: $green;
+			}
 		}
-		
+		.edit{
+			width: auto;
+		    background-color: #8FAC19;
+		    border-radius: 20px;
+		    display: block;
+		    color: #fff;
+		    padding: 0px 10px;
+		    margin-right: 10px;
+		}
+		.filter{
+			margin-top: -10px;
+			border: 3px solid $grayLight;
+			width: 30px;
+			display: inline-block;
+			border-radius: 20px;
+			cursor: pointer;
+			&.title{
+				width: 50px;
+			}
+		}
+		.work-list{
+			min-height: 195px;
+			overflow-y: scroll;
+		}		
 	}
 }
 
