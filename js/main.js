@@ -337,6 +337,11 @@ function changeToCurrency(input) {
 }
 
 
+function addPago(keyLote){
+    //Insertar una coleccion de pagos donde tenga propiedad idLote, fecha, letra, pago
+}
+
+
 
 /*function altaUser() {
      var nameComplete = $("#nameComplete").val()
