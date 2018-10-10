@@ -336,40 +336,26 @@ function changeToCurrency(input) {
             $(input).addClass("text-right")
         }
     }
-
 }
 
-
-function addPago(){
-    console.log(globalKeyLote)
-    var fechaPago = $("#fecha").val()
-    var montoPago = $("#monto").val()
-    var numeroPago = 1;
-
+function viewPagos() {
+    var totalPagado = 0;
     var knowPagos = database.ref('pagos/');
     knowPagos.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
-        var lengthInfo = snapshot.numChildren();
-        console.log(dataInfo)
-        console.log(lengthInfo)
-        /*$.each(dataInfo, function(indice, valor) {
-           var selectOption = "<option value='"+indice+"'>"+valor.nombreTerreno+"</option>"
-           $("#inlineFormCustomSelect").append(selectOption)
-       });*/
+        $.each(dataInfo, function(indice, valor) {
+             var addRow;
+            if (valor.idLote == globalKeyLote) {
+                totalPagado = totalPagado + parseInt(valor.monto)
+                addRow = "<tr><td>"+valor.numero+"</td>"+
+                "<td>"+valor.fecha+"</td>"+
+                "<td>"+valor.monto+"</td></tr>"
+            }
+            $("#pagos-lotes").append(addRow)
+        });
+        $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
     });
-
-   /* firebase.database().ref('pagos/').push({
-        idLote: globalKeyLote,
-        fecha: fechaPago,
-        monto: montoPago,
-        numero: numeroPago
-    });*/
-    $(".box-area input").val("")
-
-    //Insertar una coleccion de pagos donde tenga propiedad idLote, fecha, letra, pago
 }
-
-
 
 /*function altaUser() {
      var nameComplete = $("#nameComplete").val()
@@ -505,4 +491,37 @@ function NosePorqueLoHiceAsi(keyClient, lote){
        });
     });
     firebase.database().ref('').update({propietario: key})
+}
+
+function addPago() {
+    console.log(globalKeyLote)
+    var fechaPago = $("#fecha").val()
+    var montoPago = $("#monto").val()
+    var numeroPago = 1;
+
+    var knowPagos = database.ref('pagos/');
+    knowPagos.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        var lengthInfo = snapshot.numChildren();
+        if (lengthInfo == 0) {
+            numeroPago = "0" + numeroPago
+
+        } else {
+            $.each(dataInfo, function(indice, valor) {
+                if (valor.idLote == globalKeyLote) {
+                    numeroPago = numeroPago + 1
+                }
+            });
+        }
+        if (numeroPago <= 9) {
+            numeroPago = "0" + numeroPago;
+        }
+        firebase.database().ref('pagos/').push({
+            idLote: globalKeyLote,
+            fecha: fechaPago,
+            monto: montoPago,
+            numero: numeroPago
+        });
+        $(".box-area input").val("")
+    });
 }*/
