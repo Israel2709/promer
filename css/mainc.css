@@ -58,6 +58,13 @@ p, li, span, label {
   background-size: auto; }
   .work-area .align-items-center {
     margin: auto; }
+  .work-area .box-background {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    width: 520px;
+    height: 310px;
+    transform: rotate(-10deg);
+    position: absolute; }
   .work-area .box-area {
     background-color: #fff;
     border-radius: 20px;
@@ -67,16 +74,6 @@ p, li, span, label {
     .work-area .box-area.big-box {
       width: 880px !important;
       height: 540px !important; }
-    .work-area .box-area::before {
-      content: "";
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      width: 520px;
-      height: 310px;
-      transform: rotate(-10deg);
-      position: absolute;
-      margin-left: -20px;
-      margin-top: -20px; }
   .work-area .logo-login {
     background-image: url(../img/logo-principal-v1.png);
     width: 100%;
@@ -107,10 +104,9 @@ p, li, span, label {
     z-index: 999; }
   .work-area .settings {
     display: none; }
-    .work-area .settings .form-settings .form-group {
-      margin-bottom: 5px; }
   .work-area .title-settings {
-    color: #B0B2B3; }
+    color: #B0B2B3;
+    padding-top: 10px; }
     .work-area .title-settings .icon {
       width: 20px;
       height: 20px;
@@ -121,8 +117,6 @@ p, li, span, label {
         background: url("../img/icon-user.png") no-repeat; }
   .work-area .separator {
     border: 1px solid #838084; }
-  .work-area .principal-user p {
-    margin-bottom: 0px; }
   .work-area .principal-user p:hover {
     color: #8FAC19; }
   .work-area .principal-user .edit {
@@ -138,20 +132,16 @@ p, li, span, label {
         color: #8FAC19; }
   .work-area .add-plus {
     padding-left: 5px;
-    padding-top: 5px;
-    cursor: pointer; }
+    padding-top: 5px; }
   .work-area .photo {
-    padding-left: 10px;
-    cursor: pointer; }
+    padding-left: 10px; }
     .work-area .photo .change-photo {
       color: #8FAC19;
       font-size: 10px; }
   .work-area .btn-success {
     background-color: #8FAC19;
     border-radius: 20px;
-    border-color: #8FAC19;
-    cursor: pointer;
-    z-index: 9999; }
+    border-color: #8FAC19; }
     .work-area .btn-success :hover {
       background-color: #8FAC19;
       border-color: #8FAC19; }
@@ -169,8 +159,7 @@ p, li, span, label {
     height: 15px;
     width: 15px;
     display: inline-block;
-    float: right;
-    cursor: pointer; }
+    float: right; }
     .work-area .header .icon.ico-message {
       background: url(../img/icon-message.png) no-repeat;
       margin-top: 2px; }
@@ -193,7 +182,10 @@ p, li, span, label {
   .work-area form.personalizados .form-group {
     margin-bottom: 5px; }
   .work-area form.personalizados .input-group {
-    height: 30px; }
+    height: 30px;
+    /*&.exception{
+    	width: 30%
+    }*/ }
   .work-area form.personalizados .input-group-prepend {
     width: 50%; }
     .work-area form.personalizados .input-group-prepend.exception {
@@ -216,7 +208,7 @@ p, li, span, label {
     width: 100%; }
   .work-area form.personalizados .form-control[readonly] {
     background-color: #fff; }
-  .work-area form.personalizados #total-adeudo {
+  .work-area form.personalizados input#total-adeudo {
     color: #8FAC19; }
 
 /* 
@@ -232,8 +224,7 @@ Radios costumizados */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
-  margin-top: 10px; }
+  user-select: none; }
 
 /* Hide the browser's default radio button */
 .form-check input {
@@ -278,4 +269,4 @@ Radios costumizados */
   border-radius: 50%;
   background: #8FAC19; }
 
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=mainc.css.map */

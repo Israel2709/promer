@@ -81,14 +81,6 @@ p,li,span,label{
 	.align-items-center{
 		margin: auto;
 	}
-	.box-background{
-		background-color: rgba(255,255,255,.2);
-		border-radius: 20px;
-		width: 520px;
-		height: 310px;
-		transform: rotate(-10deg);
-		position: absolute;
-	}
 	.box-area{
 		background-color: #fff;
 		border-radius: 20px;
@@ -98,6 +90,17 @@ p,li,span,label{
 		&.big-box{
 			width: 880px!important;
 			height: 540px!important;
+		}
+		&::before{ 
+			content: "";
+		    background-color: rgba(255,255,255,.2);
+			border-radius: 20px;
+			width: 520px;
+			height: 310px;
+			transform: rotate(-10deg);
+			position: absolute;
+			margin-left: -20px;
+			margin-top: -20px;
 		}
 	}
 	.logo-login{
@@ -135,10 +138,14 @@ p,li,span,label{
 	}
 	.settings{
 		display: none;
+		.form-settings{
+			.form-group{
+			margin-bottom: 5px;
+			}
+		}
 	}
 	.title-settings{
 		color: $grayMedium;
-		padding-top: 10px;
 		.icon{
 			width: 20px;
 			height: 20px;
@@ -155,6 +162,9 @@ p,li,span,label{
 		border: 1px solid $grayStrong;
 	}
 	.principal-user{
+		p{
+			margin-bottom: 0px;
+		}
 		p:hover{
 			color: $green;
 		}
@@ -178,9 +188,11 @@ p,li,span,label{
 	.add-plus{
 		padding-left: 5px;
 		padding-top: 5px;
+		cursor: pointer;
 	}
 	.photo{
 		padding-left: 10px;
+		cursor: pointer;
 		.change-photo{
 			color: $green;
 			font-size: 10px;
@@ -190,6 +202,8 @@ p,li,span,label{
 		background-color: $green;
 		border-radius: 20px;
 		border-color: $green;
+		cursor: pointer;
+		z-index: 9999;
 		:hover{
 			background-color: $green;
 		    border-color: $green;
@@ -216,6 +230,7 @@ p,li,span,label{
 			width: 15px;
 			display: inline-block;
 			float: right;
+			cursor: pointer;
 			&.ico-message{
 				background: url(../img/icon-message.png) no-repeat;
 				margin-top: 2px
@@ -249,9 +264,6 @@ p,li,span,label{
 		}
 		.input-group{
 			height: 30px;
-			/*&.exception{
-				width: 30%
-			}*/
 		}
 		.input-group-prepend{
 			width: 50%;
@@ -282,6 +294,9 @@ p,li,span,label{
 		.form-control[readonly]{
 			background-color: #fff;
 		}
+		#total-adeudo{
+			color: $green;
+		}
 	}
 }
 
@@ -302,6 +317,7 @@ Radios costumizados */
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  margin-top: 10px;
 }
 
 /* Hide the browser's default radio button */
@@ -352,3 +368,4 @@ Radios costumizados */
   border-radius: 50%;
   background: $green;
 }
+
