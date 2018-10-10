@@ -294,6 +294,47 @@ function getInfoLote(keyLote, keyPropietario, valueLi){
     });
 }
    
+function cotizar(){
+    var metros = $("#metros").val()
+    var costoMetro = $("#costo-metro").val()
+    var metroWithin = costoMetro.replace(/\$|\,/g, "");
+    var totalCosto = metros * metroWithin;
+    $("#total-metros").val('$' + parseFloat(totalCosto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+
+    var numeroPagos = $("#numero-pagos").val()
+    var mensualidades = totalCosto/numeroPagos;
+    $("#mensual-pagos").val('$' + parseFloat(mensualidades, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+
+    var enganche = $("#enganche").val()
+    var engancheWithin = enganche.replace(/\$|\,/g, "");
+    var totalEnganche = totalCosto - engancheWithin;
+    $("#total-adeudo").val('$' + parseFloat(totalEnganche, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+
+}
+
+
+
+function changeToCurrency(input) {
+    var imports = $(input).val()
+    var changes = imports.substr(0, imports.length-3)
+    var lastPart = imports.substr(imports.length - 3)
+    if (lastPart == ".00") {
+        var changeWithin = changes.replace(/\$|\,/g, "");
+        $(input).val('$' + parseFloat(changeWithin, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
+        $(input).addClass("text-right")
+    } else {
+        var changeWithin2s =  imports.replace(/\$|\,/g, "");
+        if(changeWithin2s.length == 0){
+            $(input).val("")
+            $(input).removeClass("text-right")
+        }
+        else{
+            $(input).val('$' + parseFloat(changeWithin2s, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
+            $(input).addClass("text-right")
+        }
+    }
+
+}
 
 
 

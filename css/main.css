@@ -69,7 +69,8 @@ p, li, span, label {
     background-color: #fff;
     border-radius: 20px;
     width: 520px;
-    height: 310px; }
+    height: 310px;
+    padding: 20px; }
     .work-area .box-area.big-box {
       width: 880px !important;
       height: 540px !important; }
@@ -146,30 +147,28 @@ p, li, span, label {
       border-color: #8FAC19; }
   .work-area .form-group input {
     height: 30px; }
-  .work-area .header {
-    padding-top: 20px; }
-    .work-area .header .icon-logo-search {
-      background-image: url(../img/logo-principal-v1.png);
-      height: 30px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: right; }
-      .work-area .header .icon-logo-search.detail {
-        background-position: center; }
-    .work-area .header .icon {
-      height: 15px;
-      width: 15px;
-      display: inline-block;
-      float: right; }
-      .work-area .header .icon.ico-message {
-        background: url(../img/icon-message.png) no-repeat;
-        margin-top: 2px; }
-      .work-area .header .icon.ico-print {
-        background: url(../img/icon-print.png) no-repeat;
-        margin-left: 8px; }
-      .work-area .header .icon.ico-close {
-        background: url(../img/icon-close.png) no-repeat;
-        margin-left: 8px; }
+  .work-area .header .icon-logo-search {
+    background-image: url(../img/logo-principal-v1.png);
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right; }
+    .work-area .header .icon-logo-search.detail {
+      background-position: center; }
+  .work-area .header .icon {
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    float: right; }
+    .work-area .header .icon.ico-message {
+      background: url(../img/icon-message.png) no-repeat;
+      margin-top: 2px; }
+    .work-area .header .icon.ico-print {
+      background: url(../img/icon-print.png) no-repeat;
+      margin-left: 8px; }
+    .work-area .header .icon.ico-close {
+      background: url(../img/icon-close.png) no-repeat;
+      margin-left: 8px; }
   .work-area .title-quoting {
     margin-top: 15px; }
     .work-area .title-quoting .title {
@@ -177,23 +176,38 @@ p, li, span, label {
       text-align: center;
       color: #B0B2B3; }
     .work-area .title-quoting .today {
-      font-size: 16px;
-      padding-top: 10px; }
+      font-size: 17px;
+      padding-top: 10px;
+      color: #838084; }
   .work-area form.personalizados .form-group {
     margin-bottom: 5px; }
   .work-area form.personalizados .input-group {
-    height: 30px; }
+    height: 30px;
+    /*&.exception{
+    	width: 30%
+    }*/ }
+  .work-area form.personalizados .input-group-prepend {
+    width: 50%; }
+    .work-area form.personalizados .input-group-prepend.exception {
+      width: 30%; }
   .work-area form.personalizados input.form-control {
     border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px; }
+    border-bottom-right-radius: 20px;
+    width: 50%; }
+    .work-area form.personalizados input.form-control.num-exception {
+      width: 40%; }
     .work-area form.personalizados input.form-control.exception {
       border-top-right-radius: 0px;
       border-bottom-right-radius: 0px;
       border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px; }
+      border-bottom-left-radius: 20px;
+      width: 10%; }
   .work-area form.personalizados .input-group-text {
     border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px; }
+    border-bottom-left-radius: 20px;
+    width: 100%; }
+  .work-area form.personalizados .form-control[readonly] {
+    background-color: #fff; }
 
 /* 
 Radios costumizados */

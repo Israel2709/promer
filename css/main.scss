@@ -94,6 +94,7 @@ p,li,span,label{
 		border-radius: 20px;
 		width: 520px;
 		height: 310px;
+		padding: 20px;
 		&.big-box{
 			width: 880px!important;
 			height: 540px!important;
@@ -200,7 +201,6 @@ p,li,span,label{
 		}
 	}
 	.header{
-		padding-top: 20px;
 		.icon-logo-search{
 		    background-image: url(../img/logo-principal-v1.png);
 		    height: 30px;
@@ -238,8 +238,9 @@ p,li,span,label{
 			color: $grayMedium;
 		}
 		.today{
-			font-size: 16px;
+			font-size: 17px;
 			padding-top: 10px;
+			color: $grayStrong;
 		}
 	}
 	form.personalizados{
@@ -248,20 +249,38 @@ p,li,span,label{
 		}
 		.input-group{
 			height: 30px;
+			/*&.exception{
+				width: 30%
+			}*/
+		}
+		.input-group-prepend{
+			width: 50%;
+			&.exception{
+				width: 30%;
+			}
 		}
 		input.form-control{
 			border-top-right-radius: 20px;
 			border-bottom-right-radius: 20px;
+			width: 50%;
+			&.num-exception{
+				width: 40%;
+			}
 			&.exception{
 				border-top-right-radius: 0px;
 				border-bottom-right-radius: 0px;
 				border-top-left-radius: 20px;
-				border-bottom-left-radius: 20px
+				border-bottom-left-radius: 20px;
+				width: 10%;
 			}
 		}
 		.input-group-text{
 			border-top-left-radius: 20px;
 			border-bottom-left-radius: 20px;
+			width: 100%
+		}
+		.form-control[readonly]{
+			background-color: #fff;
 		}
 	}
 }
