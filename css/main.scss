@@ -199,6 +199,71 @@ p,li,span,label{
 			height: 30px;
 		}
 	}
+	.header{
+		padding-top: 20px;
+		.icon-logo-search{
+		    background-image: url(../img/logo-principal-v1.png);
+		    height: 30px;
+		    background-size: contain;
+		    background-repeat: no-repeat;
+		    background-position: right;
+			&.detail{
+				background-position: center;
+			}
+		}
+		.icon{
+			height: 15px;
+			width: 15px;
+			display: inline-block;
+			float: right;
+			&.ico-message{
+				background: url(../img/icon-message.png) no-repeat;
+				margin-top: 2px
+			}
+			&.ico-print{
+				background: url(../img/icon-print.png) no-repeat;
+				margin-left: 8px;
+			}
+			&.ico-close{
+				background: url(../img/icon-close.png) no-repeat;
+				margin-left: 8px;
+			}
+		}
+	}
+	.title-quoting{
+		margin-top: 15px;
+		.title{
+			font-size: 1.75rem;
+			text-align: center;
+			color: $grayMedium;
+		}
+		.today{
+			font-size: 16px;
+			padding-top: 10px;
+		}
+	}
+	form.personalizados{
+		.form-group{
+			margin-bottom: 5px;
+		}
+		.input-group{
+			height: 30px;
+		}
+		input.form-control{
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px;
+			&.exception{
+				border-top-right-radius: 0px;
+				border-bottom-right-radius: 0px;
+				border-top-left-radius: 20px;
+				border-bottom-left-radius: 20px
+			}
+		}
+		.input-group-text{
+			border-top-left-radius: 20px;
+			border-bottom-left-radius: 20px;
+		}
+	}
 }
 
 
