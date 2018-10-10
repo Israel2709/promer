@@ -1,6 +1,10 @@
 p, li, span, label {
   color: #838084; }
 
+.search-clients, .detail-develop {
+  position: relative;
+  z-index: 9999; }
+
 .no-gutters {
   margin-right: 0;
   margin-left: -15px; }
@@ -230,17 +234,6 @@ p, li, span, label {
       min-height: 145px;
       overflow-y: scroll;
       max-height: 145px; }
-    .work-area .list-view .number-principal {
-      background-color: #B0B2B3;
-      width: 29px;
-      height: 29px;
-      border-radius: 50%;
-      color: #fff;
-      font-weight: bold;
-      text-align: center;
-      display: inline-block;
-      margin-right: 10px;
-      padding-top: 1px; }
     .work-area .list-view .name-terreno {
       color: #B0B2B3;
       margin-top: 5px; }
@@ -253,7 +246,8 @@ p, li, span, label {
       display: block;
       color: #fff;
       padding: 0px 10px;
-      margin-right: 10px; }
+      margin-right: 10px;
+      cursor: pointer; }
     .work-area .list-view .filter {
       margin-top: -10px;
       border: 3px solid #D8D9DA;
@@ -263,9 +257,24 @@ p, li, span, label {
       cursor: pointer; }
       .work-area .list-view .filter.title {
         width: 50px; }
-    .work-area .list-view .work-list {
-      min-height: 195px;
-      overflow-y: scroll; }
+  .work-area .number-principal {
+    background-color: #B0B2B3;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    margin-right: 10px;
+    padding-top: 1px; }
+    .work-area .number-principal.number-desarrollo {
+      width: 40px;
+      height: 40px;
+      font-size: 24px; }
+  .work-area .name-desarrollo {
+    font-size: 24px;
+    color: #B0B2B3; }
 
 /* 
 Radios costumizados */

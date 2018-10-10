@@ -8,6 +8,10 @@ $grayTrans: #E4E4E5;
 p,li,span,label{
 	color: $grayStrong;
 }
+.search-clients, .detail-develop{
+	position: relative;
+	z-index: 9999;
+}
 .no-gutters{
   margin-right: 0;
   margin-left: -15px;
@@ -312,18 +316,7 @@ p,li,span,label{
     		overflow-y: scroll;
     		max-height: 145px;
 		}
-		.number-principal{
-			background-color: $grayMedium;
-			width: 29px;
-		    height: 29px;
-		    border-radius: 50%;
-		    color: #fff;
-		    font-weight: bold;
-		    text-align: center;
-		    display: inline-block;
-		    margin-right: 10px;
-		    padding-top: 1px;
-		}
+		
 		.name-terreno{
 			color: $grayMedium;
 			margin-top: 5px;
@@ -339,6 +332,7 @@ p,li,span,label{
 		    color: #fff;
 		    padding: 0px 10px;
 		    margin-right: 10px;
+		    cursor: pointer;
 		}
 		.filter{
 			margin-top: -10px;
@@ -351,10 +345,27 @@ p,li,span,label{
 				width: 50px;
 			}
 		}
-		.work-list{
-			min-height: 195px;
-			overflow-y: scroll;
-		}		
+	}
+	.number-principal{
+		background-color: $grayMedium;
+		width: 29px;
+	    height: 29px;
+	    border-radius: 50%;
+	    color: #fff;
+	    font-weight: bold;
+	    text-align: center;
+	    display: inline-block;
+	    margin-right: 10px;
+	    padding-top: 1px;
+	    &.number-desarrollo{
+	    	width: 40px;
+	    	height: 40px;
+	    	font-size: 24px;
+	    }
+	}
+	.name-desarrollo{
+		font-size: 24px;
+		color: $grayMedium;
 	}
 }
 
