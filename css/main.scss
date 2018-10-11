@@ -231,6 +231,7 @@ p,li,span,label{
 	.form-group{
 		input{
 			height: 30px;
+			font-size: 13px;
 		}
 	}
 	.header{
@@ -304,6 +305,10 @@ p,li,span,label{
 		}
 		.input-group{
 			height: 30px;
+			&.letters{
+				width: 26%;
+				margin-right: 30px;
+			}
 		}
 		.input-group-prepend{
 			width: 50%;
@@ -329,17 +334,24 @@ p,li,span,label{
 		.input-group-text{
 			border-top-left-radius: 20px;
 			border-bottom-left-radius: 20px;
-			width: 100%
+			width: 100%;
+			color: $grayStrong;
 		}
 		.form-control[readonly]{
 			background-color: #fff;
 		}
-		#total-adeudo, #letters-payments{
+		#total-pagado, #letters-payments{
 			color: $green;
 		}
 		.total-letras{
 			border-top-right-radius: 20px;
 			border-bottom-right-radius: 20px;
+			font-size: 22px;
+			font-weight: bold;
+		}
+		#letters-payments{
+			font-size: 22px;
+			font-weight: bold;
 		}
 	}
 	.list-view{
@@ -348,14 +360,11 @@ p,li,span,label{
 		#list-desarrollos{
 			list-style: none;
 			padding-inline-start: 0px;
-			min-height: 145px;
     		overflow-y: scroll;
-    		max-height: 145px;
+    		max-height: 167px;
 		}
-		
 		.name-terreno{
 			color: $grayMedium;
-			margin-top: 5px;
 			&:hover{
 				color: $green;
 			}
@@ -373,12 +382,13 @@ p,li,span,label{
 		.filter{
 			margin-top: -10px;
 			border: 3px solid $grayLight;
-			width: 30px;
+			width: 20px;
 			display: inline-block;
 			border-radius: 20px;
 			cursor: pointer;
 			&.title{
 				width: 50px;
+				margin-left: 7px;
 			}
 		}
 	}
@@ -394,15 +404,16 @@ p,li,span,label{
 	}
 	.number-principal{
 		background-color: $grayMedium;
-		width: 29px;
-	    height: 29px;
+		width: 18px;
+	    height: 18px;
 	    border-radius: 50%;
 	    color: #fff;
 	    font-weight: bold;
 	    text-align: center;
 	    display: inline-block;
-	    margin-right: 10px;
+	    margin-right: 15px;
 	    padding-top: 1px;
+	    font-size: 11px;
 	    &.number-desarrollo{
 	    	width: 40px;
 	    	height: 40px;
@@ -421,6 +432,12 @@ p,li,span,label{
 		width: 25px;
 		background-size: contain;
     	margin-left: 10px;
+    	cursor: pointer;
+    	&.list-desarrollos{
+    		width: 18px;
+    		height: 18px;
+    		margin-left: 0px;
+    	}
 	}
 	.note{
 		font-size: 10px;
@@ -434,6 +451,48 @@ p,li,span,label{
 		}
 		.icon{
 			margin-right: 3px;
+		}
+	}
+	.list-letters{
+		font-size: 11px;
+		font-weight: normal;
+		color: $grayStrong;
+		text-align: center;
+		border-collapse: collapse;
+		width: auto;
+		height: auto;
+		td{
+			padding: 0px 12px;
+			&:nth-child(3){
+				padding: 0px 25px;
+			}
+		}
+	}
+	.buttons-letters{
+		display: flex;
+		.icon-add-plus{
+			margin-left: 0px;
+			margin-right: 10px;
+		}
+	}
+	.user-data{
+		position: absolute;
+		top: 30px;
+		right: 60px;
+		width: 40vh;
+		.img-user{
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			border: 2px solid #fff;
+			background-image: url(../img/user.png);
+			background-repeat: no-repeat;
+			background-size: cover;
+			margin-right: 10px;
+		}
+		.user-name{
+			font-size: 16px;
+			color: $grayMedium;
 		}
 	}
 }
