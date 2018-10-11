@@ -8,7 +8,7 @@ $grayTrans: #E4E4E5;
 p,li,span,label{
 	color: $grayStrong;
 }
-.search-clients, .detail-develop{
+.search-clients, .detail-develop, .payment-list{
 	position: relative;
 	z-index: 9999;
 }
@@ -93,7 +93,11 @@ p,li,span,label{
 		padding: 20px;
 		&.big-box{
 			width: 880px!important;
-			height: 540px!important;
+			height: 470px!important;
+			&::before{
+				width: 880px!important;
+				height: 470px!important;
+			}
 		}
 		&::before{ 
 			content: "";
@@ -132,6 +136,13 @@ p,li,span,label{
 		&.password{
 			width: 40%;
 			background-image: url(../img/icon-password.png);
+			background-repeat: no-repeat;
+			background-position: 8px center;
+			padding-left: 30px;
+		}
+		&.search{
+			width: 60%;
+			background-image: url(../img/icon-search-gray.png);
 			background-repeat: no-repeat;
 			background-position: 8px center;
 			padding-left: 30px;
@@ -251,6 +262,27 @@ p,li,span,label{
 				background: url(../img/icon-close.png) no-repeat;
 				margin-left: 8px;
 			}
+			&.ico-list{
+				background: url(../img/icon-list.png) no-repeat;
+				margin-left: 0px;
+				height: 20px;
+				width: 20px;
+				margin-left: 15px;
+				float: left;
+				&.active{
+					background: url(../img/icon-list-green.png) no-repeat;
+				}
+			}
+			&.ico-general{
+				background: url(../img/icon-general.png) no-repeat;
+				margin-left: 0px;
+				height: 20px;
+				width: 20px;
+				float: left;
+				&.active{
+					background: url(../img/icon-general-green.png) no-repeat;
+				}
+			}
 		}
 	}
 	.title-quoting{
@@ -302,8 +334,12 @@ p,li,span,label{
 		.form-control[readonly]{
 			background-color: #fff;
 		}
-		#total-adeudo{
+		#total-adeudo, #total-pagado{
 			color: $green;
+		}
+		.total-letras{
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px;
 		}
 	}
 	.list-view{
@@ -346,6 +382,16 @@ p,li,span,label{
 			}
 		}
 	}
+	.search-clients{
+		#list-lotes{
+			list-style: none;
+			padding-inline-start: 0px;
+			cursor: pointer;
+			li:hover{
+				color: $green;
+			}
+		}
+	}
 	.number-principal{
 		background-color: $grayMedium;
 		width: 29px;
@@ -366,6 +412,29 @@ p,li,span,label{
 	.name-desarrollo{
 		font-size: 24px;
 		color: $grayMedium;
+	}
+	.icon-add-plus{
+		background-image: url("../img/add-plus.png");
+		background-repeat: no-repeat;
+		background-size: contain;
+		height: 25px;
+		width: 25px;
+		background-size: contain;
+    	margin-left: 10px;
+	}
+	.note{
+		font-size: 10px;
+		color: $grayMedium;
+		margin-bottom: 5px;
+		text-align: center;
+	}
+	.info-personal{
+		span{
+			margin-right: 10px;
+		}
+		.icon{
+			margin-right: 3px;
+		}
 	}
 }
 

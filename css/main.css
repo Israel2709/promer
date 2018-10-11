@@ -1,7 +1,7 @@
 p, li, span, label {
   color: #838084; }
 
-.search-clients, .detail-develop {
+.search-clients, .detail-develop, .payment-list {
   position: relative;
   z-index: 9999; }
 
@@ -70,7 +70,10 @@ p, li, span, label {
     padding: 20px; }
     .work-area .box-area.big-box {
       width: 880px !important;
-      height: 540px !important; }
+      height: 470px !important; }
+      .work-area .box-area.big-box::before {
+        width: 880px !important;
+        height: 470px !important; }
     .work-area .box-area::before {
       content: "";
       background-color: rgba(255, 255, 255, 0.2);
@@ -104,6 +107,12 @@ p, li, span, label {
     .work-area .btn-input.password {
       width: 40%;
       background-image: url(../img/icon-password.png);
+      background-repeat: no-repeat;
+      background-position: 8px center;
+      padding-left: 30px; }
+    .work-area .btn-input.search {
+      width: 60%;
+      background-image: url(../img/icon-search-gray.png);
       background-repeat: no-repeat;
       background-position: 8px center;
       padding-left: 30px; }
@@ -187,6 +196,23 @@ p, li, span, label {
     .work-area .header .icon.ico-close {
       background: url(../img/icon-close.png) no-repeat;
       margin-left: 8px; }
+    .work-area .header .icon.ico-list {
+      background: url(../img/icon-list.png) no-repeat;
+      margin-left: 0px;
+      height: 20px;
+      width: 20px;
+      margin-left: 15px;
+      float: left; }
+      .work-area .header .icon.ico-list.active {
+        background: url(../img/icon-list-green.png) no-repeat; }
+    .work-area .header .icon.ico-general {
+      background: url(../img/icon-general.png) no-repeat;
+      margin-left: 0px;
+      height: 20px;
+      width: 20px;
+      float: left; }
+      .work-area .header .icon.ico-general.active {
+        background: url(../img/icon-general-green.png) no-repeat; }
   .work-area .title-quoting {
     margin-top: 15px; }
     .work-area .title-quoting .title {
@@ -223,8 +249,11 @@ p, li, span, label {
     width: 100%; }
   .work-area form.personalizados .form-control[readonly] {
     background-color: #fff; }
-  .work-area form.personalizados #total-adeudo {
+  .work-area form.personalizados #total-adeudo, .work-area form.personalizados #total-pagado {
     color: #8FAC19; }
+  .work-area form.personalizados .total-letras {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px; }
   .work-area .list-view {
     position: relative;
     z-index: 9999; }
@@ -257,6 +286,12 @@ p, li, span, label {
       cursor: pointer; }
       .work-area .list-view .filter.title {
         width: 50px; }
+  .work-area .search-clients #list-lotes {
+    list-style: none;
+    padding-inline-start: 0px;
+    cursor: pointer; }
+    .work-area .search-clients #list-lotes li:hover {
+      color: #8FAC19; }
   .work-area .number-principal {
     background-color: #B0B2B3;
     width: 29px;
@@ -275,6 +310,23 @@ p, li, span, label {
   .work-area .name-desarrollo {
     font-size: 24px;
     color: #B0B2B3; }
+  .work-area .icon-add-plus {
+    background-image: url("../img/add-plus.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 25px;
+    width: 25px;
+    background-size: contain;
+    margin-left: 10px; }
+  .work-area .note {
+    font-size: 10px;
+    color: #B0B2B3;
+    margin-bottom: 5px;
+    text-align: center; }
+  .work-area .info-personal span {
+    margin-right: 10px; }
+  .work-area .info-personal .icon {
+    margin-right: 3px; }
 
 /* 
 Radios costumizados */

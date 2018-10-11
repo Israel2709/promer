@@ -72,7 +72,7 @@
       <img src="img/add-plus.png" class="add-plus list-desarrollos">
     </div>
   </div>
-  <div class="search-clients">
+  <div class="search-clients d-none">
     <div class="header mb-3">
       <div class="icon-logo-search">
         <span class="number-principal number-desarrollo">1</span>
@@ -80,50 +80,58 @@
       </div>
     </div>
     <div class="separator"></div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">@</span>
-      </div>
-      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    <div class="d-flex justify-content-center input-group mt-3 pl-4">
+      <input type="text" class="btn-input search" placeholder="Buscar">
+      <div class="icon-add-plus"></div>
+      <!-- data-toggle="modal" data-target="#add-Lotes" id="prueba" -->
     </div>
-    <img src="img/add-plus.png" class="add-plus" ><!-- data-toggle="modal" data-target="#add-Lotes" id="prueba" -->
+    <p class="note mt-3">Escribe el nombre del cliente o su número de cuenta</p>
     <div class="separator"></div>
     <p class="error-lotes d-none">No existen lotes en este desarrollo</p>
-    <div class="row">
+    <div class="mt-2 d-flex justify-content-center">
       <ul id="list-lotes">
       </ul>
     </div>
   </div>
-  <div class="detail-develop d-none">
-    <div class="header">
-      <span>hola</span>
-      <span></span>
-      <div class="icon-logo-color detail"></div>
-      <span></span>
-      <span></span>
-      <span>Adios</span>
+  <div class="detail-develop">
+    <div class="header mb-3">
+      <span class="icon ico-general active"></span>
+      <span class="icon ico-list"></span>
+      <span class="icon ico-close"></span>
+      <span class="icon ico-print"></span>
+      <span class="icon ico-message"></span>
+      <div class="icon-logo-search detail"></div>
     </div>
+    <div class="separator"></div>
     <div class="info-lote">
-      <p>
-        <span class="number-desarrollo">0</span>
-        <span class="name-desarrollo">Nombre</span>
-      </p>
-      <span class="lote-selected">Lote y Propietario</span>
-      <span class="phone">Telefono</span>
-      <span class="cellphone">Celular</span>
-      <span class="email">correo</span>
-      <div class="input-group d-none">
-        <div class="input-group-prepend">
-          <div class="input-group-text">Ejemplo</div>
-        </div>
-        <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+      <div class="mt-2 mb-2">
+        <span class="number-principal number-desarrollo">1</span>
+        <span class="name-desarrollo">Nombre Desarrollo</span>
+        <form class="personalizados col-3 float-right">
+          <div class="form-row">
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control exception" id="total-pagado" readonly placeholder="74">
+                <div class="input-group-prepend">
+                  <div class="input-group-text total-letras">19</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <span class="lote-selected font-weight-bold">Lote y Propietario</span>
+      <div class="info-personal float-right">
+        <span><img src="img/icon-phone.png" class="icon">1234 5679</span>
+        <span><img src="img/icon-cellphone.png" class="icon">55 2585 3697</span>
+        <span><img src="img/icon-email.png" class="icon">jmurillo@gmail.com</span>
       </div>
     </div>
-    <p class="lote-manzana">Lote</p>
+    <p class="lote-manzana mb-0 mt-2">Lote</p>
     <p class="direccion">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-    <div class="row info-detail-lote">
+    <div class="row info-detail-lote mt-3">
       <div class="col-7">
-        <form>
+        <form class="personalizados">
           <div class="form-row">
             <div class="form-group col-5">
               <div class="input-group">
@@ -199,7 +207,7 @@
         Grafica
       </div>
     </div>
-    <div class="row payment-list d-none">
+    <div class="row payment-list">
       <div class="col-8">
         <table>
           <thead>
@@ -213,18 +221,28 @@
         </table>
       </div>
       <div class="col-4">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">Pagado</div>
+        <form class="personalizados col-11">
+          <div class="form-row">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Pagado</div>
+                </div>
+                <input type="text" class="form-control green" id="total-pagado" readonly>
+              </div>
+            </div>
           </div>
-          <input type="text" class="form-control" id="total-pagado" readonly>
-        </div>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">Adeudo</div>
+          <div class="form-row">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Adeudo</div>
+                </div>
+                <input type="text" class="form-control" id="total-adeudo" readonly>
+              </div>
+            </div>
           </div>
-          <input type="text" class="form-control" id="total-adeudo" readonly>
-        </div>
+        </form>
       </div>
     </div>
   </div>
