@@ -288,9 +288,16 @@ function getInfoLote(keyLote, keyPropietario, valueLi){
     $(".lote-selected").text(textLi)
     for(i=0; i<arrayNameClients.length; i++){
         if(arrayNameClients[i].key == keyPropietario){
-            $(".phone").text(arrayNameClients[i].telefono)
-            $(".cellphone").text(arrayNameClients[i].celular)
-            $(".email").text(arrayNameClients[i].email)
+            var numero= arrayNameClients[i].telefono
+            var primeraParte = numero.substr(0,4)
+            var segundaParte = numero.substr(4,8)
+            var celular = arrayNameClients[i].celular
+            var clave = celular.substr(0,2)
+            var primeraCel = celular.substr(2,4)
+            var segundaCel = celular.substr(6, 10)
+            $(".phone").html("<img src='img/icon-phone.png' class='icon'>"+primeraParte+" "+segundaParte)
+            $(".cellphone").html("<img src='img/icon-cellphone.png' class='icon'>"+clave+" "+primeraCel+" "+segundaCel)
+            $(".email").html("<img src='img/icon-email.png' class='icon'>"+arrayNameClients[i].email)
         }
     }
     var starCountRef = database.ref('lotes/' + keyLote);
@@ -307,7 +314,8 @@ function getInfoLote(keyLote, keyPropietario, valueLi){
         $("#fecha-compra").val(dataInfo.fechaCompra)
         var adeudoTotal = dataInfo.metros * dataInfo.costoMetro;
         $("#adeudo-lote").val('$' + parseFloat(adeudoTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())    
-        viewPagos(adeudoTotal)   
+        $(".total-letras").text(dataInfo.pagosMensuales) 
+        viewPagos(adeudoTotal)  
     });
 }
    
@@ -354,25 +362,41 @@ function changeToCurrency(input) {
 
 function viewPagos(adeudo) {
     var totalPagado = 0;
+    var lengthPagados = 0;
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
              var addRow;
             if (valor.idLote == globalKeyLote) {
+                lengthPagados = lengthPagados + 1;
+                var formatCurrency = '$' + parseFloat(valor.monto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
                 totalPagado = totalPagado + parseInt(valor.monto)
                 addRow = "<tr><td>"+valor.numero+"</td>"+
                 "<td>"+valor.fecha+"</td>"+
-                "<td>"+valor.monto+"</td></tr>"
+                "<td>"+formatCurrency+"</td></tr>"
             }
-            $("#pagos-lotes").append(addRow)
+            if(lengthPagados >= 13){
+                 $("#pagos-lotes2").append(addRow)
+            }
+            else{
+                $(".second-table").removeClass("d-none")
+                $("#pagos-lotes").append(addRow)
+            }
+           
         });
+        $("#letters-payments").val(lengthPagados)
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var adeudoRestante = adeudo - totalPagado;
         $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
     });
 }
 
+function viewList(){
+    $(".info-detail-lote").toggleClass("d-none")
+    $(".payment-list").toggleClass("d-none")
+    $(".ico-general, .ico-list").toggleClass("active")
+}
 
 
 

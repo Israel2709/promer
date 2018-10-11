@@ -95,8 +95,8 @@
   </div>
   <div class="detail-develop d-none">
     <div class="header mb-3">
-      <span class="icon ico-general active"></span>
-      <span class="icon ico-list"></span>
+      <span class="icon ico-general active" onclick="viewList()"></span>
+      <span class="icon ico-list" onclick="viewList()"></span>
       <span class="icon ico-close"></span>
       <span class="icon ico-print"></span>
       <span class="icon ico-message"></span>
@@ -111,9 +111,9 @@
           <div class="form-row">
             <div class="form-group">
               <div class="input-group">
-                <input type="text" class="form-control exception" id="letters-payments" readonly value="19">
+                <input type="text" class="form-control exception" id="letters-payments">
                 <div class="input-group-prepend">
-                  <div class="input-group-text total-letras">74</div>
+                  <div class="input-group-text total-letras"></div>
                 </div>
               </div>
             </div>
@@ -122,9 +122,9 @@
       </div>
       <span class="lote-selected font-weight-bold">Lote y Propietario</span>
       <div class="info-personal float-right">
-        <span><img src="img/icon-phone.png" class="icon">1234 5679</span>
-        <span><img src="img/icon-cellphone.png" class="icon">55 2585 3697</span>
-        <span><img src="img/icon-email.png" class="icon">jmurillo@gmail.com</span>
+        <span class="phone"><img src="img/icon-phone.png" class="icon"></span>
+        <span class="cellphone"><img src="img/icon-cellphone.png" class="icon"></span>
+        <span class="email"><img src="img/icon-email.png" class="icon"></span>
       </div>
     </div>
     <p class="lote-manzana mb-0 mt-2">Lote</p>
@@ -209,7 +209,7 @@
     </div>
     <div class="row payment-list d-none">
       <div class="col-8">
-        <table>
+        <table class="col-6">
           <thead>
             <tr>
               <th>Letra</th>
@@ -218,6 +218,16 @@
             </tr>
           </thead>
           <tbody id="pagos-lotes"></tbody>
+        </table>
+        <table class="second-table d-none col-6">
+          <thead>
+            <tr>
+              <th>Letra</th>
+              <th>Mes</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody id="pagos-lotes2"></tbody>
         </table>
       </div>
       <div class="col-4">
