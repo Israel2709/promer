@@ -67,9 +67,10 @@
     <div class="filter"></div>
     <div class="filter title"></div>
     <div class="work-list">
-      <ul id="list-desarrollos" class="mt-1">
+      <ul id="list-desarrollos">
       </ul>
-      <img src="img/add-plus.png" class="add-plus list-desarrollos">
+      <div class="icon-add-plus list-desarrollos"></div>
+      <!--img src="img/add-plus.png" class="add-plus list-desarrollos"-->
     </div>
   </div>
   <div class="search-clients d-none">
@@ -107,10 +108,10 @@
       <div class="mt-2 mb-2">
         <span class="number-principal number-desarrollo">1</span>
         <span class="name-desarrollo">Nombre Desarrollo</span>
-        <form class="personalizados col-3 float-right">
+        <form class="personalizados float-right">
           <div class="form-row">
             <div class="form-group">
-              <div class="input-group">
+              <div class="input-group letters float-right">
                 <input type="text" class="form-control exception" id="letters-payments">
                 <div class="input-group-prepend">
                   <div class="input-group-text total-letras"></div>
@@ -209,26 +210,36 @@
     </div>
     <div class="row payment-list d-none">
       <div class="col-8">
-        <table class="col-6">
-          <thead>
-            <tr>
-              <th>Letra</th>
-              <th>Mes</th>
-              <th>Monto</th>
-            </tr>
-          </thead>
-          <tbody id="pagos-lotes"></tbody>
-        </table>
-        <table class="second-table d-none col-6">
-          <thead>
-            <tr>
-              <th>Letra</th>
-              <th>Mes</th>
-              <th>Monto</th>
-            </tr>
-          </thead>
-          <tbody id="pagos-lotes2"></tbody>
-        </table>
+        <div class="row">
+          <div class="col-5">
+            <table class="list-letters table-bordered">
+              <thead>
+                <tr>
+                  <th>Letra</th>
+                  <th>Mes</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody id="pagos-lotes"></tbody>
+            </table>
+          </div>
+          <div class="col-5 ml-5">
+            <table class="list-letters second-table d-none table-bordered">
+              <thead>
+                <tr>
+                  <th>Letra</th>
+                  <th>Mes</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody id="pagos-lotes2"></tbody>
+            </table>
+            <div class="buttons-letters mt-2">
+              <div class="icon-add-plus"></div>
+              <div class="btn btn-success">Guardar</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-4">
         <form class="personalizados col-11">
@@ -238,7 +249,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Pagado</div>
                 </div>
-                <input type="text" class="form-control green" id="total-pagado" readonly>
+                <input type="text" class="form-control font-weight-bold" id="total-pagado" readonly>
               </div>
             </div>
           </div>
@@ -248,7 +259,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Adeudo</div>
                 </div>
-                <input type="text" class="form-control" id="total-adeudo" readonly>
+                <input type="text" class="form-control font-weight-bold" id="total-adeudo" readonly>
               </div>
             </div>
           </div>
