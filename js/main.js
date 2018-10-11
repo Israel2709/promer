@@ -298,7 +298,16 @@ function getInfoLote(keyLote, keyPropietario, valueLi){
         var dataInfo = snapshot.val()
         $(".lote-manzana").text("Lote "+dataInfo.lote+" Manzana "+dataInfo.manzana)
         var allDireccion = dataInfo.calle+" COL. "+dataInfo.colonia+", "+dataInfo.delegacion
-        $(".direccion").text(allDireccion.toUpperCase())           
+        $(".direccion").text(allDireccion.toUpperCase())
+        $("#enganche-lote").val('$' + parseFloat(dataInfo.enganche, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()) 
+        $("#costo-mt").val('$' + parseFloat(dataInfo.costoMetro, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+        $("#mts-lote").val(dataInfo.metros)   
+        $("#pagos-lote").val(dataInfo.pagosMensuales)
+        $("#reg-lote").val('$' + parseFloat(dataInfo.regulacion, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+        $("#fecha-compra").val(dataInfo.fechaCompra)
+        var adeudoTotal = dataInfo.metros * dataInfo.costoMetro;
+        $("#adeudo-lote").val('$' + parseFloat(adeudoTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())    
+        viewPagos(adeudoTotal)   
     });
 }
    
@@ -343,7 +352,7 @@ function changeToCurrency(input) {
     }
 }
 
-function viewPagos() {
+function viewPagos(adeudo) {
     var totalPagado = 0;
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
@@ -359,6 +368,8 @@ function viewPagos() {
             $("#pagos-lotes").append(addRow)
         });
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+        var adeudoRestante = adeudo - totalPagado;
+        $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
     });
 }
 
