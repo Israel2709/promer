@@ -194,6 +194,7 @@ function hideAction(element){
     $(element).find(".edit").addClass("d-none")
 }
 
+var arrayDesarrollos = []
 
 function getListDesarrollos(){
          $("#list-desarrollos").empty()
@@ -203,10 +204,16 @@ function getListDesarrollos(){
              var dataUsers = snapshot.val()
              $.each(dataUsers, function(indice, valor) {
                 i= i+1;
-                var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >"+i+"</span>"
-                +valor.nombreTerreno+"<span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\', \'"+valor.nombreTerreno+"\')\">Pagados</span></li>"
+                arrayDesarrollos.push({
+                    id: i,
+                    indice: indice,
+                    nombre: valor.nombreTerreno
+                });
+                var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >"+i+"</span><span class='titulo-des'>"
+                +valor.nombreTerreno+"</span><span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\', \'"+valor.nombreTerreno+"\')\">Pagados</span></li>"
                 $("#list-desarrollos").append(liFill)
              });
+             console.log(arrayDesarrollos)
          });
 }
 
@@ -569,4 +576,77 @@ function addPago() {
         });
         $(".box-area input").val("")
     });
+}
+
+$.fn.sortMe = function(type, options) {
+    var defaults = {
+        reverse: false
+    }
+    var options = $.extend(defaults, options);
+    var row = new Array();
+    this.each(function(i) {
+        row[i] = $(this).text();
+    });
+    if (type == "number") {
+        row.sort(function(a, b) {
+            return a - b;
+        });
+    } else if (type == "letter") {
+        function case_insensitive_comp(strA, strB) {
+            return strA.toLowerCase().localeCompare(strB.toLowerCase());
+        }
+        row.sort(case_insensitive_comp);
+    } else if (type == "both") {
+        function natSort(as, bs) {
+            var a, b, a1, b1, i = 0,
+                L, rx = /(\d+)|(\D+)/g,
+                rd = /\d/;
+            if (isFinite(as) && isFinite(bs)) return as - bs;
+            a = String(as).toLowerCase();
+            b = String(bs).toLowerCase();
+            if (a === b) return 0;
+            if (!(rd.test(a) && rd.test(b))) return a > b ? 1 : -1;
+            a = a.match(rx);
+            b = b.match(rx);
+            L = a.length > b.length ? b.length : a.length;
+            while (i < L) {
+                a1 = a[i];
+                b1 = b[i++];
+                if (a1 !== b1) {
+                    if (isFinite(a1) && isFinite(b1)) {
+                        if (a1.charAt(0) === "0") a1 = "." + a1;
+                        if (b1.charAt(0) === "0") b1 = "." + b1;
+                        return a1 - b1;
+                    } else return a1 > b1 ? 1 : -1;
+                }
+            }
+            return a.length - b.length;
+        }
+        row.sort(natSort);
+    } else {
+        row.sort();
+    }
+    if (defaults.reverse == true) {
+        row.reverse();
+    }
+    this.each(function(index) {
+        console.log(row[index])
+        for(var i=0; i<arrayDesarrollos.length; i++){
+            if(row[index] == arrayDesarrollos[i].nombre || row[index] == arrayDesarrollos[i].id){
+                $(this).closest("li").html("<span class='number-principal' >"+arrayDesarrollos[i].id+"</span><span class='titulo-des'>"+
+                arrayDesarrollos[i].nombre+"</span><span class='edit float-right d-none'"+
+                " onclick=\"clientsBy(\'"+arrayDesarrollos[i].id+"\', \'"+arrayDesarrollos[i].indice+"\', \'"+arrayDesarrollos[i].nombre+"\')\">Pagados</span>");
+            }
+        }
+    });
+};
+
+function ascendingOrderNumberPres(btn){
+    if($(btn).hasClass("title")){
+        $("#list-desarrollos .titulo-des").sortMe("both", {reverse: false});
+    }
+    else{
+        $("#list-desarrollos .number-principal").sortMe("number", {reverse: false});
+    }
+ /*  BEBEEE DEBES DE ELEGIR QUE QUIERES ORDENAR PRIMERO Y DE AHI YA PONES EL TEXT CON EL EACH*/
 }
