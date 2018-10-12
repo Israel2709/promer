@@ -10,6 +10,7 @@ var imagesRef = storageRef.child('images');
 
 var database = firebase.database();
 var usersRegister = []
+var arrayDesarrollos = []
 var idUserActive;
 
 function getUsers() {
@@ -24,7 +25,6 @@ function getUsers() {
             })
         });
         console.log(usersRegister)
-        console.log(usersRegister.length)
     });
 }
 
@@ -55,7 +55,6 @@ function changeView(nameView) {
     switch (nameView) {
         case 'login':
             window.location.href = 'index.html';
-            console.log("esta habilitado")
             break;
         case 'configuracion.html':
             $("#wrapper-section").load("views/" + nameView)
@@ -101,7 +100,6 @@ function updateUser(){
         var cellphone = $("#cellphone").val()
         var privilegys;
         var collectionImg = $("#picture").prop("files")[0];
-        console.log(collectionImg)
         if(collectionImg == undefined){
             if ($("#exampleRadios1").is(":checked")) {
                     privilegys = "S"
@@ -233,9 +231,9 @@ function hideAction(element){
     $(element).find(".edit").addClass("d-none")
 }
 
-var arrayDesarrollos = []
 
 function getListDesarrollos(){
+    arrayDesarrollos=[]
         $(".user-data").addClass("d-none")
          $("#list-desarrollos").empty()
          var i=0
@@ -253,7 +251,6 @@ function getListDesarrollos(){
                 +valor.nombreTerreno+"</span><span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\', \'"+valor.nombreTerreno+"\')\">Pagados</span></li>"
                 $("#list-desarrollos").append(liFill)
              });
-             console.log(arrayDesarrollos)
          });
 }
 
@@ -308,6 +305,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
 }
 
 function getClients(){
+    arrayNameClients = []
     var starClientsRef = database.ref('clientes/');
     starClientsRef.once("value", function(snapshot) {
         var infoClient = snapshot.val()
@@ -437,8 +435,7 @@ function viewPagos(adeudo) {
         $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
 
         var porcentPagado = (totalPagado * 100) / (totalPagado + adeudo)
-        var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo)
-        console.log(porcentAdeudo + porcentPagado)
+        var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo
         var oilCanvas = document.getElementById("myChart");
         var oilData = {
             labels: [
@@ -590,7 +587,6 @@ function addLoteToClient(keyClient, lote){
 }
 
 
-
 function appendDesarrollos(){
     //Esta funcion es para seleccionar el Desarrollo al dar de alta un lote
     var starCountRef = database.ref('desarrollos/');
@@ -717,7 +713,6 @@ $.fn.sortMe = function(type, options) {
         row.reverse();
     }
     this.each(function(index) {
-        console.log(row[index])
         for(var i=0; i<arrayDesarrollos.length; i++){
             if(row[index] == arrayDesarrollos[i].nombre || row[index] == arrayDesarrollos[i].id){
                 $(this).closest("li").html("<span class='number-principal' >"+arrayDesarrollos[i].id+"</span><span class='titulo-des'>"+
