@@ -59,7 +59,9 @@ function changeView(nameView) {
             break;
         case 'configuracion.html':
             $("#wrapper-section").load("views/" + nameView)
-            getInfoUsers(idUserActive)
+            setTimeout(function(){
+                getInfoUsers(idUserActive)
+            },100)
             break;
         case 'buscar.html':
             $("#wrapper-section").load("views/" + nameView)
@@ -87,10 +89,7 @@ function addPhoto(idPhoto) {
     $(idPhoto).trigger("click")
 }
 
-function updateUser() {
-    $(".user-list").show()
-    $(".settings").hide()
-    $(".add-user").hide()
+function updateUser(){
     var idSave = $("#save-edit").attr("value")
     var starCountRef = database.ref('usuarios/' + idSave);
     starCountRef.once('value', function(snapshot) {
@@ -102,7 +101,31 @@ function updateUser() {
         var cellphone = $("#cellphone").val()
         var privilegys;
         var collectionImg = $("#picture").prop("files")[0];
-        var imageRefName = storageRef.child(collectionImg.name);
+        console.log(collectionImg)
+        if(collectionImg == undefined){
+            if ($("#exampleRadios1").is(":checked")) {
+                    privilegys = "S"
+                } else {
+                    privilegys = "N"
+                }
+                var newInfo = {
+                    nombre: nameComplete,
+                    privilegios: privilegys,
+                    correo: email,
+                    telefono: phone,
+                    celular: cellphone,
+                    passwordUser: pass
+                };
+                firebase.database().ref('usuarios/' + idSave).update(newInfo);
+                $(".edit-name").text(nameComplete)
+                $(".box-area input").val("")
+                $("#img_prev").attr("src", "#")
+                $(".user-list").show()
+                $(".settings").hide()
+                $("#alert-edit").removeClass("d-none")
+        }
+        else{
+               var imageRefName = storageRef.child(collectionImg.name);
         var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
         var uploadTask = imagesRefName.put(collectionImg);
         uploadTask.on('state_changed', function(snapshot) {
@@ -130,8 +153,12 @@ function updateUser() {
                 firebase.database().ref('usuarios/' + idSave).update(newInfo);
                 $(".box-area input").val("")
                 $("#img_prev").attr("src", "#")
+                $(".user-list").show()
+                $(".settings").hide()
             });
         });
+        }
+     
 
     });
 }
@@ -148,7 +175,7 @@ function restrictToNumber(event) {
 function getInfoUsers(idUser) {
     var starCountRef = database.ref('usuarios/' + idUser);
     var key = database.ref('usuarios/' + idUser).key
-    starCountRef.once('value', function(snapshot) {
+    starCountRef.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
         $(".name-login").html("<b>"+dataInfo.nombre+"</b>")
         $(".user-data").removeClass("d-none")
@@ -188,8 +215,10 @@ function edit(idUser) {
         $("#save-edit").attr("value", idUser)
         if (dataInfo.privilegios == "S") {
             $("#exampleRadios1").prop("checked", true)
+            $("#exampleRadios2").prop("checked", false)
         } else {
             $("#exampleRadios2").prop("checked", true)
+            $("#exampleRadios1").prop("checked", false)
         }
     });
 }
@@ -502,6 +531,7 @@ function altaUser() {
               $(".user-list").show()
                 $(".settings").hide()
                 $(".add-user").hide()
+                $("#alert-new").removeClass("d-none")
          });
      });
  }
