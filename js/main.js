@@ -256,9 +256,9 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                     }
 
                     if (nameCliente == null && claveLote != null) {
-                        var liAppend = "<li onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - Sin propietario </li>"
+                        var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - Sin propietario </li>"
                     } else if(nameCliente != null && claveLote != null){
-                        var liAppend = "<li onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
+                        var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
                     }
                     $("#list-lotes").append(liAppend)
                 });
@@ -649,4 +649,15 @@ function ascendingOrderNumberPres(btn){
         $("#list-desarrollos .number-principal").sortMe("number", {reverse: false});
     }
  /*  BEBEEE DEBES DE ELEGIR QUE QUIERES ORDENAR PRIMERO Y DE AHI YA PONES EL TEXT CON EL EACH*/
+}
+
+function searchClients(filterInput, filteredText) {
+    debugger
+    var $rows = $(filteredText).find(".client-account");
+    console.log($rows)
+    var val = $.trim($(filterInput).val()).replace(/ +/g, ' ');
+    $rows.show().filter(function() {
+        var text = $(this).find(".client-account").text().replace(/\s+/g, ' ').toLowerCase()
+        return !~text.indexOf(val);
+    }).hide();
 }
