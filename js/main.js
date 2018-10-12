@@ -421,7 +421,7 @@ function viewPagos(adeudo) {
         var adeudoRestante = adeudo - totalPagado;
         $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var porcentPagado = (totalPagado * 100) / (totalPagado + adeudo)
-        var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo
+        var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo)
         var oilCanvas = document.getElementById("myChart");
         var oilData = {
             labels: [
