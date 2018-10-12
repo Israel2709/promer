@@ -177,6 +177,7 @@ p,li,span,label{
 		border: 1px solid $grayStrong;
 	}
 	.principal-user{
+		cursor: pointer;
 		p{
 			margin-bottom: 0px;
 		}
@@ -185,7 +186,6 @@ p,li,span,label{
 		}
 		.edit{
 			color: $green;
-			cursor: pointer;
 		}
 	}
 	.secondary-users{
