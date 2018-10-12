@@ -185,10 +185,13 @@ p,li,span,label{
 		}
 		.edit{
 			color: $green;
+			cursor: pointer;
 		}
 	}
 	.secondary-users{
 		padding-inline-start: 0px;
+		max-height: 96px;
+		overflow-y: scroll;
 		li{
 			list-style:none;
 			cursor: pointer;
