@@ -157,14 +157,17 @@ function getInfoUsers(idUser) {
     });
 
     var starCountRef = database.ref('usuarios/');
-    starCountRef.once('value', function(snapshot) {
+    starCountRef.on('value', function(snapshot) {
+        $(".secondary-users").empty()
         var dataInfo2 = snapshot.val()
         var i = 0;
         $.each(dataInfo2, function(indice, valor) {
             if (indice == idUser) {
                 console.log("ya existe el usuario")
             } else {
-                $(".secondary-users li:eq(" + i + ")").html("<img src=" + valor.foto + " width='35px' height='33px'>" + valor.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span>")
+                $(".secondary-users").append("<li class='secondary-list' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><img src=" + 
+                    valor.foto + " width='35px' height='33px'>" +
+                valor.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span></li>")
                 i = i + 1;
             }
         });
@@ -455,17 +458,20 @@ function viewList(){
 
 /*Funciones para agregar a base de datos*/
 
+function viewAlta(){
+    $(".user-list").hide()
+    $(".settings").hide()
+    $(".add-user").show()
+}
+
 function altaUser() {
-     $(".user-list").hide()
-     $(".settings").hide()
-     $(".add-user").show()
      var nameComplete = $("#nameCompleteAdd").val()
      var pass = $("#passwordAdd").val()
      var email = $("#emailAdd").val()
      var phone = $("#phoneAdd").val()
      var cellphone = $("#cellphoneAdd").val()
      var privilegys;
-     var collectionImg = $("#picture").prop("files")[0];
+     var collectionImg = $("#picture2").prop("files")[0];
      var imageRefName = storageRef.child(collectionImg.name);
      var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
      var uploadTask = imagesRefName.put(collectionImg);
@@ -477,7 +483,7 @@ function altaUser() {
      }, function() {
          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
              var userImage = downloadURL;
-             if ($("#exampleRadios1").is(":checked")) {
+             if ($("#exampleRadios3").is(":checked")) {
                  privilegys = "S"
              } else {
                  privilegys = "N"
@@ -493,7 +499,10 @@ function altaUser() {
              };
              firebase.database().ref('usuarios/').push(userObject);
              $(".box-area input").val("")
-             $("#img_prev").attr("src", "#")
+             $("#img_prev2").attr("src", "#")
+              $(".user-list").show()
+                $(".settings").hide()
+                $(".add-user").hide()
          });
      });
  }

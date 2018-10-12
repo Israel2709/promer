@@ -149,6 +149,8 @@ p, li, span, label {
         color: #8FAC19; }
       .work-area .secondary-users li:hover {
         color: #8FAC19; }
+      .work-area .secondary-users li img {
+        border-radius: 50%; }
   .work-area .add-plus {
     padding-left: 5px;
     padding-top: 5px;
@@ -450,5 +452,8 @@ Radios costumizados */
 
 .no-pointer {
   pointer-events: none; }
+
+#img_prev, #img_prev2 {
+  border-radius: 50%; }
 
 /*# sourceMappingURL=main.css.map */

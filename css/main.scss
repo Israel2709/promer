@@ -198,6 +198,9 @@ p,li,span,label{
 			&:hover{
 				color: $green;
 			}
+			img{
+			    border-radius: 50%;
+			}
 		}
 	}
 	.add-plus{
@@ -582,4 +585,8 @@ Radios costumizados */
 
 .no-pointer{
 	pointer-events: none;
+}
+
+#img_prev, #img_prev2{
+	border-radius: 50%;
 }
