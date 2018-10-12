@@ -43,6 +43,7 @@ function login() {
     } else {
         if (usersRegister[j].password == passLogin) {
             idUserActive = usersRegister[j].id
+            $("#left-nav a").removeClass("no-pointer")
             $("#list-settings-list").trigger("click")
         } else {
             alert("El password no es correcto")
@@ -66,6 +67,7 @@ function changeView(nameView) {
             break;
         case 'cotizador.html':
             $("#wrapper-section").load("views/" + nameView)
+            $(".user-data").removeClass("d-none")
             break;
     }
 }
@@ -148,7 +150,8 @@ function getInfoUsers(idUser) {
     var key = database.ref('usuarios/' + idUser).key
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
-            //$(".principal-user img").attr("src", dataInfo.foto)
+        $(".name-login").html("<b>"+dataInfo.nombre+"</b>")
+        $(".user-data").removeClass("d-none")
         $(".principal-user p").html("<img src=" + dataInfo.foto + " width='35px' height='33px'>" + dataInfo.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
     });
 
@@ -200,6 +203,7 @@ function hideAction(element){
 var arrayDesarrollos = []
 
 function getListDesarrollos(){
+        $(".user-data").addClass("d-none")
          $("#list-desarrollos").empty()
          var i=0
         var starCountRef = database.ref('desarrollos/');
@@ -226,7 +230,7 @@ var globalKeyDesarrollo = null;
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     $(".list-view").addClass("d-none")
-    $(".search-clients").removeClass("d-none")
+    $(".search-clients, .user-data").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
     globalKeyDesarrollo = keyDesarrollo;
