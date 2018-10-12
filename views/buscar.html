@@ -219,53 +219,53 @@
                   <th>Monto</th>
                 </tr>
               </thead>
-            <tbody id="pagos-lotes"></tbody>
-          </table>
+              <tbody id="pagos-lotes"></tbody>
+            </table>
+          </div>
+          <div class="col-5 ml-5">
+            <table class="list-letters second-table d-none table-bordered">
+              <thead>
+                <tr>
+                  <th>Letra</th>
+                  <th>Mes</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody id="pagos-lotes2"></tbody>
+            </table>
+            <div class="buttons-letters mt-2">
+              <div class="icon-add-plus"></div>
+              <div class="btn btn-success">Guardar</div>
+            </div>
+          </div>
         </div>
-        <div class="col-5 ml-5">
-          <table class="list-letters second-table d-none table-bordered">
-            <thead>
-              <tr>
-                <th>Letra</th>
-                <th>Mes</th>
-                <th>Monto</th>
-              </tr>
-            </thead>
-          <tbody id="pagos-lotes2"></tbody>
-        </table>
-        <div class="buttons-letters mt-2">
-          <div class="icon-add-plus"></div>
-          <div class="btn btn-success">Guardar</div>
-        </div>
+      </div>
+      <div class="col-4">
+        <form class="personalizados col-11">
+          <div class="form-row">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Pagado</div>
+                </div>
+                <input type="text" class="form-control font-weight-bold" id="total-pagado" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Adeudo</div>
+                </div>
+                <input type="text" class="form-control font-weight-bold" id="total-adeudo" readonly>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <div class="col-4">
-    <form class="personalizados col-11">
-      <div class="form-row">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">Pagado</div>
-            </div>
-            <input type="text" class="form-control font-weight-bold" id="total-pagado" readonly>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">Adeudo</div>
-            </div>
-            <input type="text" class="form-control font-weight-bold" id="total-adeudo" readonly>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-</div>
 </div>
 <script>
   $( document ).ready(function() {

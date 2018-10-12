@@ -59,13 +59,13 @@ function changeView(nameView) {
             break;
         case 'configuracion.html':
             $("#wrapper-section").load("views/" + nameView)
-            setTimeout(function(){
+            setTimeout(function() {
                 getInfoUsers(idUserActive)
-            },100)
+            }, 100)
             break;
         case 'buscar.html':
             $("#wrapper-section").load("views/" + nameView)
-            /*getListDesarrollos()*/
+                /*getListDesarrollos()*/
             break;
         case 'cotizador.html':
             $("#wrapper-section").load("views/" + nameView)
@@ -89,7 +89,7 @@ function addPhoto(idPhoto) {
     $(idPhoto).trigger("click")
 }
 
-function updateUser(){
+function updateUser() {
     var idSave = $("#save-edit").attr("value")
     var starCountRef = database.ref('usuarios/' + idSave);
     starCountRef.once('value', function(snapshot) {
@@ -102,64 +102,61 @@ function updateUser(){
         var privilegys;
         var collectionImg = $("#picture").prop("files")[0];
         console.log(collectionImg)
-        if(collectionImg == undefined){
+        if (collectionImg == undefined) {
             if ($("#exampleRadios1").is(":checked")) {
-                    privilegys = "S"
-                } else {
-                    privilegys = "N"
-                }
-                var newInfo = {
-                    nombre: nameComplete,
-                    privilegios: privilegys,
-                    correo: email,
-                    telefono: phone,
-                    celular: cellphone,
-                    passwordUser: pass
-                };
-                firebase.database().ref('usuarios/' + idSave).update(newInfo);
-                $(".edit-name").text(nameComplete)
-                $(".box-area input").val("")
-                $("#img_prev").attr("src", "#")
-                $(".user-list").show()
-                $(".settings").hide()
-                $("#alert-edit").removeClass("d-none")
-        }
-        else{
-               var imageRefName = storageRef.child(collectionImg.name);
-        var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
-        var uploadTask = imagesRefName.put(collectionImg);
-        uploadTask.on('state_changed', function(snapshot) {
-            var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-            console.log(progress)
-        }, function(error) {
-            console.log(error)
-        }, function() {
-            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                var userImage = downloadURL;
-                if ($("#exampleRadios1").is(":checked")) {
-                    privilegys = "S"
-                } else {
-                    privilegys = "N"
-                }
-                var newInfo = {
-                    nombre: nameComplete,
-                    foto: userImage,
-                    privilegios: privilegys,
-                    correo: email,
-                    telefono: phone,
-                    celular: cellphone,
-                    passwordUser: pass
-                };
-                firebase.database().ref('usuarios/' + idSave).update(newInfo);
-                $(".box-area input").val("")
-                $("#img_prev").attr("src", "#")
-                $(".user-list").show()
-                $(".settings").hide()
+                privilegys = "S"
+            } else {
+                privilegys = "N"
+            }
+            var newInfo = {
+                nombre: nameComplete,
+                privilegios: privilegys,
+                correo: email,
+                telefono: phone,
+                celular: cellphone,
+                passwordUser: pass
+            };
+            firebase.database().ref('usuarios/' + idSave).update(newInfo);
+            $(".edit-name").text(nameComplete)
+            $(".box-area input").val("")
+            $("#img_prev").attr("src", "img/icon-camera.png")
+            $(".user-list").show()
+            $(".settings").hide()
+            $("#alert-edit").removeClass("d-none")
+        } else {
+            var imageRefName = storageRef.child(collectionImg.name);
+            var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
+            var uploadTask = imagesRefName.put(collectionImg);
+            uploadTask.on('state_changed', function(snapshot) {
+                var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+                console.log(progress)
+            }, function(error) {
+                console.log(error)
+            }, function() {
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    var userImage = downloadURL;
+                    if ($("#exampleRadios1").is(":checked")) {
+                        privilegys = "S"
+                    } else {
+                        privilegys = "N"
+                    }
+                    var newInfo = {
+                        nombre: nameComplete,
+                        foto: userImage,
+                        privilegios: privilegys,
+                        correo: email,
+                        telefono: phone,
+                        celular: cellphone,
+                        passwordUser: pass
+                    };
+                    firebase.database().ref('usuarios/' + idSave).update(newInfo);
+                    $(".box-area input").val("")
+                    $("#img_prev").attr("src", "#")
+                    $(".user-list").show()
+                    $(".settings").hide()
+                });
             });
-        });
         }
-     
-
     });
 }
 
@@ -178,7 +175,7 @@ function getInfoUsers(idUser) {
     starCountRef.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
         $(".img-user").css('background-image', 'url(' + dataInfo.foto + ')');
-        $(".name-login").html("<b>"+dataInfo.nombre+"</b>")
+        $(".name-login").html("<b>" + dataInfo.nombre + "</b>")
         $(".user-data").removeClass("d-none")
         $(".principal-user p").html("<img src=" + dataInfo.foto + " width='30px' height='30px'>" + dataInfo.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
     });
@@ -192,15 +189,14 @@ function getInfoUsers(idUser) {
             if (indice == idUser) {
                 console.log("ya existe el usuario")
             } else {
-                $(".secondary-users").append("<li class='secondary-list' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><img src=" + 
+                $(".secondary-users").append("<li class='secondary-list' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><img src=" +
                     valor.foto + " width='30px' height='30px'>" +
-                valor.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span></li>")
+                    valor.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span></li>")
                 i = i + 1;
             }
         });
     });
 }
-
 
 function edit(idUser) {
     $(".user-list").hide()
@@ -235,26 +231,26 @@ function hideAction(element){
 
 var arrayDesarrollos = []
 
-function getListDesarrollos(){
-        $(".user-data").addClass("d-none")
-         $("#list-desarrollos").empty()
-         var i=0
-        var starCountRef = database.ref('desarrollos/');
-        starCountRef.once('value', function(snapshot) {
-             var dataUsers = snapshot.val()
-             $.each(dataUsers, function(indice, valor) {
-                i= i+1;
-                arrayDesarrollos.push({
-                    id: i,
-                    indice: indice,
-                    nombre: valor.nombreTerreno
-                });
-                var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >"+i+"</span><span class='titulo-des'>"
-                +valor.nombreTerreno+"</span><span class='edit float-right d-none' onclick=\"clientsBy(\'"+i+"\', \'"+indice+"\', \'"+valor.nombreTerreno+"\')\">Pagados</span></li>"
-                $("#list-desarrollos").append(liFill)
-             });
-             console.log(arrayDesarrollos)
-         });
+function getListDesarrollos() {
+    $(".user-data").addClass("d-none")
+    $("#list-desarrollos").empty()
+    var i = 0
+    var starCountRef = database.ref('desarrollos/');
+    starCountRef.once('value', function(snapshot) {
+        var dataUsers = snapshot.val()
+        $.each(dataUsers, function(indice, valor) {
+            i = i + 1;
+            arrayDesarrollos.push({
+                id: i,
+                indice: indice,
+                nombre: valor.nombreTerreno
+            });
+            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des'>" +
+                valor.nombreTerreno + "</span><span class='edit float-right d-none' onclick=\"clientsBy(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">Pagados</span></li>"
+            $("#list-desarrollos").append(liFill)
+        });
+        console.log(arrayDesarrollos)
+    });
 }
 
 
@@ -294,10 +290,9 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                             nameCliente = arrayNameClients[i].name
                         }
                     }
-
                     if (nameCliente == null && claveLote != null) {
                         var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - Sin propietario </li>"
-                    } else if(nameCliente != null && claveLote != null){
+                    } else if (nameCliente != null && claveLote != null) {
                         var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
                     }
                     $("#list-lotes").append(liAppend)
@@ -307,7 +302,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     });
 }
 
-function getClients(){
+function getClients() {
     var starClientsRef = database.ref('clientes/');
     starClientsRef.once("value", function(snapshot) {
         var infoClient = snapshot.val()
@@ -325,7 +320,7 @@ function getClients(){
 
 var globalKeyLote = null;
 
-function getInfoLote(keyLote, keyPropietario, valueLi){
+function getInfoLote(keyLote, keyPropietario, valueLi) {
     var i;
     var textLi = $(valueLi).text()
     globalKeyLote = keyLote;
@@ -333,50 +328,48 @@ function getInfoLote(keyLote, keyPropietario, valueLi){
     $(".detail-develop").removeClass("d-none")
     $(".search-clients").addClass("d-none")
     $(".lote-selected").text(textLi)
-    for(i=0; i<arrayNameClients.length; i++){
-        if(arrayNameClients[i].key == keyPropietario){
-            var numero= arrayNameClients[i].telefono
-            var primeraParte = numero.substr(0,4)
-            var segundaParte = numero.substr(4,8)
+    for (i = 0; i < arrayNameClients.length; i++) {
+        if (arrayNameClients[i].key == keyPropietario) {
+            var numero = arrayNameClients[i].telefono
+            var primeraParte = numero.substr(0, 4)
+            var segundaParte = numero.substr(4, 8)
             var celular = arrayNameClients[i].celular
-            var clave = celular.substr(0,2)
-            var primeraCel = celular.substr(2,4)
+            var clave = celular.substr(0, 2)
+            var primeraCel = celular.substr(2, 4)
             var segundaCel = celular.substr(6, 10)
-            $(".phone").html("<img src='img/icon-phone.png' class='icon'>"+primeraParte+" "+segundaParte)
-            $(".cellphone").html("<img src='img/icon-cellphone.png' class='icon'>"+clave+" "+primeraCel+" "+segundaCel)
-            $(".email").html("<img src='img/icon-email.png' class='icon'>"+arrayNameClients[i].email)
+            $(".phone").html("<img src='img/icon-phone.png' class='icon'>" + primeraParte + " " + segundaParte)
+            $(".cellphone").html("<img src='img/icon-cellphone.png' class='icon'>" + clave + " " + primeraCel + " " + segundaCel)
+            $(".email").html("<img src='img/icon-email.png' class='icon'>" + arrayNameClients[i].email)
         }
     }
     var starCountRef = database.ref('lotes/' + keyLote);
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
-        $(".lote-manzana").text("Lote "+dataInfo.lote+" Manzana "+dataInfo.manzana)
-        var allDireccion = dataInfo.calle+" COL. "+dataInfo.colonia+", "+dataInfo.delegacion
+        $(".lote-manzana").text("Lote " + dataInfo.lote + " Manzana " + dataInfo.manzana)
+        var allDireccion = dataInfo.calle + " COL. " + dataInfo.colonia + ", " + dataInfo.delegacion
         $(".direccion").text(allDireccion.toUpperCase())
-        $("#enganche-lote").val('$' + parseFloat(dataInfo.enganche, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()) 
+        $("#enganche-lote").val('$' + parseFloat(dataInfo.enganche, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         $("#costo-mt").val('$' + parseFloat(dataInfo.costoMetro, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
-        $("#mts-lote").val(dataInfo.metros)   
+        $("#mts-lote").val(dataInfo.metros)
         $("#pagos-lote").val(dataInfo.pagosMensuales)
         $("#reg-lote").val('$' + parseFloat(dataInfo.regulacion, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         $("#fecha-compra").val(dataInfo.fechaCompra)
         var adeudoTotal = dataInfo.metros * dataInfo.costoMetro;
-        $("#adeudo-lote").val('$' + parseFloat(adeudoTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())    
-        $(".total-letras").text(dataInfo.pagosMensuales) 
-        viewPagos(adeudoTotal)  
+        $("#adeudo-lote").val('$' + parseFloat(adeudoTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+        $(".total-letras").text(dataInfo.pagosMensuales)
+        viewPagos(adeudoTotal)
     });
 }
    
-function cotizar(){
+function cotizar() {
     var metros = $("#metros").val()
     var costoMetro = $("#costo-metro").val()
     var metroWithin = costoMetro.replace(/\$|\,/g, "");
     var totalCosto = metros * metroWithin;
     $("#total-metros").val('$' + parseFloat(totalCosto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
-
     var numeroPagos = $("#numero-pagos").val()
-    var mensualidades = totalCosto/numeroPagos;
+    var mensualidades = totalCosto / numeroPagos;
     $("#mensual-pagos").val('$' + parseFloat(mensualidades, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
-
     var enganche = $("#enganche").val()
     var engancheWithin = enganche.replace(/\$|\,/g, "");
     var totalEnganche = totalCosto - engancheWithin;
@@ -384,23 +377,20 @@ function cotizar(){
 
 }
 
-
-
 function changeToCurrency(input) {
     var imports = $(input).val()
-    var changes = imports.substr(0, imports.length-3)
+    var changes = imports.substr(0, imports.length - 3)
     var lastPart = imports.substr(imports.length - 3)
     if (lastPart == ".00") {
         var changeWithin = changes.replace(/\$|\,/g, "");
         $(input).val('$' + parseFloat(changeWithin, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
         $(input).addClass("text-right")
     } else {
-        var changeWithin2s =  imports.replace(/\$|\,/g, "");
-        if(changeWithin2s.length == 0){
+        var changeWithin2s = imports.replace(/\$|\,/g, "");
+        if (changeWithin2s.length == 0) {
             $(input).val("")
             $(input).removeClass("text-right")
-        }
-        else{
+        } else {
             $(input).val('$' + parseFloat(changeWithin2s, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
             $(input).addClass("text-right")
         }
@@ -429,13 +419,11 @@ function viewPagos(adeudo) {
                 $(".second-table").removeClass("d-none")
                 $("#pagos-lotes").append(addRow)
             }
-
         });
         $("#letters-payments").val(lengthPagados)
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var adeudoRestante = adeudo - totalPagado;
         $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
-
         var porcentPagado = (totalPagado * 100) / (totalPagado + adeudo)
         var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo)
         console.log(porcentAdeudo + porcentPagado)
@@ -453,20 +441,18 @@ function viewPagos(adeudo) {
                 ]
             }]
         };
-
         var chartOptions = {
             title: {
-              display: false,
-              text: porcentPagado.toFixed()+"%",
-              fontSize: 22,
-              position: 'top'
+                display: false,
+                text: porcentPagado.toFixed() + "%",
+                fontSize: 22,
+                position: 'top'
             },
             legend: {
-              display: false,
+                display: false,
             },
             borderColor: '#c6c6c6'
         };
-
         var pieChart = new Chart(oilCanvas, {
             type: 'pie',
             data: oilData,
@@ -482,11 +468,7 @@ function viewList(){
     $(".ico-general, .ico-list").toggleClass("active")
 }
 
-
-
-
 /*Funciones para agregar a base de datos*/
-
 function viewAlta(){
     $(".user-list").hide()
     $(".settings").hide()
@@ -494,57 +476,61 @@ function viewAlta(){
 }
 
 function altaUser() {
-     var nameComplete = $("#nameCompleteAdd").val()
-     var pass = $("#passwordAdd").val()
-     var email = $("#emailAdd").val()
-     var phone = $("#phoneAdd").val()
-     var cellphone = $("#cellphoneAdd").val()
-     var privilegys;
-     var collectionImg = $("#picture2").prop("files")[0];
-     var imageRefName = storageRef.child(collectionImg.name);
-     var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
-     var uploadTask = imagesRefName.put(collectionImg);
-     uploadTask.on('state_changed', function(snapshot) {
-         var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-         console.log(progress)
-     }, function(error) {
-         console.log(error)
-     }, function() {
-         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-             var userImage = downloadURL;
-             if ($("#exampleRadios3").is(":checked")) {
-                 privilegys = "S"
-             } else {
-                 privilegys = "N"
-             }
-             var userObject = {
-                 nombre: nameComplete,
-                 foto: userImage,
-                 privilegios: privilegys,
-                 correo: email,
-                 telefono: phone,
-                 celular: cellphone,
-                 passwordUser: pass
-             };
-             firebase.database().ref('usuarios/').push(userObject);
-             $(".box-area input").val("")
-             $("#img_prev2").attr("src", "#")
-              $(".user-list").show()
-                $(".settings").hide()
-                $(".add-user").hide()
-                $("#alert-new").removeClass("d-none")
-         });
-     });
- }
+    var nameComplete = $("#nameCompleteAdd").val()
+    var pass = $("#passwordAdd").val()
+    var email = $("#emailAdd").val()
+    var phone = $("#phoneAdd").val()
+    var cellphone = $("#cellphoneAdd").val()
+    var privilegys;
+    var collectionImg = $("#picture2").prop("files")[0];
+    var imageRefName = storageRef.child(collectionImg.name);
+    var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
+    var uploadTask = imagesRefName.put(collectionImg);
+    uploadTask.on('state_changed', function(snapshot) {
+        var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+        console.log(progress)
+    }, function(error) {
+        console.log(error)
+    }, function() {
+        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            var userImage = downloadURL;
+            if ($("#exampleRadios3").is(":checked")) {
+                privilegys = "S"
+            } else {
+                privilegys = "N"
+            }
+            var userObject = {
+                nombre: nameComplete,
+                foto: userImage,
+                privilegios: privilegys,
+                correo: email,
+                telefono: phone,
+                celular: cellphone,
+                passwordUser: pass
+            };
+            firebase.database().ref('usuarios/').push(userObject);
+            $(".box-area input").val("")
+            $("#img_prev2").attr("src", "img/icon-camera.png")
+            $(".user-list").show()
+            $(".settings").hide()
+            $(".add-user").hide()
+            $("#alert-new").removeClass("d-none");
+            setTimeout(function() {
+                $("#alert-new").addClass("d-none");
+            }, 3000);
+        });
+    });
+}
 
-
- function addTerreno(){
+function addTerreno() {
     var nameTerreno = $("#desarrollo").val()
-    firebase.database().ref('desarrollos/').push({nombreTerreno: nameTerreno});
+    firebase.database().ref('desarrollos/').push({
+        nombreTerreno: nameTerreno
+    });
     $("#desarrollo").val("")
 }
 
-function addLote(){
+function addLote() {
     var nameTerreno = $("#clave").val()
     var lote = $("#lote").val()
     var manzana = $("#manzana").val()
@@ -562,11 +548,11 @@ function addLote(){
         propietario: "s/n"
     }
     var lotesKey = firebase.database().ref('lotes/').push(arrayLotes).key;
-    firebase.database().ref('desarrollos/'+globalKeyDesarrollo+"/lotes").push(lotesKey)
+    firebase.database().ref('desarrollos/' + globalKeyDesarrollo + "/lotes").push(lotesKey)
     $("#clave, #lote, #manzana, #calle, #colonia, #delegacion").val("")
 }
 
-function addClientes(){
+function addClientes() {
     var nombreCliente = $("#nombre").val()
     var telefono = $("#telefono").val()
     var celular = $("#celular").val()
@@ -580,56 +566,58 @@ function addClientes(){
         email: email
     }
     var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
-    firebase.database().ref('clientes/'+keyCliente+"/lotes").push(lotes)
+    firebase.database().ref('clientes/' + keyCliente + "/lotes").push(lotes)
     addLoteToClient(keyCliente, lotes)
     $("#nombre, #telefono, #celular, #email, #terreno").val("")
 }
 
-function addLoteToClient(keyClient, lote){
-    firebase.database().ref('lotes/'+lote).update({propietario: keyClient})
+function addLoteToClient(keyClient, lote) {
+    firebase.database().ref('lotes/' + lote).update({
+        propietario: keyClient
+    })
 }
 
-
-
-function appendDesarrollos(){
+function appendDesarrollos() {
     //Esta funcion es para seleccionar el Desarrollo al dar de alta un lote
     var starCountRef = database.ref('desarrollos/');
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
-           var selectOption = "<option value='"+indice+"'>"+valor.nombreTerreno+"</option>"
-           $("#inlineFormCustomSelect").append(selectOption)
-       });
+            var selectOption = "<option value='" + indice + "'>" + valor.nombreTerreno + "</option>"
+            $("#inlineFormCustomSelect").append(selectOption)
+        });
     });
 }
 
-function appendClientes(){
+function appendClientes() {
     //Esta funcion es para seleccionar el terreno al dar de alta un cliente
     var starCountRef = database.ref('lotes/');
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
-           var selectOption = "<option value='"+indice+"'>"+valor.clave+"</option>"
-           $("#inlineFormCustomSelect").append(selectOption)
-       });
+            var selectOption = "<option value='" + indice + "'>" + valor.clave + "</option>"
+            $("#inlineFormCustomSelect").append(selectOption)
+        });
     });
 }
 
-function NosePorqueLoHiceAsi(keyClient, lote){
+function NosePorqueLoHiceAsi(keyClient, lote) {
     var starCountRef = database.ref('desarrollos/');
     var keyFromDesarrollo;
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
             var lotesFromDesarrollo = valor.lotes
-           $.each(lotesFromDesarrollo, function(indice2, valor2) {
-               if(valor2 == lote){
-                 keyDesarrollo = indice
-               }
-           });
-       });
+            $.each(lotesFromDesarrollo, function(indice2, valor2) {
+                if (valor2 == lote) {
+                    keyDesarrollo = indice
+                }
+            });
+        });
     });
-    firebase.database().ref('').update({propietario: key})
+    firebase.database().ref('').update({
+        propietario: key
+    })
 }
 
 function addPago() {
@@ -637,14 +625,12 @@ function addPago() {
     var fechaPago = $("#fecha").val()
     var montoPago = $("#monto").val()
     var numeroPago = 1;
-
     var knowPagos = database.ref('pagos/');
     knowPagos.once('value', function(snapshot) {
         var dataInfo = snapshot.val()
         var lengthInfo = snapshot.numChildren();
         if (lengthInfo == 0) {
             numeroPago = "0" + numeroPago
-
         } else {
             $.each(dataInfo, function(indice, valor) {
                 if (valor.idLote == globalKeyLote) {
@@ -718,24 +704,27 @@ $.fn.sortMe = function(type, options) {
     }
     this.each(function(index) {
         console.log(row[index])
-        for(var i=0; i<arrayDesarrollos.length; i++){
-            if(row[index] == arrayDesarrollos[i].nombre || row[index] == arrayDesarrollos[i].id){
-                $(this).closest("li").html("<span class='number-principal' >"+arrayDesarrollos[i].id+"</span><span class='titulo-des'>"+
-                arrayDesarrollos[i].nombre+"</span><span class='edit float-right d-none'"+
-                " onclick=\"clientsBy(\'"+arrayDesarrollos[i].id+"\', \'"+arrayDesarrollos[i].indice+"\', \'"+arrayDesarrollos[i].nombre+"\')\">Pagados</span>");
+        for (var i = 0; i < arrayDesarrollos.length; i++) {
+            if (row[index] == arrayDesarrollos[i].nombre || row[index] == arrayDesarrollos[i].id) {
+                $(this).closest("li").html("<span class='number-principal' >" + arrayDesarrollos[i].id + "</span><span class='titulo-des'>" +
+                    arrayDesarrollos[i].nombre + "</span><span class='edit float-right d-none'" +
+                    " onclick=\"clientsBy(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">Pagados</span>");
             }
         }
     });
 };
 
-function ascendingOrderNumberPres(btn){
-    if($(btn).hasClass("title")){
-        $("#list-desarrollos .titulo-des").sortMe("both", {reverse: false});
+function ascendingOrderNumberPres(btn) {
+    if ($(btn).hasClass("title")) {
+        $("#list-desarrollos .titulo-des").sortMe("both", {
+            reverse: false
+        });
+    } else {
+        $("#list-desarrollos .number-principal").sortMe("number", {
+            reverse: false
+        });
     }
-    else{
-        $("#list-desarrollos .number-principal").sortMe("number", {reverse: false});
-    }
- /*  BEBEEE DEBES DE ELEGIR QUE QUIERES ORDENAR PRIMERO Y DE AHI YA PONES EL TEXT CON EL EACH*/
+    /*  BEBEEE DEBES DE ELEGIR QUE QUIERES ORDENAR PRIMERO Y DE AHI YA PONES EL TEXT CON EL EACH*/
 }
 
 function searchClients() {
@@ -746,7 +735,7 @@ function searchClients() {
     li = $("li.client-account");
     for (i = 0; i < li.length; i++) {
         a = li[i];
-        if($(a).html().toUpperCase().indexOf(filter) > -1 ){
+        if ($(a).html().toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "";
         } else {
             li[i].style.display = "none";
