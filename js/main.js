@@ -10,6 +10,7 @@ var imagesRef = storageRef.child('images');
 
 var database = firebase.database();
 var usersRegister = []
+var arrayDesarrollos = []
 var idUserActive;
 
 function getUsers() {
@@ -24,7 +25,6 @@ function getUsers() {
             })
         });
         console.log(usersRegister)
-        console.log(usersRegister.length)
     });
 }
 
@@ -55,7 +55,6 @@ function changeView(nameView) {
     switch (nameView) {
         case 'login':
             window.location.href = 'index.html';
-            console.log("esta habilitado")
             break;
         case 'configuracion.html':
             $("#wrapper-section").load("views/" + nameView)
@@ -229,8 +228,6 @@ function hideAction(element){
     $(element).find(".edit").addClass("d-none")
 }
 
-var arrayDesarrollos = []
-
 function getListDesarrollos() {
     $(".user-data").addClass("d-none")
     $("#list-desarrollos").empty()
@@ -252,7 +249,6 @@ function getListDesarrollos() {
         console.log(arrayDesarrollos)
     });
 }
-
 
 var arrayNameClients = []
 var globalKeyDesarrollo = null;
@@ -425,8 +421,7 @@ function viewPagos(adeudo) {
         var adeudoRestante = adeudo - totalPagado;
         $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var porcentPagado = (totalPagado * 100) / (totalPagado + adeudo)
-        var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo)
-        console.log(porcentAdeudo + porcentPagado)
+        var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo
         var oilCanvas = document.getElementById("myChart");
         var oilData = {
             labels: [
