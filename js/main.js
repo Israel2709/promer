@@ -88,6 +88,10 @@ function addPhoto(idPhoto) {
 }
 
 function updateUser() {
+    $(".user-list").show()
+    $(".settings").hide()
+    $(".add-user").hide()
+    
     var idSave = $("#save-edit").attr("value")
     var starCountRef = database.ref('usuarios/' + idSave);
     starCountRef.once('value', function(snapshot) {
@@ -452,11 +456,14 @@ function viewList(){
 /*Funciones para agregar a base de datos*/
 
 function altaUser() {
-     var nameComplete = $("#nameComplete").val()
-     var pass = $("#password").val()
-     var email = $("#email").val()
-     var phone = $("#phone").val()
-     var cellphone = $("#cellphone").val()
+     $(".user-list").hide()
+     $(".settings").hide()
+     $(".add-user").show()
+     var nameComplete = $("#nameCompleteAdd").val()
+     var pass = $("#passwordAdd").val()
+     var email = $("#emailAdd").val()
+     var phone = $("#phoneAdd").val()
+     var cellphone = $("#cellphoneAdd").val()
      var privilegys;
      var collectionImg = $("#picture").prop("files")[0];
      var imageRefName = storageRef.child(collectionImg.name);
