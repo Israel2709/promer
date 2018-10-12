@@ -150,7 +150,7 @@ function updateUser() {
                     };
                     firebase.database().ref('usuarios/' + idSave).update(newInfo);
                     $(".box-area input").val("")
-                    $("#img_prev").attr("src", "#")
+                    $("#img_prev").attr("src", "img/icon-camera.png")
                     $(".user-list").show()
                     $(".settings").hide()
                 });
@@ -229,6 +229,7 @@ function hideAction(element){
 }
 
 function getListDesarrollos() {
+    arrayDesarrollos = []
     $(".user-data").addClass("d-none")
     $("#list-desarrollos").empty()
     var i = 0
@@ -246,7 +247,6 @@ function getListDesarrollos() {
                 valor.nombreTerreno + "</span><span class='edit float-right d-none' onclick=\"clientsBy(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">Pagados</span></li>"
             $("#list-desarrollos").append(liFill)
         });
-        console.log(arrayDesarrollos)
     });
 }
 
@@ -398,6 +398,7 @@ function viewPagos(adeudo) {
     var lengthPagados = 0;
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
+        $("#pagos-lotes2, #pagos-lotes").empty()
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
             var addRow;
@@ -409,11 +410,11 @@ function viewPagos(adeudo) {
                     "<td>" + valor.fecha + "</td>" +
                     "<td>" + formatCurrency + "</td></tr>"
             }
-            if (lengthPagados >= 13) {
-                $("#pagos-lotes2").append(addRow)
+            if (lengthPagados <= 13) {
+                $("#pagos-lotes").append(addRow)
             } else {
                 $(".second-table").removeClass("d-none")
-                $("#pagos-lotes").append(addRow)
+                $("#pagos-lotes2").append(addRow)
             }
         });
         $("#letters-payments").val(lengthPagados)
