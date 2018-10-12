@@ -89,7 +89,6 @@ function updateUser() {
     $(".user-list").show()
     $(".settings").hide()
     $(".add-user").hide()
-    
     var idSave = $("#save-edit").attr("value")
     var starCountRef = database.ref('usuarios/' + idSave);
     starCountRef.once('value', function(snapshot) {
