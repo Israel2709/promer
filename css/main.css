@@ -1,7 +1,7 @@
 p, li, span, label {
   color: #838084; }
 
-.search-clients, .detail-develop, .payment-list {
+.search-clients, .detail-develop, .add-user, .payment-list {
   position: relative;
   z-index: 9999; }
 
@@ -118,10 +118,10 @@ p, li, span, label {
       padding-left: 30px; }
   .work-area button {
     z-index: 999; }
-  .work-area .settings {
+  .work-area .settings, .work-area .add-user {
     display: none; }
-    .work-area .settings .form-settings .form-group {
-      margin-bottom: 5px; }
+  .work-area .form-settings .form-group {
+    margin-bottom: 5px; }
   .work-area .title-settings {
     color: #B0B2B3; }
     .work-area .title-settings .icon {

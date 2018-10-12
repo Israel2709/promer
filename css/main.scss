@@ -8,7 +8,7 @@ $grayTrans: #E4E4E5;
 p,li,span,label{
 	color: $grayStrong;
 }
-.search-clients, .detail-develop, .payment-list{
+.search-clients, .detail-develop, .add-user, .payment-list{
 	position: relative;
 	z-index: 9999;
 }
@@ -151,12 +151,12 @@ p,li,span,label{
 	button{
 		z-index: 999;
 	}
-	.settings{
+	.settings, .add-user{
 		display: none;
-		.form-settings{
-			.form-group{
+	}
+	.form-settings{
+		.form-group{
 			margin-bottom: 5px;
-			}
 		}
 	}
 	.title-settings{
