@@ -177,9 +177,10 @@ function getInfoUsers(idUser) {
     var key = database.ref('usuarios/' + idUser).key
     starCountRef.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
+        $(".img-user").css('background-image', 'url(' + dataInfo.foto + ')');
         $(".name-login").html("<b>"+dataInfo.nombre+"</b>")
         $(".user-data").removeClass("d-none")
-        $(".principal-user p").html("<img src=" + dataInfo.foto + " width='35px' height='33px'>" + dataInfo.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
+        $(".principal-user p").html("<img src=" + dataInfo.foto + " width='30px' height='30px'>" + dataInfo.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + key + "\')\">Editar</span>")
     });
 
     var starCountRef = database.ref('usuarios/');
@@ -192,7 +193,7 @@ function getInfoUsers(idUser) {
                 console.log("ya existe el usuario")
             } else {
                 $(".secondary-users").append("<li class='secondary-list' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><img src=" + 
-                    valor.foto + " width='35px' height='33px'>" +
+                    valor.foto + " width='30px' height='30px'>" +
                 valor.nombre + " <span class='edit float-right d-none' onclick=\"edit(\'" + indice + "\')\">Editar</span></li>")
                 i = i + 1;
             }

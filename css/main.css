@@ -140,6 +140,9 @@ p, li, span, label {
     color: #8FAC19; }
   .work-area .principal-user .edit {
     color: #8FAC19; }
+  .work-area .principal-user img {
+    border-radius: 50%;
+    margin: 3px; }
   .work-area .secondary-users {
     padding-inline-start: 0px; }
     .work-area .secondary-users li {
@@ -150,7 +153,8 @@ p, li, span, label {
       .work-area .secondary-users li:hover {
         color: #8FAC19; }
       .work-area .secondary-users li img {
-        border-radius: 50%; }
+        border-radius: 50%;
+        margin: 3px; }
   .work-area .add-plus {
     padding-left: 5px;
     padding-top: 5px;
