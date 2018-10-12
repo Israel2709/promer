@@ -436,4 +436,9 @@ Radios costumizados */
   border-radius: 50%;
   background: #8FAC19; }
 
+#myChart {
+  border: 1px solid #838084;
+  border-radius: 5px;
+  padding: 10px; }
+
 /*# sourceMappingURL=main.css.map */

@@ -374,28 +374,67 @@ function viewPagos(adeudo) {
     knowPagos.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
-             var addRow;
+            var addRow;
             if (valor.idLote == globalKeyLote) {
                 lengthPagados = lengthPagados + 1;
                 var formatCurrency = '$' + parseFloat(valor.monto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
                 totalPagado = totalPagado + parseInt(valor.monto)
-                addRow = "<tr><td>"+valor.numero+"</td>"+
-                "<td>"+valor.fecha+"</td>"+
-                "<td>"+formatCurrency+"</td></tr>"
+                addRow = "<tr><td>" + valor.numero + "</td>" +
+                    "<td>" + valor.fecha + "</td>" +
+                    "<td>" + formatCurrency + "</td></tr>"
             }
-            if(lengthPagados >= 13){
-                 $("#pagos-lotes2").append(addRow)
-            }
-            else{
+            if (lengthPagados >= 13) {
+                $("#pagos-lotes2").append(addRow)
+            } else {
                 $(".second-table").removeClass("d-none")
                 $("#pagos-lotes").append(addRow)
             }
-           
+
         });
         $("#letters-payments").val(lengthPagados)
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var adeudoRestante = adeudo - totalPagado;
         $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+
+        var porcentPagado = (totalPagado * 100) / (totalPagado + adeudo)
+        var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo)
+        console.log(porcentAdeudo + porcentPagado)
+        var oilCanvas = document.getElementById("myChart");
+        var oilData = {
+            labels: [
+                "Pagado",
+                "Adeudo"
+            ],
+            datasets: [{
+                data: [porcentPagado.toFixed(), porcentAdeudo.toFixed()],
+                backgroundColor: [
+                    "#8FAC19",
+                    "#D8D9DA"
+                ]
+            }]
+        };
+
+        var chartOptions = {
+            title: {
+              display: true,
+              text: porcentPagado.toFixed()+"%",
+              fontSize: 22,
+              position: 'right'
+            },
+            legend: {
+              display: false,
+            },
+            borderColor: '#c6c6c6'
+
+
+        };
+
+
+        var pieChart = new Chart(oilCanvas, {
+            type: 'pie',
+            data: oilData,
+            options: chartOptions
+        });
     });
 }
 
