@@ -177,6 +177,7 @@ p,li,span,label{
 		border: 1px solid $grayStrong;
 	}
 	.principal-user{
+		cursor: pointer;
 		p{
 			margin-bottom: 0px;
 		}
@@ -185,7 +186,6 @@ p,li,span,label{
 		}
 		.edit{
 			color: $green;
-			cursor: pointer;
 		}
 		img{
 			border-radius: 50%;
@@ -598,3 +598,4 @@ Radios costumizados */
 #img_prev, #img_prev2{
 	border-radius: 50%;
 }
+
