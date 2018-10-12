@@ -139,12 +139,15 @@ p, li, span, label {
   .work-area .principal-user p:hover {
     color: #8FAC19; }
   .work-area .principal-user .edit {
-    color: #8FAC19; }
+    color: #8FAC19;
+    cursor: pointer; }
   .work-area .principal-user img {
     border-radius: 50%;
     margin: 3px; }
   .work-area .secondary-users {
-    padding-inline-start: 0px; }
+    padding-inline-start: 0px;
+    max-height: 96px;
+    overflow-y: scroll; }
     .work-area .secondary-users li {
       list-style: none;
       cursor: pointer; }
