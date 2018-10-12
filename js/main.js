@@ -416,25 +416,23 @@ function viewPagos(adeudo) {
 
         var chartOptions = {
             title: {
-              display: true,
+              display: false,
               text: porcentPagado.toFixed()+"%",
               fontSize: 22,
-              position: 'right'
+              position: 'top'
             },
             legend: {
               display: false,
             },
             borderColor: '#c6c6c6'
-
-
         };
-
 
         var pieChart = new Chart(oilCanvas, {
             type: 'pie',
             data: oilData,
             options: chartOptions
         });
+        $(".label-porcent").text(porcentPagado.toFixed() + "%")
     });
 }
 
@@ -690,13 +688,18 @@ function ascendingOrderNumberPres(btn){
  /*  BEBEEE DEBES DE ELEGIR QUE QUIERES ORDENAR PRIMERO Y DE AHI YA PONES EL TEXT CON EL EACH*/
 }
 
-function searchClients(filterInput, filteredText) {
-    debugger
-    var $rows = $(filteredText).find(".client-account");
-    console.log($rows)
-    var val = $.trim($(filterInput).val()).replace(/ +/g, ' ');
-    $rows.show().filter(function() {
-        var text = $(this).find(".client-account").text().replace(/\s+/g, ' ').toLowerCase()
-        return !~text.indexOf(val);
-    }).hide();
+function searchClients() {
+    var input, filter, ul, li, a, i;
+    input = $("#search");
+    filter = input.val().toUpperCase();
+    ul = $("#list-lotes");
+    li = $("li.client-account");
+    for (i = 0; i < li.length; i++) {
+        a = li[i];
+        if($(a).html().toUpperCase().indexOf(filter) > -1 ){
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
 }
