@@ -127,13 +127,22 @@ p, li, span, label {
   .work-area .title-settings {
     color: #B0B2B3; }
     .work-area .title-settings .icon {
-      width: 20px;
-      height: 20px;
-      display: inline-block; }
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+      margin-right: 8px; }
       .work-area .title-settings .icon.users {
-        background: url("../img/users.png") no-repeat; }
+        background-image: url("../img/users.png");
+        background-size: contain;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center; }
       .work-area .title-settings .icon.edit-user {
-        background: url("../img/icon-user.png") no-repeat; }
+        background-image: url("../img/icon-user.png");
+        background-size: contain;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center; }
   .work-area .separator {
     border: 1px solid #838084; }
   .work-area .principal-user {
@@ -148,8 +157,9 @@ p, li, span, label {
       border-radius: 50%;
       margin: 3px; }
   .work-area .secondary-users {
+    padding: 0px;
     padding-inline-start: 0px;
-    max-height: 96px;
+    max-height: 105px;
     overflow-y: scroll; }
     .work-area .secondary-users li {
       list-style: none;
@@ -162,8 +172,8 @@ p, li, span, label {
         border-radius: 50%;
         margin: 3px; }
   .work-area .add-plus {
-    padding-left: 5px;
-    padding-top: 5px;
+    /* padding-left: 5px;
+    padding-top: 5px; */
     cursor: pointer; }
     .work-area .add-plus.list-desarrollos {
       padding-left: 0px; }
@@ -183,6 +193,11 @@ p, li, span, label {
     .work-area .btn-success :hover {
       background-color: #8FAC19;
       border-color: #8FAC19; }
+  .work-area .btn-danger {
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 9999;
+    position: relative; }
   .work-area .form-group input {
     height: 30px;
     font-size: 13px; }
@@ -406,6 +421,9 @@ p, li, span, label {
     z-index: 1040;
     background-color: #000;
     opacity: .5; }
+  .work-area .new-desarrollo input {
+    z-index: 99999;
+    position: relative; }
 
 /* 
 Radios costumizados */

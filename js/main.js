@@ -520,10 +520,27 @@ function altaUser() {
 
 function addTerreno() {
     var nameTerreno = $("#desarrollo").val()
-    firebase.database().ref('desarrollos/').push({
-        nombreTerreno: nameTerreno
-    });
-    $("#desarrollo").val("")
+    console.log(nameTerreno.length)
+    if(nameTerreno.length == 0){
+        alert("Ingrese nombre de desarrollo")
+    }
+    else{
+        firebase.database().ref('desarrollos/').push({
+            nombreTerreno: nameTerreno
+        });
+        $("#desarrollo").val("")
+        getListDesarrollos()
+        changeViewsAll('.list-view', '.new-desarrollo')
+        $("#alert-desarrollo").removeClass("d-none")
+        setTimeout(function(){
+            $("#alert-desarrollo").addClass("d-none")
+        },3000)
+    }
+}
+
+function changeViewsAll(vista1, vista2){
+    $(vista1).removeClass("d-none")
+    $(vista2).addClass("d-none")
 }
 
 function addLote() {
@@ -553,7 +570,7 @@ function addClientes() {
     var telefono = $("#telefono").val()
     var celular = $("#celular").val()
     var email = $("#email").val()
-    var lotes = $("#inlineFormCustomSelect option:selected").attr("value")
+    var lotes = $("#lotes-by option:selected").attr("value")
 
     var arrayCliente = {
         nombre: nombreCliente,
@@ -586,7 +603,17 @@ function appendDesarrollos() {
 }
 
 function appendClientes() {
+    changeViewsAll(".new-client", '.view-client')
+    var arrayLotesBy = []
     //Esta funcion es para seleccionar el terreno al dar de alta un cliente
+    //Filtrar los lotes que no tengan propietario y añadir agregar lotes en nuevo desarrollo
+    var starCountRef = database.ref('desarrollos/'+globalKeyDesarrollo+'/lotes');
+    starCountRef.once('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+         $.each(dataInfo, function(indice, valor) {
+           arrayLotesBy.push(valor)
+        });
+    });
     var starCountRef = database.ref('lotes/');
     starCountRef.once('value', function(snapshot) {
         var dataInfo = snapshot.val()

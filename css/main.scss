@@ -164,14 +164,23 @@ p,li,span,label{
 	.title-settings{
 		color: $grayMedium;
 		.icon{
-			width: 20px;
-			height: 20px;
+			width: 25px;
+			height: 25px;
 			display: inline-block;
+			margin-right: 8px;
 			&.users{
-				background: url("../img/users.png") no-repeat;
+				background-image: url("../img/users.png");
+				background-size: contain;
+				background-size: contain;
+			    background-repeat: no-repeat;
+			    background-position: center;
 			}
 			&.edit-user{
-				background: url("../img/icon-user.png") no-repeat;
+				background-image: url("../img/icon-user.png");
+				background-size: contain;
+				background-size: contain;
+			    background-repeat: no-repeat;
+			    background-position: center;
 			}
 		}
 	}
@@ -195,8 +204,9 @@ p,li,span,label{
 		}
 	}
 	.secondary-users{
+		padding: 0px;
 		padding-inline-start: 0px;
-		max-height: 96px;
+		max-height: 105px;
 		overflow-y: scroll;
 		li{
 			list-style:none;
@@ -214,8 +224,8 @@ p,li,span,label{
 		}
 	}
 	.add-plus{
-		padding-left: 5px;
-		padding-top: 5px;
+		/* padding-left: 5px;
+		padding-top: 5px; */
 		cursor: pointer;
 		&.list-desarrollos{
 			padding-left: 0px;
@@ -240,6 +250,12 @@ p,li,span,label{
 			background-color: $green;
 		    border-color: $green;
 		}
+	}
+	.btn-danger{
+		border-radius: 20px;
+		cursor: pointer;
+		z-index: 9999;
+		position: relative;
 	}
 	.form-group{
 		input{
@@ -528,6 +544,12 @@ p,li,span,label{
 	    z-index: 1040;
 	    background-color: #000;
 	    opacity: .5;
+	}
+	.new-desarrollo{
+		input{
+			z-index: 99999;
+			position: relative;
+		}
 	}
 }
 
