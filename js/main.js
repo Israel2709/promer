@@ -520,17 +520,22 @@ function altaUser() {
 
 function addTerreno() {
     var nameTerreno = $("#desarrollo").val()
+    var lis = $("#list-lotes li")
     console.log(nameTerreno.length)
-    if(nameTerreno.length == 0){
+    if(nameTerreno.length == 0 && lis.length == 0){
         alert("Ingrese nombre de desarrollo")
     }
     else{
-        firebase.database().ref('desarrollos/').push({
+        var keyNew = firebase.database().ref('desarrollos/').push({
             nombreTerreno: nameTerreno
-        });
+        }).key
+        for(var i=0; i<lotesOn.length; i++){
+            addLote(keyNew, i)
+        }
         $("#desarrollo").val("")
+        lotesOn = []
         getListDesarrollos()
-        changeViewsAll('.list-view', '.new-desarrollo')
+        changeViewsAll('buscar.html')
         $("#alert-desarrollo").removeClass("d-none")
         setTimeout(function(){
             $("#alert-desarrollo").addClass("d-none")
@@ -538,32 +543,65 @@ function addTerreno() {
     }
 }
 
-function changeViewsAll(vista1, vista2){
-    $(vista1).removeClass("d-none")
-    $(vista2).addClass("d-none")
+function addLote(idNewDesarrollo, i) {
+    var arrayLotes = {
+        clave: "L"+lotesOn[i].lote+"M"+lotesOn[i].manzana,
+        lote: lotesOn[i].lote,
+        manzana: lotesOn[i].manzana,
+        calle: lotesOn[i].calle,
+        colonia: lotesOn[i].colonia,
+        delegacion: lotesOn[i].delegacion,
+        propietario: "S/N",
+        metros: lotesOn[i].metros,
+        costoMetro: lotesOn[i].costoMetro,
+        enganche: "S/N",
+        fechaCompra: "S/N",
+        pagosMensuales: "S/N"
+
+    }
+
+    /*Poner en int las cantidades que son numericas y poner que solo se ingresen numeros y continuar con la funcion de cliente*/
+    var lotesKey = firebase.database().ref('lotes/').push(arrayLotes).key;
+    firebase.database().ref('desarrollos/' + idNewDesarrollo + "/lotes").push(lotesKey)
 }
 
-function addLote() {
-    var nameTerreno = $("#clave").val()
+function changeViewsAll(nameView){
+    $("#wrapper-section").load("views/" + nameView)
+}
+
+function toggleView(vista1, vista2){
+    $(vista1).addClass("d-none")
+    $(vista2).removeClass("d-none")
+}
+
+var lotesOn = []
+
+function addOnArray(){
     var lote = $("#lote").val()
     var manzana = $("#manzana").val()
     var calle = $("#calle").val()
     var colonia = $("#colonia").val()
     var delegacion = $("#delegacion").val()
+    var metros = $("#metros").val()
+    var costoMetro = $("#costo-metro").val()
 
-    var arrayLotes = {
-        clave: nameTerreno,
+    lotesOn.push({
         lote: lote,
         manzana: manzana,
         calle: calle,
         colonia: colonia,
         delegacion: delegacion,
-        propietario: "s/n"
-    }
-    var lotesKey = firebase.database().ref('lotes/').push(arrayLotes).key;
-    firebase.database().ref('desarrollos/' + globalKeyDesarrollo + "/lotes").push(lotesKey)
-    $("#clave, #lote, #manzana, #calle, #colonia, #delegacion").val("")
+        metros: metros,
+        costoMetro: costoMetro
+    })
+
+    console.log(lotesOn)
+    $("#list-lotes").append("<li>L"+lote+"M"+manzana+"</li>")
+    toggleView('.add-lotes', '.new-desarrollo')
+    $(".add-lotes input").val("")
 }
+
+
 
 function addClientes() {
     var nombreCliente = $("#nombre").val()
@@ -603,7 +641,7 @@ function appendDesarrollos() {
 }
 
 function appendClientes() {
-    changeViewsAll(".new-client", '.view-client')
+  /*  changeViewsAll(".new-client", '.view-client')*/
     var arrayLotesBy = []
     //Esta funcion es para seleccionar el terreno al dar de alta un cliente
     //Filtrar los lotes que no tengan propietario y añadir agregar lotes en nuevo desarrollo
