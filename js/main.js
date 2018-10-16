@@ -380,15 +380,15 @@ function changeToCurrency(input) {
     if (lastPart == ".00") {
         var changeWithin = changes.replace(/\$|\,/g, "");
         $(input).val('$' + parseFloat(changeWithin, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
-        $(input).addClass("text-right")
+        //$(input).addClass("text-right")
     } else {
         var changeWithin2s = imports.replace(/\$|\,/g, "");
         if (changeWithin2s.length == 0) {
             $(input).val("")
-            $(input).removeClass("text-right")
+            //$(input).removeClass("text-right")
         } else {
             $(input).val('$' + parseFloat(changeWithin2s, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
-            $(input).addClass("text-right")
+            //$(input).addClass("text-right")
         }
     }
 }
