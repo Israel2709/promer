@@ -1,0 +1,97 @@
+<div class="box-area ">
+  <div class="new-desarrollo">
+    <div class="header mb-3">
+      <div class="icon-logo-search">
+        <h3 class="title-settings">Nuevo Desarrollo</h3>
+      </div>
+    </div>
+    <div class="separator"></div>
+    <div class="form">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Nombre desarrollo</label>
+        <input type="text" class="form-control" id="desarrollo">
+      </div>
+      <div class="btn btn-success" onclick="toggleView('.new-desarrollo', '.add-lotes')">Añadir Lotes</div>
+      <div class="separator"></div>
+      <ul id="list-lotes">
+        
+      </ul>
+      <div class="btn btn-danger" onclick="changeViewsAll('buscar.html')">Cancelar</div>
+      <div class="btn btn-success" onclick="addTerreno()" >Aceptar</div> <!-- onclick="addTerreno()" -->
+    </div>
+  </div>
+  <div class="add-lotes d-none">
+    <div class="header mb-3">
+      <div class="icon-logo-search">
+        <h3 class="title-settings">Nuevo Desarrollo</h3>
+      </div>
+    </div>
+    <div class="separator"></div>
+    <div class="form-row ">
+      <div class="form-group col-6">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Lote</div>
+          </div>
+          <input type="text" class="form-control" id="lote" placeholder="Metros">
+        </div>
+      </div>
+      <div class="form-group col-6">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Manzana</div>
+          </div>
+          <input type="text" class="form-control" id="manzana" placeholder="manzana">
+        </div>
+      </div>
+    </div>
+    <div class="form-row ">
+      <div class="form-group col-6">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Calle</div>
+          </div>
+          <input type="text" class="form-control" id="calle" placeholder="calle">
+        </div>
+      </div>
+      <div class="form-group col-6">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Colonia</div>
+          </div>
+          <input type="text" class="form-control" id="colonia" placeholder="colonia">
+        </div>
+      </div>
+    </div>
+    <div class="form-row ">
+      <div class="form-group col-6">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Delegación</div>
+          </div>
+          <input type="text" class="form-control" id="delegacion" placeholder="Delegación">
+        </div>
+      </div>
+    </div>
+    <div class="form-row ">
+      <div class="form-group col-6">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Metros</div>
+          </div>
+          <input type="text" class="form-control" id="metros" placeholder="Metros">
+        </div>
+      </div>
+      <div class="form-group col-6">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Costo metro</div>
+          </div>
+          <input type="text" class="form-control" id="costo-metro" placeholder="Costo metro">
+        </div>
+      </div>
+    </div>
+    <div class="btn btn-danger" onclick="toggleView('.add-lotes', '.new-desarrollo')">Cancelar</div>
+    <div class="btn btn-success" onclick="addOnArray()">Agregar</div>
+  </div>
+</div>
