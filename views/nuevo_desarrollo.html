@@ -33,7 +33,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">Lote</div>
           </div>
-          <input type="text" class="form-control" id="lote" placeholder="Metros">
+          <input type="text" class="form-control" id="lote" placeholder="Metros" onkeypress="restrictToNumber(event)" maxlength="2">
         </div>
       </div>
       <div class="form-group col-6">
@@ -41,7 +41,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">Manzana</div>
           </div>
-          <input type="text" class="form-control" id="manzana" placeholder="manzana">
+          <input type="text" class="form-control" id="manzana" placeholder="manzana" onkeypress="restrictToNumber(event)" maxlength="2">
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">Metros</div>
           </div>
-          <input type="text" class="form-control" id="metros" placeholder="Metros">
+          <input type="text" class="form-control" id="metros" placeholder="Metros" onkeypress="restrictToNumber(event)">
         </div>
       </div>
       <div class="form-group col-6">
@@ -87,7 +87,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">Costo metro</div>
           </div>
-          <input type="text" class="form-control" id="costo-metro" placeholder="Costo metro">
+          <input type="text" class="form-control" id="costo-metro" placeholder="Costo metro" onblur="changeToCurrency(this)" onkeypress="restrictToNumber(event)">
         </div>
       </div>
     </div>

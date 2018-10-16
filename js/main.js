@@ -162,7 +162,7 @@ function updateUser() {
 function restrictToNumber(event) {
     event = (event) ? event : window.event
     var charCode = (event.which) ? event.which : event.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
         event.preventDefault();
     }
     return true
@@ -521,9 +521,8 @@ function altaUser() {
 function addTerreno() {
     var nameTerreno = $("#desarrollo").val()
     var lis = $("#list-lotes li")
-    console.log(nameTerreno.length)
-    if(nameTerreno.length == 0 && lis.length == 0){
-        alert("Ingrese nombre de desarrollo")
+    if(nameTerreno.length == 0 || lis.length == 0){
+        alert("Ingrese nombre de desarrollo y al menos un lote")
     }
     else{
         var keyNew = firebase.database().ref('desarrollos/').push({
@@ -559,8 +558,6 @@ function addLote(idNewDesarrollo, i) {
         pagosMensuales: "S/N"
 
     }
-
-    /*Poner en int las cantidades que son numericas y poner que solo se ingresen numeros y continuar con la funcion de cliente*/
     var lotesKey = firebase.database().ref('lotes/').push(arrayLotes).key;
     firebase.database().ref('desarrollos/' + idNewDesarrollo + "/lotes").push(lotesKey)
 }
@@ -641,23 +638,32 @@ function appendDesarrollos() {
 }
 
 function appendClientes() {
-  /*  changeViewsAll(".new-client", '.view-client')*/
+    var name = $(".name-desarrollo:eq(0)").text()
+    var number = $(".number-desarrollo:eq(0)").text()
+    console.log(name)
+    changeViewsAll("nuevo_cliente.html")
     var arrayLotesBy = []
-    //Esta funcion es para seleccionar el terreno al dar de alta un cliente
-    //Filtrar los lotes que no tengan propietario y añadir agregar lotes en nuevo desarrollo
     var starCountRef = database.ref('desarrollos/'+globalKeyDesarrollo+'/lotes');
     starCountRef.once('value', function(snapshot) {
+        $(".name-desarrollo").text(name)
+        $(".number-desarrollo").text(number)
         var dataInfo = snapshot.val()
          $.each(dataInfo, function(indice, valor) {
            arrayLotesBy.push(valor)
         });
-    });
-    var starCountRef = database.ref('lotes/');
-    starCountRef.once('value', function(snapshot) {
-        var dataInfo = snapshot.val()
-        $.each(dataInfo, function(indice, valor) {
-            var selectOption = "<option value='" + indice + "'>" + valor.clave + "</option>"
-            $("#inlineFormCustomSelect").append(selectOption)
+         console.log(arrayLotesBy)
+        var lotesCountRef = database.ref('lotes/');
+        lotesCountRef.once('value', function(snapshot) {
+            var dataInfo2 = snapshot.val()
+            $.each(dataInfo2, function(indice2, valor2) {
+                for(var i=0; i<arrayLotesBy.length; i++){
+                    if(arrayLotesBy[i] == indice2 && valor2.propietario == "S/N"){
+                        var selectOption = "<option value='" + indice2 + "'>" + valor2.clave + "</option>"
+                        $("#lotes-by").append(selectOption)
+                    }
+                }
+               
+            });
         });
     });
 }
