@@ -134,12 +134,10 @@ p, li, span, label {
       .work-area .title-settings .icon.users {
         background-image: url("../img/users.png");
         background-size: contain;
-        background-size: contain;
         background-repeat: no-repeat;
         background-position: center; }
       .work-area .title-settings .icon.edit-user {
         background-image: url("../img/icon-user.png");
-        background-size: contain;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center; }
@@ -178,7 +176,6 @@ p, li, span, label {
     .work-area .add-plus.list-desarrollos {
       padding-left: 0px; }
   .work-area .photo {
-    padding-left: 10px;
     cursor: pointer; }
     .work-area .photo .change-photo {
       color: #8FAC19;
@@ -200,7 +197,7 @@ p, li, span, label {
     position: relative; }
   .work-area .form-group input {
     height: 30px;
-    font-size: 13px; }
+    font-size: 14px; }
   .work-area .header .icon-logo-search {
     background-image: url(../img/logo-principal-v1.png);
     height: 30px;
@@ -209,6 +206,8 @@ p, li, span, label {
     background-position: right; }
     .work-area .header .icon-logo-search.detail {
       background-position: center; }
+    .work-area .header .icon-logo-search.desarrollo {
+      height: 40px; }
   .work-area .header .icon {
     height: 15px;
     width: 15px;
@@ -227,12 +226,14 @@ p, li, span, label {
     .work-area .header .icon.ico-list {
       background: url(../img/icon-list.png) no-repeat;
       margin-left: 0px;
-      height: 20px;
-      width: 20px;
+      height: 17px;
+      width: 17px;
       margin-left: 15px;
-      float: left; }
+      float: left;
+      background-size: contain; }
       .work-area .header .icon.ico-list.active {
-        background: url(../img/icon-list-green.png) no-repeat; }
+        background: url(../img/icon-list-green.png) no-repeat;
+        background-size: contain; }
     .work-area .header .icon.ico-general {
       background: url(../img/icon-general.png) no-repeat;
       margin-left: 0px;
@@ -259,13 +260,15 @@ p, li, span, label {
       width: 26%;
       margin-right: 30px; }
   .work-area form.personalizados .input-group-prepend {
-    width: 50%; }
+    width: 38%; }
     .work-area form.personalizados .input-group-prepend.exception {
       width: 30%; }
+    .work-area form.personalizados .input-group-prepend.letters {
+      width: 50%; }
   .work-area form.personalizados input.form-control {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    width: 50%; }
+    width: 62%; }
     .work-area form.personalizados input.form-control.num-exception {
       width: 40%; }
     .work-area form.personalizados input.form-control.exception {
@@ -278,7 +281,8 @@ p, li, span, label {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     width: 100%;
-    color: #838084; }
+    color: #838084;
+    font-size: 14px; }
   .work-area form.personalizados .form-control[readonly] {
     background-color: #fff; }
   .work-area form.personalizados #total-pagado, .work-area form.personalizados #letters-payments {
@@ -286,10 +290,10 @@ p, li, span, label {
   .work-area form.personalizados .total-letras {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold; }
   .work-area form.personalizados #letters-payments {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold; }
   .work-area .list-view {
     position: relative;
@@ -297,11 +301,16 @@ p, li, span, label {
     .work-area .list-view #list-desarrollos {
       list-style: none;
       padding-inline-start: 0px;
+      -webkit-padding-start: 0px;
       overflow-y: scroll;
-      max-height: 167px; }
-    .work-area .list-view .name-terreno {
-      color: #B0B2B3; }
-      .work-area .list-view .name-terreno:hover {
+      max-height: 170px;
+      margin-bottom: 10px; }
+      .work-area .list-view #list-desarrollos li {
+        margin-bottom: 5px; }
+    .work-area .list-view .titulo-des {
+      color: #B0B2B3;
+      cursor: pointer; }
+      .work-area .list-view .titulo-des:hover {
         color: #8FAC19; }
     .work-area .list-view .edit {
       width: auto;
@@ -315,7 +324,7 @@ p, li, span, label {
     .work-area .list-view .filter {
       margin-top: -10px;
       border: 3px solid #D8D9DA;
-      width: 20px;
+      width: 24px;
       display: inline-block;
       border-radius: 20px;
       cursor: pointer; }
@@ -332,35 +341,36 @@ p, li, span, label {
     z-index: 2000; }
   .work-area .number-principal {
     background-color: #B0B2B3;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     color: #fff;
     font-weight: bold;
     text-align: center;
     display: inline-block;
-    margin-right: 15px;
-    padding-top: 1px;
-    font-size: 11px; }
+    margin-right: 13px;
+    font-size: 11px;
+    vertical-align: top;
+    padding-top: 3px; }
     .work-area .number-principal.number-desarrollo {
       width: 40px;
       height: 40px;
-      font-size: 24px; }
+      font-size: 24px;
+      padding-top: 0px; }
   .work-area .name-desarrollo {
     font-size: 24px;
     color: #B0B2B3; }
   .work-area .icon-add-plus {
     background-image: url("../img/add-plus.png");
     background-repeat: no-repeat;
-    background-size: contain;
-    height: 25px;
-    width: 25px;
+    height: 28px;
+    width: 28px;
     background-size: contain;
     margin-left: 10px;
     cursor: pointer; }
     .work-area .icon-add-plus.list-desarrollos {
-      width: 18px;
-      height: 18px;
+      width: 24px;
+      height: 24px;
       margin-left: 0px; }
   .work-area .note {
     font-size: 10px;
@@ -370,7 +380,9 @@ p, li, span, label {
   .work-area .info-personal span {
     margin-right: 10px; }
   .work-area .info-personal .icon {
-    margin-right: 3px; }
+    margin-right: 3px;
+    position: relative;
+    top: -1px; }
   .work-area .list-letters {
     font-size: 11px;
     font-weight: normal;

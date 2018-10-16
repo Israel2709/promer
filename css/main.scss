@@ -171,13 +171,11 @@ p,li,span,label{
 			&.users{
 				background-image: url("../img/users.png");
 				background-size: contain;
-				background-size: contain;
 			    background-repeat: no-repeat;
 			    background-position: center;
 			}
 			&.edit-user{
 				background-image: url("../img/icon-user.png");
-				background-size: contain;
 				background-size: contain;
 			    background-repeat: no-repeat;
 			    background-position: center;
@@ -232,7 +230,6 @@ p,li,span,label{
 		}
 	}
 	.photo{
-		padding-left: 10px;
 		cursor: pointer;
 		.change-photo{
 			color: $green;
@@ -260,7 +257,7 @@ p,li,span,label{
 	.form-group{
 		input{
 			height: 30px;
-			font-size: 13px;
+			font-size: 14px;
 		}
 	}
 	.header{
@@ -272,6 +269,9 @@ p,li,span,label{
 		    background-position: right;
 			&.detail{
 				background-position: center;
+			}
+			&.desarrollo{
+				height: 40px;
 			}
 		}
 		.icon{
@@ -295,12 +295,14 @@ p,li,span,label{
 			&.ico-list{
 				background: url(../img/icon-list.png) no-repeat;
 				margin-left: 0px;
-				height: 20px;
-				width: 20px;
+				height: 17px;
+				width: 17px;
 				margin-left: 15px;
 				float: left;
+				background-size: contain;
 				&.active{
 					background: url(../img/icon-list-green.png) no-repeat;
+					background-size: contain;
 				}
 			}
 			&.ico-general{
@@ -340,15 +342,18 @@ p,li,span,label{
 			}
 		}
 		.input-group-prepend{
-			width: 50%;
+			width: 38%;
 			&.exception{
 				width: 30%;
+			}
+			&.letters{
+				width: 50%;
 			}
 		}
 		input.form-control{
 			border-top-right-radius: 20px;
 			border-bottom-right-radius: 20px;
-			width: 50%;
+			width: 62%;
 			&.num-exception{
 				width: 40%;
 			}
@@ -365,6 +370,7 @@ p,li,span,label{
 			border-bottom-left-radius: 20px;
 			width: 100%;
 			color: $grayStrong;
+			font-size: 14px;
 		}
 		.form-control[readonly]{
 			background-color: #fff;
@@ -375,11 +381,11 @@ p,li,span,label{
 		.total-letras{
 			border-top-right-radius: 20px;
 			border-bottom-right-radius: 20px;
-			font-size: 22px;
+			font-size: 20px;
 			font-weight: bold;
 		}
 		#letters-payments{
-			font-size: 22px;
+			font-size: 20px;
 			font-weight: bold;
 		}
 	}
@@ -389,11 +395,17 @@ p,li,span,label{
 		#list-desarrollos{
 			list-style: none;
 			padding-inline-start: 0px;
+			-webkit-padding-start: 0px;
     		overflow-y: scroll;
-    		max-height: 167px;
+    		max-height: 170px;
+    		margin-bottom: 10px;
+    		li{
+    			margin-bottom: 5px;
+    		}
 		}
-		.name-terreno{
+		.titulo-des{
 			color: $grayMedium;
+			cursor: pointer;
 			&:hover{
 				color: $green;
 			}
@@ -411,7 +423,7 @@ p,li,span,label{
 		.filter{
 			margin-top: -10px;
 			border: 3px solid $grayLight;
-			width: 20px;
+			width: 24px;
 			display: inline-block;
 			border-radius: 20px;
 			cursor: pointer;
@@ -436,20 +448,22 @@ p,li,span,label{
 	}
 	.number-principal{
 		background-color: $grayMedium;
-		width: 18px;
-	    height: 18px;
+		width: 24px;
+	    height: 24px;
 	    border-radius: 50%;
 	    color: #fff;
 	    font-weight: bold;
 	    text-align: center;
 	    display: inline-block;
-	    margin-right: 15px;
-	    padding-top: 1px;
+	    margin-right: 13px;
 	    font-size: 11px;
+	    vertical-align: top;
+	    padding-top: 3px;
 	    &.number-desarrollo{
 	    	width: 40px;
 	    	height: 40px;
 	    	font-size: 24px;
+	    	padding-top: 0px;
 	    }
 	}
 	.name-desarrollo{
@@ -459,15 +473,14 @@ p,li,span,label{
 	.icon-add-plus{
 		background-image: url("../img/add-plus.png");
 		background-repeat: no-repeat;
-		background-size: contain;
-		height: 25px;
-		width: 25px;
+		height: 28px;
+		width: 28px;
 		background-size: contain;
     	margin-left: 10px;
     	cursor: pointer;
     	&.list-desarrollos{
-    		width: 18px;
-    		height: 18px;
+    		width: 24px;
+    		height: 24px;
     		margin-left: 0px;
     	}
 	}
@@ -483,6 +496,8 @@ p,li,span,label{
 		}
 		.icon{
 			margin-right: 3px;
+			position: relative;
+    		top: -1px;
 		}
 	}
 	.list-letters{
