@@ -1,7 +1,7 @@
 p, li, span, label {
   color: #838084; }
 
-.search-clients, .detail-develop, .add-user, .payment-list {
+.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes {
   position: relative;
   z-index: 9999; }
 
@@ -265,6 +265,8 @@ p, li, span, label {
       width: 30%; }
     .work-area form.personalizados .input-group-prepend.letters {
       width: 50%; }
+    .work-area form.personalizados .input-group-prepend.lote {
+      width: 18.7%; }
   .work-area form.personalizados input.form-control {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -506,5 +508,9 @@ Radios costumizados */
 
 #img_prev, #img_prev2 {
   border-radius: 50%; }
+
+canvas {
+  width: 328px !important;
+  height: 176px !important; }
 
 /*# sourceMappingURL=main.css.map */
