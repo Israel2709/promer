@@ -416,6 +416,7 @@ function viewPagos(adeudo) {
                     "<td>" + valor.fecha + "</td>" +
                     "<td>" + formatCurrency + "</td></tr>"
             }
+            $("#pagos-lotes-export").append(addRow)
             if (lengthPagados <= 12) {
                 $("#pagos-lotes").append(addRow)
             } else {
@@ -820,6 +821,20 @@ function searchClients() {
 }
 
 
-function returnViewClients(){
-    changeViewsAll(nameView)
+function exportToExcel() {
+    var loteName = $(".lote-selected").text()
+    $("#table-export").tableExport({
+        headings: true,
+        footers: true,
+        formats: ["csv"],
+        fileName: loteName + "_Pagos",
+        bootstrap: false,
+        position: "well",
+        ignoreRows: null,
+        ignoreCols: null
+    });
+    $(".tableexport-caption").addClass("hidden")
+    $(".csv").trigger("click")
+    $(".tableexport-caption").remove()
+
 }

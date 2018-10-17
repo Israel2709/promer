@@ -271,7 +271,7 @@
             </table>
             <div class="buttons-letters mt-2">
               <div class="icon-add-plus" ></div> <!-- data-toggle="modal" data-target="#pagosModal" -->
-              <div class="btn btn-success">Guardar</div>
+              <div class="btn btn-success" onclick="exportToExcel()">Exportar</div>
             </div>
           </div>
         </div>
@@ -303,6 +303,16 @@
     </div>
   </div>
 </div>
+<table id="table-export" class="list-letters table-bordered d-none">
+  <thead>
+    <tr>
+      <th>Letra</th>
+      <th>Mes</th>
+      <th>Monto</th>
+    </tr>
+  </thead>
+<tbody id="pagos-lotes-export"></tbody>
+</table>
 <div class="modal-backdrop fade in d-none"></div>
 <script>
   $( document ).ready(function() {
