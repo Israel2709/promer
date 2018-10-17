@@ -243,8 +243,8 @@ function getListDesarrollos() {
                 indice: indice,
                 nombre: valor.nombreTerreno
             });
-            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des'>" +
-                valor.nombreTerreno + "</span><span class='edit float-right d-none' onclick=\"clientsBy(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">Pagados</span></li>"
+            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des' onclick=\"clientsBy(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">" +
+                valor.nombreTerreno + "</span><span class='edit float-right d-none'>Pagados</span></li>"
             $("#list-desarrollos").append(liFill)
         });
     });
@@ -782,9 +782,9 @@ $.fn.sortMe = function(type, options) {
         console.log(row[index])
         for (var i = 0; i < arrayDesarrollos.length; i++) {
             if (row[index] == arrayDesarrollos[i].nombre || row[index] == arrayDesarrollos[i].id) {
-                $(this).closest("li").html("<span class='number-principal' >" + arrayDesarrollos[i].id + "</span><span class='titulo-des'>" +
-                    arrayDesarrollos[i].nombre + "</span><span class='edit float-right d-none'" +
-                    " onclick=\"clientsBy(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">Pagados</span>");
+                $(this).closest("li").html("<span class='number-principal' >" + arrayDesarrollos[i].id + "</span><span class='titulo-des' " +
+                    " onclick=\"clientsBy(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">" +
+                    arrayDesarrollos[i].nombre + "</span><span class='edit float-right d-none'>Pagados</span>");
             }
         }
     });
