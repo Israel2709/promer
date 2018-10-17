@@ -259,11 +259,12 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
     globalKeyDesarrollo = keyDesarrollo;
-    getClients()
-    var arrayLotesFrom = []
     var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
-    starCountRef.once('value', function(snapshot) {
+    starCountRef.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
+        var arrayLotesFrom = []
+        getClients()
+        $               
         if (dataInfo == null) {
             $(".error-lotes").removeClass("d-none")
         } else {
@@ -271,8 +272,9 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                 arrayLotesFrom.push(valor2)
             });
             var lotesRef = database.ref('lotes/')
-            lotesRef.once('value', function(snapshot) {
+            lotesRef.on('value', function(snapshot) {
                 var dataLotes = snapshot.val()
+                $("#list-lotes").empty()
                 $.each(dataLotes, function(indice3, valor3) {
                     var nameCliente = null;
                     var claveLote;
@@ -286,13 +288,17 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                             nameCliente = arrayNameClients[i].name
                         }
                     }
-                    if (nameCliente == null && claveLote != null) {
-                        var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - Sin propietario </li>"
-                    } else if (nameCliente != null && claveLote != null) {
+                    if (nameCliente != null && claveLote != null) {
                         var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
                     }
                     $("#list-lotes").append(liAppend)
                 });
+                if($("#list-lotes li").length == 0){
+                    $(".no-properties").removeClass("d-none")
+                }
+                else{
+                    $(".no-properties").addClass("d-none")
+                }
             })
         }
     });
@@ -300,7 +306,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
 
 function getClients() {
     var starClientsRef = database.ref('clientes/');
-    starClientsRef.once("value", function(snapshot) {
+    starClientsRef.on("value", function(snapshot) {
         var infoClient = snapshot.val()
         $.each(infoClient, function(indice, valor) {
             arrayNameClients.push({
@@ -617,6 +623,7 @@ function addClientes() {
     firebase.database().ref('clientes/' + keyCliente + "/lotes").push(lotes)
     addLoteToClient(keyCliente, lotes)
     $("#nombre, #telefono, #celular, #email, #terreno").val("")
+    toggleView('.new-client', '.view-client')
 }
 
 function addLoteToClient(keyClient, lote) {
@@ -638,15 +645,11 @@ function appendDesarrollos() {
 }
 
 function appendClientes() {
-    var name = $(".name-desarrollo:eq(0)").text()
-    var number = $(".number-desarrollo:eq(0)").text()
-    console.log(name)
-    changeViewsAll("nuevo_cliente.html")
+    $("#lotes-by").empty()
     var arrayLotesBy = []
+    var numLotesAdd = 0;
     var starCountRef = database.ref('desarrollos/'+globalKeyDesarrollo+'/lotes');
     starCountRef.once('value', function(snapshot) {
-        $(".name-desarrollo").text(name)
-        $(".number-desarrollo").text(number)
         var dataInfo = snapshot.val()
          $.each(dataInfo, function(indice, valor) {
            arrayLotesBy.push(valor)
@@ -658,12 +661,18 @@ function appendClientes() {
             $.each(dataInfo2, function(indice2, valor2) {
                 for(var i=0; i<arrayLotesBy.length; i++){
                     if(arrayLotesBy[i] == indice2 && valor2.propietario == "S/N"){
+                        numLotesAdd = numLotesAdd + 1;
                         var selectOption = "<option value='" + indice2 + "'>" + valor2.clave + "</option>"
                         $("#lotes-by").append(selectOption)
                     }
                 }
-               
             });
+            if(numLotesAdd == 0){
+                toggleView('.view-client', '.no-lotes')
+            }
+            else{
+                toggleView('.view-client', '.new-client')
+            }
         });
     });
 }
@@ -808,4 +817,9 @@ function searchClients() {
             li[i].style.display = "none";
         }
     }
+}
+
+
+function returnViewClients(){
+    changeViewsAll(nameView)
 }
