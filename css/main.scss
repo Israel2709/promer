@@ -340,6 +340,13 @@ p,li,span,label{
 				width: 26%;
 				margin-right: 30px;
 			}
+			select{
+				border-top-right-radius: 20px;
+				border-bottom-right-radius: 20px;
+				height: 30px;
+				font-size: 14px;
+    			padding-top: 4px;
+			}
 		}
 		.input-group-prepend{
 			width: 38%;

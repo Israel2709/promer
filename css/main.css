@@ -259,6 +259,12 @@ p, li, span, label {
     .work-area form.personalizados .input-group.letters {
       width: 26%;
       margin-right: 30px; }
+    .work-area form.personalizados .input-group select {
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      height: 30px;
+      font-size: 14px;
+      padding-top: 4px; }
   .work-area form.personalizados .input-group-prepend {
     width: 38%; }
     .work-area form.personalizados .input-group-prepend.exception {
