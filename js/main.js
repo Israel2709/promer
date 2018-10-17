@@ -416,7 +416,7 @@ function viewPagos(adeudo) {
                     "<td>" + valor.fecha + "</td>" +
                     "<td>" + formatCurrency + "</td></tr>"
             }
-            if (lengthPagados <= 13) {
+            if (lengthPagados <= 12) {
                 $("#pagos-lotes").append(addRow)
             } else {
                 $(".second-table").removeClass("d-none")

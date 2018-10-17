@@ -132,7 +132,7 @@
     <div class="header mb-3">
       <span class="icon ico-general active" onclick="viewList()"></span>
       <span class="icon ico-list" onclick="viewList()"></span>
-      <span class="icon ico-close"></span>
+      <span class="icon ico-close" onclick="toggleView('.detail-develop', '.list-view'); removeBigBox()"></span>
       <span class="icon ico-print"></span>
       <span class="icon ico-message"></span>
       <div class="icon-logo-search detail"></div>
@@ -308,4 +308,8 @@
   $( document ).ready(function() {
       getListDesarrollos()
   });
+
+  function removeBigBox(){
+    $(".box-area").removeClass("big-box")
+  }
 </script>
