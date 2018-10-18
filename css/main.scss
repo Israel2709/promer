@@ -8,7 +8,7 @@ $grayTrans: #E4E4E5;
 p,li,span,label{
 	color: $grayStrong;
 }
-.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes{
+.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes, .quoting{
 	position: relative;
 	z-index: 9999;
 }
@@ -91,7 +91,7 @@ p,li,span,label{
 		width: 520px;
 		height: 310px;
 		padding: 20px;
-		z-index: 99999;
+		z-index: 999;
     	position: relative;
 		&.big-box{
 			width: 880px!important;
@@ -272,6 +272,7 @@ p,li,span,label{
 			}
 			&.desarrollo{
 				height: 40px;
+				margin-right: 30px;
 			}
 		}
 		.icon{
@@ -291,6 +292,10 @@ p,li,span,label{
 			&.ico-close{
 				background: url(../img/icon-close.png) no-repeat;
 				margin-left: 8px;
+				&.search{
+				    right: 0;
+				    position: absolute;
+				}
 			}
 			&.ico-list{
 				background: url(../img/icon-list.png) no-repeat;
@@ -566,7 +571,7 @@ p,li,span,label{
 	    right: 0;
 	    bottom: 0;
 	    left: 0;
-	    z-index: 1040;
+	    z-index: 998;
 	    background-color: #000;
 	    opacity: .5;
 	}
