@@ -1,0 +1,142 @@
+<div class="alert alert-success d-none" id="alert-new" role="alert">
+  Se ha añadido un usuario.
+</div>
+<div class="alert alert-success d-none" id="alert-edit" role="alert">
+  Se ha modificado el usuario <span class="edit-name"></span>
+</div>
+<div class="box-area">
+  <div class="user-list">
+    <h3 class="title-settings"><span class="icon users"></span>Usuarios</h3>
+    <div class="row">
+      <div class="col-12">
+        <div class="separator"></div>
+        <span class="font-weight-bold">Principal</span>
+        <div class="principal-user">
+          <p onmouseover="viewAction(this)" onmouseout="hideAction(this)"><img id="img_prev" src="img/mini-user-2.png" class="hidden">Nombre Apellido</p>
+        </div>
+        <div class="separator"></div>
+        <span class="font-weight-bold">Secundarios</span>
+        <ul class="secondary-users">
+          
+        </ul>
+        <img src="img/add-plus.png" class="add-plus" onclick="viewAlta()">
+      </div>
+    </div>
+  </div>
+  <div class="settings">
+    <h3 class="title-settings"><span class="icon users"></span>Editar usuario</h3>
+    <div class="separator"></div>
+    <div class="row mt-2">
+      <div class="col-2">
+        <div class="photo">
+          <img id="img_prev" src="img/icon-camera.png" width="33px" height="33px"onclick="addPhoto('#picture')"/>
+          <p class="change-photo" onclick="addPhoto('#picture')">Cambiar</p>
+          <input type="file" name="files" id="picture"  accept="image/*" style="display: none" class="hidden" onchange="readImage(this, '#img_prev')"/>
+        </div>
+      </div>
+      <div class="col-10 no-gutters">
+        <form class="form-settings">
+          <div class="form-row">
+            <div class="form-group col-8">
+              <input type="text" class="form-control btn-input" id="nameComplete" aria-describedby="emailHelp" placeholder="Nombre Apellido">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingresa tu nombre y apellido.</small> -->
+            </div>
+            <div class="form-group col-4">
+              <input type="password" class="form-control btn-input" id="password" aria-describedby="emailHelp" placeholder="Contraseña">
+              <!-- <small id="emailHelp" class="form-text text-muted">Ingrese contraseña.</small> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-8">
+              <input type="email" class="form-control btn-input" id="email" aria-describedby="emailHelp" placeholder="Correo electrónico">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingresa tu correo electrónico.</small> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-4">
+              <input type="text" class="form-control btn-input" id="phone" aria-describedby="emailHelp" maxlength="8" placeholder="Teléfono">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingrese teléfono.</small> -->
+            </div>
+            <div class="form-group col-4">
+              <input type="text" class="form-control btn-input" id="cellphone" aria-describedby="emailHelp" maxlength="10" placeholder="Celular">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingrese celular.</small> -->
+            </div>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              Con privilegio para pagos y generar perfiles
+            </label>
+            <span class="checkmark"></span>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+            <label class="form-check-label" for="exampleRadios2">
+              Sin privilegios sólo cotizador y ver clientes
+            </label>
+            <span class="checkmark"></span>
+          </div>
+          <div class="btn btn-success" onclick="updateUser()" id="save-edit">Guardar</div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="add-user">
+    <h3 class="title-settings"><span class="icon users"></span>Agregar usuario</h3>
+    <div class="separator"></div>
+    <div class="row mt-2">
+      <div class="col-2">
+        <div class="photo">
+          <img id="img_prev2" src="img/icon-camera.png" width="33px" height="33px" onclick="addPhoto('#picture2')"/>
+          <p class="change-photo" onclick="addPhoto('#picture2')">Agregar</p>
+          <input type="file" name="files" id="picture2"  accept="image/*" style="display: none" class="hidden" onchange="readImage(this, '#img_prev2')"/>
+        </div>
+      </div>
+      <div class="col-10 no-gutters">
+        <form class="form-settings">
+          <div class="form-row">
+            <div class="form-group col-8">
+              <input type="text" class="form-control btn-input" id="nameCompleteAdd" aria-describedby="emailHelp" placeholder="Nombre Apellido">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingresa tu nombre y apellido.</small> -->
+            </div>
+            <div class="form-group col-4">
+              <input type="password" class="form-control btn-input" id="passwordAdd" aria-describedby="emailHelp" placeholder="Contraseña">
+              <!-- <small id="emailHelp" class="form-text text-muted">Ingrese contraseña.</small> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-8">
+              <input type="email" class="form-control btn-input" id="emailAdd" aria-describedby="emailHelp" placeholder="Correo electrónico">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingresa tu correo electrónico.</small> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-4">
+              <input type="text" class="form-control btn-input" id="phoneAdd" aria-describedby="emailHelp" maxlength="8" placeholder="Teléfono">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingrese teléfono.</small> -->
+            </div>
+            <div class="form-group col-4">
+              <input type="text" class="form-control btn-input" id="cellphoneAdd" aria-describedby="emailHelp" maxlength="10" placeholder="Celular">
+              <!--  <small id="emailHelp" class="form-text text-muted">Ingrese celular.</small> -->
+            </div>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios3">
+              Con privilegio para pagos y generar perfiles
+            </label>
+            <span class="checkmark"></span>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option2">
+            <label class="form-check-label" for="exampleRadios4">
+              Sin privilegios sólo cotizador y ver clientes
+            </label>
+            <span class="checkmark"></span>
+          </div>
+          <div class="btn btn-success" onclick="altaUser()" id="save-edit">Guardar</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

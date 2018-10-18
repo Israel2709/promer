@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <title>Promer</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row no-gutters">
+        <div class="col-2 menu d-flex flex-column">
+          <div class="wrapper-menu-left  justify-content-between">
+            <div class="logo-menu mt-5 mb-5"></div>
+            <div class="left-nav-wrapper">
+              <div class="list-group" id="left-nav" role="tablist">
+                <a class="list-group-item list-group-item-action active icon-login" id="list-login-list" data-toggle="list" href="#list-login" role="tab" aria-controls="login"  onclick="changeView('login')">Login</a>
+                <a class="list-group-item list-group-item-action icon-search no-pointer" id="list-search-list" data-toggle="list" href="#list-search" role="tab" aria-controls="search"  onclick="changeView('buscar.html')">Buscar</a>
+                <a class="list-group-item list-group-item-action icon-quoting no-pointer" id="list-quoting-list" data-toggle="list" href="#list-quoting" role="tab" aria-controls="quoting"  onclick="changeView('cotizador.html')">Cotizador</a>
+                <a class="list-group-item list-group-item-action icon-settings no-pointer" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings"  onclick="changeView('configuracion.html')">Configuración</a>
+              </div>
+            </div>
+          </div>
+          <div class="privacy-policy">© PROMER / Politica de privacidad</div>
+        </div>
+        <div class="col-10 d-flex work-area">
+          <div class="row align-items-center">
+            <div class="col-12" id="wrapper-section">
+              <div class="box-area">
+                <div class="pt-4">
+                  <div class="logo-login"></div>
+                </div>
+                <div class="d-flex flex-column bd-highlight align-items-center">
+                  <input type="text" class="btn-input user" placeholder="Usuario" id="login-user">
+                  <input type="password" class="btn-input password" placeholder="Password" id="login-pass">
+                  <button class="btn btn-success mt-3" onclick="login()">Entrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-data d-none">
+            <div class="img-user float-left"></div>
+            <p class="float-left user-name">Ejecutivo<br><span class="name-login"><b>Mario Alcantara</b></span></p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD5lbfNoAXq5n511Guqd0FG6dKJ4Wi4cyc",
+    authDomain: "promer-792f3.firebaseapp.com",
+    databaseURL: "https://promer-792f3.firebaseio.com",
+    projectId: "promer-792f3",
+    storageBucket: "promer-792f3.appspot.com",
+    messagingSenderId: "836872210809"
+  };
+  firebase.initializeApp(config);
+  </script>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/tableExport.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script type="text/javascript">
+      $( document ).ready(function() {
+        getUsers()
+      });
+  </script>
+</body>
+</html>
+
