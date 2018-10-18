@@ -244,7 +244,7 @@ function getListDesarrollos() {
                 nombre: valor.nombreTerreno
             });
             var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des' onclick=\"clientsBy(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">" +
-                valor.nombreTerreno + "</span><span class='edit float-right d-none'>Pagados</span></li>"
+                valor.nombreTerreno + "</span><span class='edit float-right d-none' onclick=\"clientsSold(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">Pagados</span></li>"
             $("#list-desarrollos").append(liFill)
         });
     });
@@ -252,10 +252,12 @@ function getListDesarrollos() {
 
 var arrayNameClients = []
 var globalKeyDesarrollo = null;
+var pays = []
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
-    $(".list-view").addClass("d-none")
-    $(".search-clients, .user-data, .modal-backdrop").removeClass("d-none")
+    appendIDPays()
+    $(".list-view, .no-properties2").addClass("d-none")
+    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
     globalKeyDesarrollo = keyDesarrollo;
@@ -263,8 +265,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     starCountRef.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
         var arrayLotesFrom = []
-        getClients()
-        $               
+        getClients()              
         if (dataInfo == null) {
             $(".error-lotes").removeClass("d-none")
         } else {
@@ -275,12 +276,17 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
             lotesRef.on('value', function(snapshot) {
                 var dataLotes = snapshot.val()
                 $("#list-lotes").empty()
+                var valorPagoM = null;
                 $.each(dataLotes, function(indice3, valor3) {
                     var nameCliente = null;
                     var claveLote;
+                    var lengthPagados = 0;
+                    var indiceActual
                     for (var i = 0; i < arrayLotesFrom.length; i++) {
                         if (arrayLotesFrom[i] == indice3) {
                             claveLote = valor3.clave
+                            valorPagoM = valor3.pagosMensuales
+                            indiceActual = indice3
                         }
                     }
                     for (var i = 0; i < arrayNameClients.length; i++) {
@@ -288,10 +294,16 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                             nameCliente = arrayNameClients[i].name
                         }
                     }
-                    if (nameCliente != null && claveLote != null) {
-                        var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
+                    for (var i=0; i<pays.length; i++){
+                        if(indiceActual == pays[i]){
+                            lengthPagados = lengthPagados + 1
+                        }
                     }
+                     if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
+                            var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
+                        }
                     $("#list-lotes").append(liAppend)
+                    
                 });
                 if($("#list-lotes li").length == 0){
                     $(".no-properties").removeClass("d-none")
@@ -301,6 +313,19 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                 }
             })
         }
+    });
+}
+
+
+
+function appendIDPays(){
+    var knowPagos = database.ref('pagos/');
+    knowPagos.once('value', function(snapshot) {
+        var pagosInfo = snapshot.val()
+        $.each(pagosInfo, function(indice, valor) {
+            pays.push(valor.idLote)
+        });
+                       
     });
 }
 
@@ -318,6 +343,67 @@ function getClients() {
             })
         });
     })
+}
+
+function clientsSold(indice, keyDesarrollo, nameDesarrollo) {
+    appendIDPays()
+    $(".list-view").addClass("d-none")
+    $(".search-clients, .user-data, .modal-backdrop").removeClass("d-none")
+    $(".number-desarrollo").text(indice)
+    $(".name-desarrollo").text(nameDesarrollo)
+    globalKeyDesarrollo = keyDesarrollo;
+    var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
+    starCountRef.on('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        var arrayLotesFrom = []
+        getClients()              
+        if (dataInfo == null) {
+            $(".error-lotes").removeClass("d-none")
+        } else {
+            $.each(dataInfo, function(indice2, valor2) {
+                arrayLotesFrom.push(valor2)
+            });
+            var lotesRef = database.ref('lotes/')
+            lotesRef.on('value', function(snapshot) {
+                var dataLotes = snapshot.val()
+                $("#list-lotes").empty()
+                var valorPagoM = null;
+                $.each(dataLotes, function(indice3, valor3) {
+                    var nameCliente = null;
+                    var claveLote;
+                    var lengthPagados = 0;
+                    var indiceActual
+                    for (var i = 0; i < arrayLotesFrom.length; i++) {
+                        if (arrayLotesFrom[i] == indice3) {
+                            claveLote = valor3.clave
+                            valorPagoM = valor3.pagosMensuales
+                            indiceActual = indice3
+                        }
+                    }
+                    for (var i = 0; i < arrayNameClients.length; i++) {
+                        if (arrayNameClients[i].key == valor3.propietario) {
+                            nameCliente = arrayNameClients[i].name
+                        }
+                    }
+                    for (var i=0; i<pays.length; i++){
+                        if(indiceActual == pays[i]){
+                            lengthPagados = lengthPagados + 1
+                        }
+                    }
+                    if (nameCliente != null && claveLote != null && valorPagoM == lengthPagados) {
+                        var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
+                    }
+                    $("#list-lotes").append(liAppend)
+                });
+                if($("#list-lotes li").length == 0){
+                    $(".no-properties2").removeClass("d-none")
+                }
+                else{
+                    $(".no-properties2, .button-new-pago").addClass("d-none")
+                }
+            })
+        }
+    });
 }
 
 var globalKeyLote = null;
@@ -400,10 +486,10 @@ function changeToCurrency(input) {
 }
 
 function viewPagos(adeudo) {
-    var totalPagado = 0;
-    var lengthPagados = 0;
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
+        var totalPagado = 0;
+        var lengthPagados = 0;
         $("#pagos-lotes2, #pagos-lotes").empty()
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
@@ -724,7 +810,7 @@ function addPago() {
             monto: montoPago,
             numero: numeroPago
         });
-        $(".box-area input").val("")
+        $("#fecha, #pago").val("")
     });
 }
 
