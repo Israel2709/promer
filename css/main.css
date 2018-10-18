@@ -523,4 +523,15 @@ canvas {
   width: 328px !important;
   height: 176px !important; }
 
+textarea {
+  border-color: #B0B2B3;
+  border-radius: 10px;
+  color: #838084; }
+
+.text-modal {
+  color: #838084; }
+
+.modal-footer.quoting {
+  margin-top: 70px; }
+
 /*# sourceMappingURL=main.css.map */
