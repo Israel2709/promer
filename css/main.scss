@@ -670,3 +670,19 @@ canvas{
   width: 328px !important;
   height: 176px !important;
 }
+
+textarea{
+	border-color: $grayMedium;
+	border-radius: 10px;
+	color: $grayStrong;
+}
+
+.text-modal{
+	color: $grayStrong;
+}
+
+.modal-footer{
+	&.quoting{
+		margin-top: 70px;
+	}
+}
