@@ -16,7 +16,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Fecha</div>
                 </div>
-                <input type="text" class="form-control" id="fecha" placeholder="Fecha">
+                <input type="text" class="form-control" id="fecha" placeholder="Fecha" readonly>
               </div>
             </div>
             <div class="form-group col-6">
@@ -31,7 +31,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <div class="btn btn-danger" data-dismiss="modal">Cancelar</div>
+        <div class="btn btn-danger" onclick="cleanInputs('.modal-body')" data-dismiss="modal">Cancelar</div>
         <div class="btn btn-success" onclick="addPago()">Agregar pago</div>
       </div>
     </div>
@@ -181,7 +181,7 @@
             </div>
           </div>
           <div class="wrapper mt-2">
-            <div class="btn btn-danger" onclick="toggleView('.new-client', '.view-client')">Cancelar</div>
+            <div class="btn btn-danger" onclick="cleanInputs('.new-client'); toggleView('.new-client', '.view-client')">Cancelar</div>
             <div class="btn btn-success" onclick=" addClientes()">Agregar</div>
           </div>
         </form>
@@ -252,7 +252,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Enganche</div>
                 </div>
-                <input type="text" class="form-control" id="enganche-lote" placeholder="Username">
+                <input type="text" class="form-control" id="enganche-lote" placeholder="Username" readonly>
               </div>
             </div>
             <div class="form-group col-6">
@@ -260,7 +260,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Costo</div>
                 </div>
-                <input type="text" class="form-control" id="costo-mt" placeholder="Username">
+                <input type="text" class="form-control" id="costo-mt" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -270,7 +270,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Metros</div>
                 </div>
-                <input type="text" class="form-control" id="mts-lote" placeholder="Username">
+                <input type="text" class="form-control" id="mts-lote" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -280,7 +280,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Letras</div>
                 </div>
-                <input type="text" class="form-control" id="pagos-lote" placeholder="Username">
+                <input type="text" class="form-control" id="pagos-lote" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -300,7 +300,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Fecha</div>
                 </div>
-                <input type="text" class="form-control" id="fecha-compra" placeholder="Username">
+                <input type="text" class="form-control" id="fecha-compra" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -310,7 +310,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Adeudo</div>
                 </div>
-                <input type="text" class="form-control" id="adeudo-lote" placeholder="Username">
+                <input type="text" class="form-control" id="adeudo-lote" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -396,6 +396,7 @@
 <script>
   $( document ).ready(function() {
       getListDesarrollos()
+      getFormatDate()
   });
 
   function removeBigBox(){

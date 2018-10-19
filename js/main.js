@@ -258,7 +258,6 @@ var globalKeyDesarrollo = null;
 var pays = []
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
-    appendIDPays()
     $(".list-view, .no-properties2").addClass("d-none")
     $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
     $(".number-desarrollo").text(indice)
@@ -268,7 +267,8 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     starCountRef.on('value', function(snapshot) {
         var dataInfo = snapshot.val()
         var arrayLotesFrom = []
-        getClients()              
+        getClients()  
+        appendIDPays()            
         if (dataInfo == null) {
             $(".error-lotes").removeClass("d-none")
         } else {
@@ -284,7 +284,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                     var nameCliente = null;
                     var claveLote;
                     var lengthPagados = 0;
-                    var indiceActual
+                    var indiceActual = null;
                     for (var i = 0; i < arrayLotesFrom.length; i++) {
                         if (arrayLotesFrom[i] == indice3) {
                             claveLote = valor3.clave
@@ -292,13 +292,13 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                             indiceActual = indice3
                         }
                     }
-                    for (var i = 0; i < arrayNameClients.length; i++) {
-                        if (arrayNameClients[i].key == valor3.propietario) {
-                            nameCliente = arrayNameClients[i].name
+                    for (var j = 0; j < arrayNameClients.length; j++) {
+                        if (arrayNameClients[j].key == valor3.propietario) {
+                            nameCliente = arrayNameClients[j].name
                         }
                     }
-                    for (var i=0; i<pays.length; i++){
-                        if(indiceActual == pays[i]){
+                    for (var k=0; k < pays.length; k++){
+                        if(indiceActual == pays[k]){
                             lengthPagados = lengthPagados + 1
                         }
                     }
@@ -322,8 +322,9 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
 
 
 function appendIDPays(){
+    pays = []
     var knowPagos = database.ref('pagos/');
-    knowPagos.once('value', function(snapshot) {
+    knowPagos.on('value', function(snapshot) {
         var pagosInfo = snapshot.val()
         $.each(pagosInfo, function(indice, valor) {
             pays.push(valor.idLote)
@@ -455,17 +456,21 @@ function getInfoLote(keyLote, keyPropietario, valueLi) {
 function cotizar() {
     var metros = $("#metros").val()
     var costoMetro = $("#costo-metro").val()
-    var metroWithin = costoMetro.replace(/\$|\,/g, "");
-    var totalCosto = metros * metroWithin;
-    $("#total-metros").val('$' + parseFloat(totalCosto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
     var numeroPagos = $("#numero-pagos").val()
-    var mensualidades = totalCosto / numeroPagos;
-    $("#mensual-pagos").val('$' + parseFloat(mensualidades, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
     var enganche = $("#enganche").val()
-    var engancheWithin = enganche.replace(/\$|\,/g, "");
-    var totalEnganche = totalCosto - engancheWithin;
-    $("#total-adeudo").val('$' + parseFloat(totalEnganche, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
 
+    if (metros.length == 0 || costoMetro.length == 0 || numeroPagos.length == 0 || enganche.length == 0) {
+        alert("LLenar todos los campos")
+    } else {
+        var metroWithin = costoMetro.replace(/\$|\,/g, "");
+        var totalCosto = metros * metroWithin;
+        $("#total-metros").val('$' + parseFloat(totalCosto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+        var mensualidades = totalCosto / numeroPagos;
+        $("#mensual-pagos").val('$' + parseFloat(mensualidades, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+        var engancheWithin = enganche.replace(/\$|\,/g, "");
+        var totalEnganche = totalCosto - engancheWithin;
+        $("#total-adeudo").val('$' + parseFloat(totalEnganche, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+    }
 }
 
 function changeToCurrency(input) {
@@ -517,8 +522,8 @@ function viewPagos(adeudo) {
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var adeudoRestante = adeudo - totalPagado;
         $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
-        var porcentPagado = (totalPagado * 100) / (totalPagado + adeudo)
-        var porcentAdeudo = (adeudo * 100) / (totalPagado + adeudo)
+        var porcentPagado = (totalPagado * 100) / (adeudo)
+        var porcentAdeudo = 100 - porcentPagado
         var oilCanvas = document.getElementById("myChart");
         var oilData = {
             labels: [
@@ -575,45 +580,50 @@ function altaUser() {
     var cellphone = $("#cellphoneAdd").val()
     var privilegys;
     var collectionImg = $("#picture2").prop("files")[0];
-    var imageRefName = storageRef.child(collectionImg.name);
-    var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
-    var uploadTask = imagesRefName.put(collectionImg);
-    uploadTask.on('state_changed', function(snapshot) {
-        var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-        console.log(progress)
-    }, function(error) {
-        console.log(error)
-    }, function() {
-        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            var userImage = downloadURL;
-            if ($("#exampleRadios3").is(":checked")) {
-                privilegys = "S"
-            } else {
-                privilegys = "N"
-            }
-            var userObject = {
-                nombre: nameComplete,
-                foto: userImage,
-                privilegios: privilegys,
-                correo: email,
-                telefono: phone,
-                celular: cellphone,
-                passwordUser: pass
-            };
-            firebase.database().ref('usuarios/').push(userObject);
-            $(".box-area input").val("")
-            $("#img_prev2").attr("src", "img/icon-camera.png")
-            $(".user-list").show()
-            $(".settings").hide()
-            $(".add-user").hide()
-            $("#alert-new").removeClass("d-none");
-            setTimeout(function() {
-                $("#alert-new").addClass("d-none");
-            }, 3000);
-        });
-    });
-}
 
+    if (nameComplete.length == 0 || pass.length == 0 || email.length == 0 || phone.length == 0 || cellphone.length == 0 || collectionImg == undefined) {
+        alert("Llenar todos los campos o agregar imagen al usuario")
+    } else {
+        var imageRefName = storageRef.child(collectionImg.name);
+        var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
+        var uploadTask = imagesRefName.put(collectionImg);
+        uploadTask.on('state_changed', function(snapshot) {
+            var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+            console.log(progress)
+        }, function(error) {
+            console.log(error)
+        }, function() {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                var userImage = downloadURL;
+                if ($("#exampleRadios3").is(":checked")) {
+                    privilegys = "S"
+                } else {
+                    privilegys = "N"
+                }
+                var userObject = {
+                    nombre: nameComplete,
+                    foto: userImage,
+                    privilegios: privilegys,
+                    correo: email,
+                    telefono: phone,
+                    celular: cellphone,
+                    passwordUser: pass
+                };
+                firebase.database().ref('usuarios/').push(userObject);
+                $(".box-area input").val("")
+                $("#img_prev2").attr("src", "img/icon-camera.png")
+                $(".user-list").show()
+                $(".settings").hide()
+                $(".add-user").hide()
+                $("#alert-new").removeClass("d-none");
+                setTimeout(function() {
+                    $("#alert-new").addClass("d-none");
+                }, 3000);
+            });
+        });
+    }
+
+}
 function addTerreno() {
     var nameTerreno = $("#desarrollo").val()
     var lis = $("#list-lotes li")
@@ -703,17 +713,21 @@ function addClientes() {
     var email = $("#email").val()
     var lotes = $("#lotes-by option:selected").attr("value")
 
-    var arrayCliente = {
-        nombre: nombreCliente,
-        telefono: telefono,
-        celular: celular,
-        email: email
+    if (nombreCliente.length == 0 || telefono.length == 0 || celular.length == 0 || email.length == 0) {
+        alert("Llenar todos los campos")
+    } else {
+        var arrayCliente = {
+            nombre: nombreCliente,
+            telefono: telefono,
+            celular: celular,
+            email: email
+        }
+        var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
+        firebase.database().ref('clientes/' + keyCliente + "/lotes").push(lotes)
+        addLoteToClient(keyCliente, lotes)
+        $("#nombre, #telefono, #celular, #email, #terreno").val("")
+        toggleView('.new-client', '.view-client')
     }
-    var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
-    firebase.database().ref('clientes/' + keyCliente + "/lotes").push(lotes)
-    addLoteToClient(keyCliente, lotes)
-    $("#nombre, #telefono, #celular, #email, #terreno").val("")
-    toggleView('.new-client', '.view-client')
 }
 
 function addLoteToClient(keyClient, lote) {
@@ -790,31 +804,37 @@ function addPago() {
     console.log(globalKeyLote)
     var fechaPago = $("#fecha").val()
     var montoPago = $("#monto").val()
-    var numeroPago = 1;
-    var knowPagos = database.ref('pagos/');
-    knowPagos.once('value', function(snapshot) {
-        var dataInfo = snapshot.val()
-        var lengthInfo = snapshot.numChildren();
-        if (lengthInfo == 0) {
-            numeroPago = "0" + numeroPago
-        } else {
-            $.each(dataInfo, function(indice, valor) {
-                if (valor.idLote == globalKeyLote) {
-                    numeroPago = numeroPago + 1
-                }
+
+    if (montoPago.length == 0) {
+        alert("Llenar todos los campos")
+    } else {
+        var numeroPago = 1;
+        var knowPagos = database.ref('pagos/');
+        knowPagos.once('value', function(snapshot) {
+            var dataInfo = snapshot.val()
+            var lengthInfo = snapshot.numChildren();
+            if (lengthInfo == 0) {
+                numeroPago = "0" + numeroPago
+            } else {
+                $.each(dataInfo, function(indice, valor) {
+                    if (valor.idLote == globalKeyLote) {
+                        numeroPago = numeroPago + 1
+                    }
+                });
+            }
+            if (numeroPago <= 9) {
+                numeroPago = "0" + numeroPago;
+            }
+            firebase.database().ref('pagos/').push({
+                idLote: globalKeyLote,
+                fecha: fechaPago,
+                monto: montoPago,
+                numero: numeroPago
             });
-        }
-        if (numeroPago <= 9) {
-            numeroPago = "0" + numeroPago;
-        }
-        firebase.database().ref('pagos/').push({
-            idLote: globalKeyLote,
-            fecha: fechaPago,
-            monto: montoPago,
-            numero: numeroPago
+            $("#pagosModal").modal("hide")
+            $("#monto").val("")
         });
-        $("#fecha, #pago").val("")
-    });
+    }
 }
 
 $.fn.sortMe = function(type, options) {
@@ -890,7 +910,6 @@ function ascendingOrderNumberPres(btn) {
             reverse: false
         });
     }
-    /*  BEBEEE DEBES DE ELEGIR QUE QUIERES ORDENAR PRIMERO Y DE AHI YA PONES EL TEXT CON EL EACH*/
 }
 
 function searchClients() {
@@ -935,4 +954,21 @@ function sendEmail(){
 
 function printSheet(){
     window.print();
+}
+
+function cleanInputs(patern){
+    $(patern).find("input").each(function(){
+        if($(this).is('[readonly]')){
+            return true;
+        }
+        else{
+            $(this).val("")
+        }
+    })
+}
+
+function getFormatDate(){
+    var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
+    var f = new Date();
+    $("#fecha").val(meses[f.getMonth()]+"-"+f.getFullYear())
 }
