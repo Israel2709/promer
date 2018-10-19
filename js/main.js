@@ -122,6 +122,9 @@ function updateUser() {
             $(".user-list").show()
             $(".settings").hide()
             $("#alert-edit").removeClass("d-none")
+            setTimeout( function(){
+                $("#alert-edit").addClass("d-none")
+            },3000)
         } else {
             var imageRefName = storageRef.child(collectionImg.name);
             var imagesRefName = storageRef.child('usersPhoto/' + collectionImg.name);
@@ -922,5 +925,14 @@ function exportToExcel() {
     $(".tableexport-caption").addClass("hidden")
     $(".csv").trigger("click")
     $(".tableexport-caption").remove()
+}
 
+function sendEmail(){
+    setTimeout(function(){
+        alert("Su mensaje se envió con éxito.")
+    },1300)
+}
+
+function printSheet(){
+    window.print();
 }
