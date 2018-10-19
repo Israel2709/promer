@@ -802,7 +802,8 @@ function NosePorqueLoHiceAsi(keyClient, lote) {
 
 function addPago() {
     console.log(globalKeyLote)
-    var fechaPago = $("#fecha").val()
+    var mesPago = $("#meses option:selected").text()
+    var añoPago = $("#años option:selected").text()
     var montoPago = $("#monto").val()
 
     if (montoPago.length == 0) {
@@ -827,7 +828,7 @@ function addPago() {
             }
             firebase.database().ref('pagos/').push({
                 idLote: globalKeyLote,
-                fecha: fechaPago,
+                fecha: mesPago+"-"+añoPago,
                 monto: montoPago,
                 numero: numeroPago
             });
@@ -968,6 +969,7 @@ function cleanInputs(patern){
 }
 
 function getFormatDate(){
+    $("#meses, #años").empty()
     var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
     for(var i=0; i < meses.length; i++){
         var addMonth = "<option>"+meses[i]+"</option>"
