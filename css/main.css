@@ -277,6 +277,8 @@ p, li, span, label {
       width: 50%; }
     .work-area form.personalizados .input-group-prepend.lote {
       width: 18.7%; }
+    .work-area form.personalizados .input-group-prepend.date {
+      width: 25%; }
   .work-area form.personalizados input.form-control {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -289,6 +291,9 @@ p, li, span, label {
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
       width: 10%; }
+  .work-area form.personalizados select.date {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px; }
   .work-area form.personalizados .input-group-text {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
