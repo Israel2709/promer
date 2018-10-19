@@ -80,6 +80,11 @@
               </div>
             </div>
           </div>
+           <div class="form-row col-12">
+            <div>
+              <img src="" id="fileAdjunto" width="100%" heigth="100%">
+            </div>
+          </div>
           <div class="form-row">
             <div class="form-group col-12">
               <div class="input-group">
@@ -405,4 +410,19 @@
   function removeBackdrop(){
     $(".modal-backdrop").addClass("d-none")
   }
+
+  $('.ico-message').click(function() {   
+     $(".ico-close, .ico-print, .ico-message, .ico-list, .ico-general").addClass('d-none')    
+    html2canvas($(".box-area"), {
+        onrendered: function(canvas) {         
+            var imgData = canvas.toDataURL(
+                'image/png');              
+            console.log(imgData)
+            var doc = new jsPDF('p', 'mm');
+            var exampleDoc =  doc.addImage(imgData, 'PNG', 10, 10);
+           $("#fileAdjunto").attr('src',imgData)
+        }
+    });
+    $(".ico-close, .ico-print, .ico-message, .ico-list, .ico-general").removeClass('d-none') 
+  });
 </script>
