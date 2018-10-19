@@ -969,6 +969,12 @@ function cleanInputs(patern){
 
 function getFormatDate(){
     var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
+    for(var i=0; i < meses.length; i++){
+        var addMonth = "<option>"+meses[i]+"</option>"
+        $("#meses").append(addMonth)
+    }
     var f = new Date();
-    $("#fecha").val(meses[f.getMonth()]+"-"+f.getFullYear())
+    $("#años").append("<option>"+(f.getFullYear()-1)+"</option>")
+    $("#años").append("<option>"+f.getFullYear()+"</option>")
+    $("#años").append("<option>"+(f.getFullYear()+1)+"</option>")
 }
