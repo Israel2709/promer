@@ -10,14 +10,23 @@
     <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="css/main.css" type="text/css">
     <title>Promer</title>
+    <style type="text/css" media="print"> 
+    .no-print{ 
+        display:none!important; 
+    }
+    .print{
+      display: block!important;
+    }
+
+    </style> 
   </head>
   <body>
     <div class="container-fluid">
       <div class="row no-gutters">
-        <div class="col-2 menu d-flex flex-column">
-          <div class="wrapper-menu-left  justify-content-between">
+        <div class="col-2 menu d-flex flex-column ">
+          <div class="wrapper-menu-left  justify-content-between ">
             <div class="logo-menu mt-5 mb-5"></div>
-            <div class="left-nav-wrapper">
+            <div class="left-nav-wrapper no-print">
               <div class="list-group" id="left-nav" role="tablist">
                 <a class="list-group-item list-group-item-action active icon-login" id="list-login-list" data-toggle="list" href="#list-login" role="tab" aria-controls="login"  onclick="changeView('login')">Login</a>
                 <a class="list-group-item list-group-item-action icon-search no-pointer" id="list-search-list" data-toggle="list" href="#list-search" role="tab" aria-controls="search"  onclick="changeView('buscar.html')">Buscar</a>
@@ -43,7 +52,7 @@
               </div>
             </div>
           </div>
-          <div class="user-data d-none">
+          <div class="user-data d-none no-print">
             <div class="img-user float-left"></div>
             <p class="float-left user-name">Ejecutivo<br><span class="name-login"><b>Mario Alcantara</b></span></p>
           </div>
@@ -75,6 +84,7 @@
   <script src="js/html2canvas.min.js"></script>
   <script src="js/jspdf.debug.js"></script>
   <script src="js/jspdf.min.js"></script>
+  <script src="js/printThis.js"></script>
   <script type="text/javascript">
       $( document ).ready(function() {
         getUsers()

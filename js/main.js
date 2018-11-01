@@ -108,7 +108,6 @@ function updateUser() {
         var cellphone = $("#cellphone").val()
         var privilegys;
         var collectionImg = $("#picture").prop("files")[0];
-        console.log(collectionImg)
         if (collectionImg == undefined) {
             if ($("#exampleRadios1").is(":checked")) {
                 privilegys = "S"
@@ -961,8 +960,8 @@ function sendEmail(){
     },1300)
 }
 
-function printSheet(){
-    window.print();
+function printSheet(div){
+    window.print()
 }
 
 function cleanInputs(patern){

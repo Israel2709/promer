@@ -63,20 +63,21 @@
   </div>
 </div>
 
-<div class="box-area">
+<div class="box-area" id="cotizadores">
+  <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span></p>
   <div class="quoting">
     <div class="header">
-      <span class="icon ico-close" id="quoting" onclick="closeQuoting()"></span>
-      <span class="icon ico-print" onclick="printSheet()"></span>
-      <span class="icon ico-message" data-toggle="modal" data-target="#emailModal"></span>
+      <span class="icon ico-close no-print" id="quoting" onclick="closeQuoting()"></span>
+      <span class="icon ico-print no-print" onclick="printSheet('#cotizadores')"></span>
+      <span class="icon ico-message no-print" data-toggle="modal" data-target="#emailModal"></span>
       <div class="icon-logo-search detail"></div>
     </div>
     <div class="title-quoting">
       <div class="separator"></div>
-      <span class="title"><b>Cotizador </b></span> <span class="today float-right">16 Septiembre 2018</span>
+      <span class="title"><b>Cotizador </b></span> <span class="today float-right no-print">16 Septiembre 2018</span>
       <div class="separator"></div>
     </div>
-    <form class="personalizados mt-4">
+    <form class="personalizados mt-4" >
       <div class="form-row ">
         <div class="form-group col-6">
           <div class="input-group">
@@ -132,14 +133,17 @@
           </div>
         </div>
       </div>
-      <div class="btn btn-success mt-3 cotizar" onclick="cotizar()">Cotizar</div>
+      <div class="btn btn-success mt-3 cotizar no-print" onclick="cotizar()">Cotizar</div>
     </form>
   </div>
 </div>
 <script>
    $( document ).ready(function() {
      getActualDate();
+     var nombreGlobal = $(".name-login").text()
+     $(".nombre-ejecutivo").text(nombreGlobal)
   });
+
   function closeQuoting(){
     $( "#list-settings-list" ).trigger( "click" );
   }

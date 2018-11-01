@@ -106,7 +106,8 @@
   </div>
 </div>
 
-<div class="box-area ">
+<div class="box-area " id="impresion">
+  <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span></p>
   <div class="list-view">
     <div class="header mb-3">
       <div class="icon-logo-search">
@@ -216,11 +217,11 @@
     </div>
   </div>
   <div class="detail-develop d-none">
-    <div class="header mb-3">
+    <div class="header mb-3 no-print">
       <span class="icon ico-general active" onclick="viewList()"></span>
       <span class="icon ico-list" onclick="viewList()"></span>
       <span class="icon ico-close" onclick="toggleView('.detail-develop', '.list-view'); removeBigBox()"></span>
-      <span class="icon ico-print" onclick="printSheet()"></span>
+      <span class="icon ico-print" onclick="printSheet('#impresion')"></span>
       <span class="icon ico-message" data-toggle="modal" data-target="#emailModalSearch"></span>
       <div class="icon-logo-search detail"></div>
     </div>
@@ -357,7 +358,7 @@
               <tbody id="pagos-lotes2"></tbody>
             </table>
             <div class="buttons-letters mt-2">
-              <div class="icon-add-plus button-new-pago" data-toggle="modal" data-target="#pagosModal"></div> <!-- data-toggle="modal" 5data-target="#pagosModal" -->
+              <div class="icon-add-plus button-new-pago no-print" data-toggle="modal" data-target="#pagosModal"></div> <!-- data-toggle="modal" 5data-target="#pagosModal" -->
               <!--div class="btn btn-success" onclick="exportToExcel()">Exportar</div-->
             </div>
           </div>
@@ -405,6 +406,8 @@
   $( document ).ready(function() {
       getListDesarrollos()
       getFormatDate()
+      var nombreGlobal = $(".name-login").text()
+     $(".nombre-ejecutivo").text(nombreGlobal)
   });
 
   function removeBigBox(){
