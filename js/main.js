@@ -12,6 +12,7 @@ var database = firebase.database();
 var usersRegister = []
 var arrayDesarrollos = []
 var idUserActive;
+var globalPrivilegios;
 
 function getUsers() {
     var starCountRef = database.ref('usuarios/');
@@ -21,7 +22,8 @@ function getUsers() {
             usersRegister.push({
                 id: indice,
                 usuario: valor.correo,
-                password: valor.passwordUser
+                password: valor.passwordUser,
+                privilegios: valor.privilegios
             })
         });
         console.log(usersRegister)
@@ -43,6 +45,7 @@ function login() {
     } else {
         if (usersRegister[j].password == passLogin) {
             idUserActive = usersRegister[j].id
+            globalPrivilegios = usersRegister[j].privilegios
             $("#left-nav a").removeClass("no-pointer")
             $("#list-settings-list").trigger("click")
         } else {
@@ -248,7 +251,7 @@ function getListDesarrollos() {
                 indice: indice,
                 nombre: valor.nombreTerreno
             });
-            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des' onclick=\"clientsByAdmin(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">" +
+            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des' onclick=\"clientsBy(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">" +
                 valor.nombreTerreno + "</span><span class='edit float-right d-none' onclick=\"clientsSold(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">Pagados</span></li>"
             $("#list-desarrollos").append(liFill)
         });
