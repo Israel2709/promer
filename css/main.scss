@@ -228,6 +228,9 @@ p,li,span,label{
 		&.list-desarrollos{
 			padding-left: 0px;
 		}
+		&[data-privilegios='N']{
+			display: none!important;
+		}
 	}
 	.photo{
 		cursor: pointer;
@@ -527,6 +530,9 @@ p,li,span,label{
     		width: 24px;
     		height: 24px;
     		margin-left: 0px;
+    		&[data-privilegios='N']{
+				display: none!important;
+			}
     	}
 	}
 	.note{

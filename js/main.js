@@ -63,10 +63,15 @@ function changeView(nameView) {
             $("#wrapper-section").load("views/" + nameView)
             setTimeout(function() {
                 getInfoUsers(idUserActive)
+                $(".add-plus").attr("data-privilegios", globalPrivilegios)
             }, 100)
             break;
         case 'buscar_admin.html':
             $("#wrapper-section").load("views/" + nameView)
+            setTimeout(function(){
+                $(".list-desarrollos").attr("data-privilegios", globalPrivilegios)
+            }, 100)
+            
                 /*getListDesarrollos()*/
             break;
         case 'cotizador.html':

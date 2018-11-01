@@ -175,6 +175,8 @@ p, li, span, label {
     cursor: pointer; }
     .work-area .add-plus.list-desarrollos {
       padding-left: 0px; }
+    .work-area .add-plus[data-privilegios='N'] {
+      display: none !important; }
   .work-area .photo {
     cursor: pointer; }
     .work-area .photo .change-photo {
@@ -405,6 +407,8 @@ p, li, span, label {
       width: 24px;
       height: 24px;
       margin-left: 0px; }
+      .work-area .icon-add-plus.list-desarrollos[data-privilegios='N'] {
+        display: none !important; }
   .work-area .note {
     font-size: 10px;
     color: #B0B2B3;
