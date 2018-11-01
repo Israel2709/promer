@@ -1,7 +1,7 @@
 p, li, span, label {
   color: #838084; }
 
-.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes, .quoting {
+.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes, .quoting, .report, .user-list, .settings {
   position: relative;
   z-index: 9999; }
 
@@ -49,6 +49,8 @@ p, li, span, label {
       background-image: url("../img/icon-quoting.png"); }
     .menu .left-nav-wrapper .list-group-item.icon-settings {
       background-image: url("../img/icon-settings.png"); }
+    .menu .left-nav-wrapper .list-group-item.icon-reports {
+      background-image: url("../img/icon-reports.png"); }
   .menu .privacy-policy {
     font-size: 8px;
     color: #fff;
@@ -170,8 +172,8 @@ p, li, span, label {
         border-radius: 50%;
         margin: 3px; }
   .work-area .add-plus {
-    /* padding-left: 5px;
-    padding-top: 5px; */
+    padding-left: 3px;
+    /*padding-top: 5px; */
     cursor: pointer; }
     .work-area .add-plus.list-desarrollos {
       padding-left: 0px; }
@@ -473,9 +475,13 @@ p, li, span, label {
   .work-area .new-desarrollo input {
     z-index: 99999;
     position: relative; }
+  .work-area .select-month {
+    border-radius: 10px;
+    width: 150px;
+    padding-left: 5px;
+    margin-left: 5px; }
 
-/* 
-Radios costumizados */
+/*Radios costumizados */
 /* Customize the label (the container) */
 .form-check {
   display: block;
