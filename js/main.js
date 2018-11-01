@@ -988,3 +988,16 @@ function getFormatDate(){
     $("#años").append("<option>"+f.getFullYear()+"</option>")
     $("#años").append("<option>"+(f.getFullYear()+1)+"</option>")
 }
+
+function getActualDate(){
+    var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    var dates = new Date();
+    var mesActual;
+    for(var i=1; i<meses.length; i++){
+        if(dates.getMonth() == i){
+            mesActual = meses[i]
+        }
+    }
+    var fecha = dates.getDate() + " " + mesActual + " " + dates.getFullYear();
+    $(".today").text(fecha)
+}
