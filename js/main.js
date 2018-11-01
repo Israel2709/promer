@@ -78,6 +78,10 @@ function changeView(nameView) {
             $("#wrapper-section").load("views/" + nameView)
             $(".user-data").removeClass("d-none")
             break;
+        case 'reportes.html':
+            $("#wrapper-section").load("views/" + nameView)
+            $(".user-data").removeClass("d-none")
+            break;
     }
 }
 
@@ -1005,5 +1009,5 @@ function getActualDate(){
 
 function cancelUser(){
     $(".user-list").show();
-    $(".settings").hide()
+    $(".settings, .add-user").hide()
 }
