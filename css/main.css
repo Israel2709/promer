@@ -355,9 +355,9 @@ p, li, span, label {
     width: 100%; }
     .work-area .search-clients #list-lotes li:hover {
       color: #8FAC19; }
-    .work-area .search-clients #list-lotes .admin {
+    .work-area .search-clients #list-lotes .client-account {
       padding-left: 100px; }
-      .work-area .search-clients #list-lotes .admin:hover {
+      .work-area .search-clients #list-lotes .client-account:hover {
         padding-left: 100px; }
   .work-area .search-clients .type-moda {
     z-index: 2000; }

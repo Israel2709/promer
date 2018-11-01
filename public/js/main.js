@@ -62,7 +62,7 @@ function changeView(nameView) {
                 getInfoUsers(idUserActive)
             }, 100)
             break;
-        case 'buscar_admin.html':
+        case 'buscar.html':
             $("#wrapper-section").load("views/" + nameView)
                 /*getListDesarrollos()*/
             break;
