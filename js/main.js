@@ -66,10 +66,10 @@ function changeView(nameView) {
                 $(".add-plus").attr("data-privilegios", globalPrivilegios)
             }, 100)
             break;
-        case 'buscar_admin.html':
+        case 'buscar.html':
             $("#wrapper-section").load("views/" + nameView)
             setTimeout(function(){
-                $(".list-desarrollos").attr("data-privilegios", globalPrivilegios)
+                $(".list-desarrollos, .plus-client").attr("data-privilegios", globalPrivilegios)
             }, 100)
             
                 /*getListDesarrollos()*/
@@ -989,6 +989,7 @@ function getFormatDate(){
     $("#años").append("<option>"+(f.getFullYear()+1)+"</option>")
 }
 
+
 function getActualDate(){
     var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     var dates = new Date();
@@ -1000,4 +1001,9 @@ function getActualDate(){
     }
     var fecha = dates.getDate() + " " + mesActual + " " + dates.getFullYear();
     $(".today").text(fecha)
+}
+
+function cancelUser(){
+    $(".user-list").show();
+    $(".settings").hide()
 }

@@ -470,7 +470,7 @@ p,li,span,label{
 				}
 				
 			}
-			.admin{
+			.client-account{
 			    padding-left: 100px;
 				&:hover{
 				    padding-left: 100px;
@@ -530,10 +530,10 @@ p,li,span,label{
     		width: 24px;
     		height: 24px;
     		margin-left: 0px;
-    		&[data-privilegios='N']{
-				display: none!important;
-			}
     	}
+    	&[data-privilegios='N']{
+			display: none!important;
+		}
 	}
 	.note{
 		font-size: 10px;
