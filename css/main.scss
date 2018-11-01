@@ -460,12 +460,29 @@ p,li,span,label{
 			list-style: none;
 			padding-inline-start: 0px;
 			cursor: pointer;
+			width: 100%;
 			li:hover{
 				color: $green;
+			}
+			.admin{
+			    padding-left: 100px;
+				&:hover{
+				    padding-left: 100px;
+				}
 			}
 		}
 		.type-moda{
 			z-index: 2000;
+		}
+		.delete{
+			width: auto;
+		    background-color: #8FAC19;
+		    border-radius: 20px;
+		    display: block;
+		    color: #fff;
+		    padding: 0px 10px;
+		    margin-right: 10px;
+		    cursor: pointer;
 		}
 	}
 	.number-principal{

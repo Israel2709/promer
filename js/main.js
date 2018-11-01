@@ -62,7 +62,7 @@ function changeView(nameView) {
                 getInfoUsers(idUserActive)
             }, 100)
             break;
-        case 'buscar.html':
+        case 'buscar_admin.html':
             $("#wrapper-section").load("views/" + nameView)
                 /*getListDesarrollos()*/
             break;
@@ -225,10 +225,12 @@ function edit(idUser) {
 
 function viewAction(element){
     $(element).find(".edit").removeClass("d-none")
+    $(element).find(".delete").removeClass("d-none")
 }
 
 function hideAction(element){
     $(element).find(".edit").addClass("d-none")
+    $(element).find(".delete").addClass("d-none")
 }
 
 function getListDesarrollos() {
@@ -246,7 +248,7 @@ function getListDesarrollos() {
                 indice: indice,
                 nombre: valor.nombreTerreno
             });
-            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des' onclick=\"clientsBy(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">" +
+            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des' onclick=\"clientsByAdmin(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">" +
                 valor.nombreTerreno + "</span><span class='edit float-right d-none' onclick=\"clientsSold(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">Pagados</span></li>"
             $("#list-desarrollos").append(liFill)
         });
@@ -319,7 +321,67 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     });
 }
 
-
+function clientsByAdmin(indice, keyDesarrollo, nameDesarrollo) {
+    $(".list-view, .no-properties2").addClass("d-none")
+    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
+    $(".number-desarrollo").text(indice)
+    $(".name-desarrollo").text(nameDesarrollo)
+    globalKeyDesarrollo = keyDesarrollo;
+    var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
+    starCountRef.on('value', function(snapshot) {
+        var dataInfo = snapshot.val()
+        var arrayLotesFrom = []
+        getClients()  
+        appendIDPays()            
+        if (dataInfo == null) {
+            $(".error-lotes").removeClass("d-none")
+        } else {
+            $.each(dataInfo, function(indice2, valor2) {
+                arrayLotesFrom.push(valor2)
+            });
+            var lotesRef = database.ref('lotes/')
+            lotesRef.on('value', function(snapshot) {
+                var dataLotes = snapshot.val()
+                $("#list-lotes").empty()
+                var valorPagoM = null;
+                $.each(dataLotes, function(indice3, valor3) {
+                    var nameCliente = null;
+                    var claveLote;
+                    var lengthPagados = 0;
+                    var indiceActual = null;
+                    for (var i = 0; i < arrayLotesFrom.length; i++) {
+                        if (arrayLotesFrom[i] == indice3) {
+                            claveLote = valor3.clave
+                            valorPagoM = valor3.pagosMensuales
+                            indiceActual = indice3
+                        }
+                    }
+                    for (var j = 0; j < arrayNameClients.length; j++) {
+                        if (arrayNameClients[j].key == valor3.propietario) {
+                            nameCliente = arrayNameClients[j].name
+                        }
+                    }
+                    for (var k=0; k < pays.length; k++){
+                        if(indiceActual == pays[k]){
+                            lengthPagados = lengthPagados + 1
+                        }
+                    }
+                     if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
+                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\">" + claveLote + " - " + nameCliente +  "<span class='delete float-right d-none' data-toggle='modal' data-target='#deleteLoteModal'>Borrar</span>" + "</li>"
+                        }
+                    $("#list-lotes").append(liAppend)
+                    
+                });
+                if($("#list-lotes li").length == 0){
+                    $(".no-properties").removeClass("d-none")
+                }
+                else{
+                    $(".no-properties").addClass("d-none")
+                }
+            })
+        }
+    });
+}
 
 function appendIDPays(){
     pays = []
@@ -894,7 +956,7 @@ $.fn.sortMe = function(type, options) {
         for (var i = 0; i < arrayDesarrollos.length; i++) {
             if (row[index] == arrayDesarrollos[i].nombre || row[index] == arrayDesarrollos[i].id) {
                 $(this).closest("li").html("<span class='number-principal' >" + arrayDesarrollos[i].id + "</span><span class='titulo-des' " +
-                    " onclick=\"clientsBy(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">" +
+                    " onclick=\"clientsByAdmin(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">" +
                     arrayDesarrollos[i].nombre + "</span><span class='edit float-right d-none'>Pagados</span>");
             }
         }

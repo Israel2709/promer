@@ -13,10 +13,13 @@
           <div class="form-row ">
             <div class="form-group col-6">
               <div class="input-group">
-                <div class="input-group-prepend">
+                <div class="input-group-prepend date">
                   <div class="input-group-text">Fecha</div>
                 </div>
-                <input type="text" class="form-control" id="fecha" placeholder="Fecha">
+                <select class="form-control date" id="meses">
+                </select>
+                <select class="form-control" id="años">
+                </select>
               </div>
             </div>
             <div class="form-group col-6">
@@ -31,8 +34,73 @@
         </form>
       </div>
       <div class="modal-footer">
-        <div class="btn btn-danger" data-dismiss="modal">Cancelar</div>
+        <div class="btn btn-danger" onclick="cleanInputs('.modal-body')" data-dismiss="modal">Cancelar</div>
         <div class="btn btn-success" onclick="addPago()">Agregar pago</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Enviar email -->
+<div class="modal fade" id="emailModalSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="title-settings">Enviar Correo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="personalizados">
+          <div class="form-row ">
+            <div class="form-group col-12">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Nombre</div>
+                </div>
+                <input type="text" class="form-control" id="name" placeholder="Nombre">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-12">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">E-mail</div>
+                </div>
+                <input type="text" class="form-control" id="email" placeholder="E-mail">
+              </div>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Asunto</div>
+                </div>
+                <input type="text" class="form-control" id="subject" placeholder="Asunto">
+              </div>
+            </div>
+          </div>
+           <div class="form-row col-12">
+            <div>
+              <img src="" id="fileAdjunto" width="100%" heigth="100%">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-12">
+              <div class="input-group">
+                <span class="text-modal">Mensaje</span>
+                <textarea name="" id="" cols="100" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer quoting">
+        <div class="btn btn-danger" data-dismiss="modal">Cancelar</div>
+        <div class="btn btn-success">Enviar correo</div>
       </div>
     </div>
   </div>
@@ -121,7 +189,7 @@
             </div>
           </div>
           <div class="wrapper mt-2">
-            <div class="btn btn-danger" onclick="toggleView('.new-client', '.view-client')">Cancelar</div>
+            <div class="btn btn-danger" onclick="cleanInputs('.new-client'); toggleView('.new-client', '.view-client')">Cancelar</div>
             <div class="btn btn-success" onclick=" addClientes()">Agregar</div>
           </div>
         </form>
@@ -139,6 +207,7 @@
         <div class="separator"></div>
         <p class="error-lotes d-none">No existen lotes en este desarrollo</p>
         <p class="d-none no-properties">No existen propietarios en este desarrollo</p>
+        <p class="d-none no-properties2">No existen clientes con un lote liquidados</p>
         <div class="mt-2 d-flex justify-content-center">
           <ul id="list-lotes">
           </ul>
@@ -151,8 +220,8 @@
       <span class="icon ico-general active" onclick="viewList()"></span>
       <span class="icon ico-list" onclick="viewList()"></span>
       <span class="icon ico-close" onclick="toggleView('.detail-develop', '.list-view'); removeBigBox()"></span>
-      <span class="icon ico-print"></span>
-      <span class="icon ico-message"></span>
+      <span class="icon ico-print" onclick="printSheet()"></span>
+      <span class="icon ico-message" data-toggle="modal" data-target="#emailModalSearch"></span>
       <div class="icon-logo-search detail"></div>
     </div>
     <div class="separator"></div>
@@ -191,7 +260,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Enganche</div>
                 </div>
-                <input type="text" class="form-control" id="enganche-lote" placeholder="Username">
+                <input type="text" class="form-control" id="enganche-lote" placeholder="Username" readonly>
               </div>
             </div>
             <div class="form-group col-6">
@@ -199,7 +268,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Costo</div>
                 </div>
-                <input type="text" class="form-control" id="costo-mt" placeholder="Username">
+                <input type="text" class="form-control" id="costo-mt" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -209,7 +278,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Metros</div>
                 </div>
-                <input type="text" class="form-control" id="mts-lote" placeholder="Username">
+                <input type="text" class="form-control" id="mts-lote" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -219,7 +288,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Letras</div>
                 </div>
-                <input type="text" class="form-control" id="pagos-lote" placeholder="Username">
+                <input type="text" class="form-control" id="pagos-lote" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -239,7 +308,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Fecha</div>
                 </div>
-                <input type="text" class="form-control" id="fecha-compra" placeholder="Username">
+                <input type="text" class="form-control" id="fecha-compra" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -249,7 +318,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Adeudo</div>
                 </div>
-                <input type="text" class="form-control" id="adeudo-lote" placeholder="Username">
+                <input type="text" class="form-control" id="adeudo-lote" placeholder="Username" readonly>
               </div>
             </div>
           </div>
@@ -288,7 +357,7 @@
               <tbody id="pagos-lotes2"></tbody>
             </table>
             <div class="buttons-letters mt-2">
-              <div class="icon-add-plus" data-toggle="modal" data-target="#pagosModa"></div> <!-- data-toggle="modal" 5data-target="#pagosModal" -->
+              <div class="icon-add-plus button-new-pago" data-toggle="modal" data-target="#pagosModal"></div> <!-- data-toggle="modal" 5data-target="#pagosModal" -->
               <div class="btn btn-success" onclick="exportToExcel()">Exportar</div>
             </div>
           </div>
@@ -335,6 +404,7 @@
 <script>
   $( document ).ready(function() {
       getListDesarrollos()
+      getFormatDate()
   });
 
   function removeBigBox(){
@@ -344,4 +414,19 @@
   function removeBackdrop(){
     $(".modal-backdrop").addClass("d-none")
   }
+
+  $('.ico-message').click(function() {   
+     $(".ico-close, .ico-print, .ico-message, .ico-list, .ico-general").addClass('d-none')    
+    html2canvas($(".box-area"), {
+        onrendered: function(canvas) {         
+            var imgData = canvas.toDataURL(
+                'image/png');              
+            console.log(imgData)
+            var doc = new jsPDF('p', 'mm');
+            var exampleDoc =  doc.addImage(imgData, 'PNG', 10, 10);
+           $("#fileAdjunto").attr('src',imgData)
+        }
+    });
+    $(".ico-close, .ico-print, .ico-message, .ico-list, .ico-general").removeClass('d-none') 
+  });
 </script>

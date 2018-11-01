@@ -351,11 +351,25 @@ p, li, span, label {
   .work-area .search-clients #list-lotes {
     list-style: none;
     padding-inline-start: 0px;
-    cursor: pointer; }
+    cursor: pointer;
+    width: 100%; }
     .work-area .search-clients #list-lotes li:hover {
       color: #8FAC19; }
+    .work-area .search-clients #list-lotes .admin {
+      padding-left: 100px; }
+      .work-area .search-clients #list-lotes .admin:hover {
+        padding-left: 100px; }
   .work-area .search-clients .type-moda {
     z-index: 2000; }
+  .work-area .search-clients .delete {
+    width: auto;
+    background-color: #8FAC19;
+    border-radius: 20px;
+    display: block;
+    color: #fff;
+    padding: 0px 10px;
+    margin-right: 10px;
+    cursor: pointer; }
   .work-area .number-principal {
     background-color: #B0B2B3;
     width: 24px;

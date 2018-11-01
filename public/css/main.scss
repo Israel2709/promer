@@ -364,6 +364,9 @@ p,li,span,label{
 			&.lote{
 				width: 18.7%;
 			}
+			&.date{
+				width: 25%;
+			}
 		}
 		input.form-control{
 			border-top-right-radius: 20px;
@@ -379,6 +382,10 @@ p,li,span,label{
 				border-bottom-left-radius: 20px;
 				width: 10%;
 			}
+		}
+		select.date{
+			border-top-right-radius: 0px;
+			border-bottom-right-radius: 0px;
 		}
 		.input-group-text{
 			border-top-left-radius: 20px;
@@ -459,6 +466,16 @@ p,li,span,label{
 		}
 		.type-moda{
 			z-index: 2000;
+		}
+		.delete{
+			width: auto;
+		    background-color: #8FAC19;
+		    border-radius: 20px;
+		    display: block;
+		    color: #fff;
+		    padding: 0px 10px;
+		    margin-right: 10px;
+		    cursor: pointer;
 		}
 	}
 	.number-principal{
@@ -669,4 +686,20 @@ Radios costumizados */
 canvas{
   width: 328px !important;
   height: 176px !important;
+}
+
+textarea{
+	border-color: $grayMedium;
+	border-radius: 10px;
+	color: $grayStrong;
+}
+
+.text-modal{
+	color: $grayStrong;
+}
+
+.modal-footer{
+	&.quoting{
+		margin-top: 70px;
+	}
 }
