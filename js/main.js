@@ -308,69 +308,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                         }
                     }
                      if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
-                            var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
-                        }
-                    $("#list-lotes").append(liAppend)
-                    
-                });
-                if($("#list-lotes li").length == 0){
-                    $(".no-properties").removeClass("d-none")
-                }
-                else{
-                    $(".no-properties").addClass("d-none")
-                }
-            })
-        }
-    });
-}
-
-function clientsByAdmin(indice, keyDesarrollo, nameDesarrollo) {
-    $(".list-view, .no-properties2").addClass("d-none")
-    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
-    $(".number-desarrollo").text(indice)
-    $(".name-desarrollo").text(nameDesarrollo)
-    globalKeyDesarrollo = keyDesarrollo;
-    var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
-    starCountRef.on('value', function(snapshot) {
-        var dataInfo = snapshot.val()
-        var arrayLotesFrom = []
-        getClients()  
-        appendIDPays()            
-        if (dataInfo == null) {
-            $(".error-lotes").removeClass("d-none")
-        } else {
-            $.each(dataInfo, function(indice2, valor2) {
-                arrayLotesFrom.push(valor2)
-            });
-            var lotesRef = database.ref('lotes/')
-            lotesRef.on('value', function(snapshot) {
-                var dataLotes = snapshot.val()
-                $("#list-lotes").empty()
-                var valorPagoM = null;
-                $.each(dataLotes, function(indice3, valor3) {
-                    var nameCliente = null;
-                    var claveLote;
-                    var lengthPagados = 0;
-                    var indiceActual = null;
-                    for (var i = 0; i < arrayLotesFrom.length; i++) {
-                        if (arrayLotesFrom[i] == indice3) {
-                            claveLote = valor3.clave
-                            valorPagoM = valor3.pagosMensuales
-                            indiceActual = indice3
-                        }
-                    }
-                    for (var j = 0; j < arrayNameClients.length; j++) {
-                        if (arrayNameClients[j].key == valor3.propietario) {
-                            nameCliente = arrayNameClients[j].name
-                        }
-                    }
-                    for (var k=0; k < pays.length; k++){
-                        if(indiceActual == pays[k]){
-                            lengthPagados = lengthPagados + 1
-                        }
-                    }
-                     if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
-                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\">" + claveLote + " - " + nameCliente +  "<span class='delete float-right d-none' data-toggle='modal' data-target='#deleteLoteModal'>Borrar</span>" + "</li>"
+                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"' data-toggle='modal' data-target='#deleteLoteModal'>Borrar</span>" + "</li>"
                         }
                     $("#list-lotes").append(liAppend)
                     
@@ -959,7 +897,7 @@ $.fn.sortMe = function(type, options) {
         for (var i = 0; i < arrayDesarrollos.length; i++) {
             if (row[index] == arrayDesarrollos[i].nombre || row[index] == arrayDesarrollos[i].id) {
                 $(this).closest("li").html("<span class='number-principal' >" + arrayDesarrollos[i].id + "</span><span class='titulo-des' " +
-                    " onclick=\"clientsByAdmin(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">" +
+                    " onclick=\"clientsBy(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">" +
                     arrayDesarrollos[i].nombre + "</span><span class='edit float-right d-none'>Pagados</span>");
             }
         }

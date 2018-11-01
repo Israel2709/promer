@@ -353,7 +353,7 @@ p, li, span, label {
     padding-inline-start: 0px;
     cursor: pointer;
     width: 100%; }
-    .work-area .search-clients #list-lotes li:hover {
+    .work-area .search-clients #list-lotes li:hover span {
       color: #8FAC19; }
     .work-area .search-clients #list-lotes .client-account {
       padding-left: 100px; }
@@ -366,10 +366,12 @@ p, li, span, label {
     background-color: #8FAC19;
     border-radius: 20px;
     display: block;
-    color: #fff;
+    color: #fff !important;
     padding: 0px 10px;
     margin-right: 10px;
     cursor: pointer; }
+    .work-area .search-clients .delete[data-type-privilegios='N'] {
+      display: none !important; }
   .work-area .number-principal {
     background-color: #B0B2B3;
     width: 24px;
