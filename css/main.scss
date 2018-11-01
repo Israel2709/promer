@@ -462,7 +462,10 @@ p,li,span,label{
 			cursor: pointer;
 			width: 100%;
 			li:hover{
-				color: $green;
+				span{
+					color: $green;
+				}
+				
 			}
 			.admin{
 			    padding-left: 100px;
@@ -479,10 +482,13 @@ p,li,span,label{
 		    background-color: #8FAC19;
 		    border-radius: 20px;
 		    display: block;
-		    color: #fff;
+		    color: #fff!important;
 		    padding: 0px 10px;
 		    margin-right: 10px;
 		    cursor: pointer;
+		    &[data-type-privilegios='N']{
+				display: none!important;
+		    }
 		}
 	}
 	.number-principal{
