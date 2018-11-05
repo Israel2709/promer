@@ -1093,6 +1093,14 @@ function getReports() {
                 data: oilData,
                 options: chartOptions
             });
+            if(TotalMes == 0){
+                $(".no-reports").removeClass("d-none")
+                $(".reports-view").addClass("d-none")
+            }
+            else{
+                $(".no-reports").addClass("d-none")
+                $(".reports-view").removeClass("d-none")
+            }
         });
 
     });
@@ -1113,4 +1121,14 @@ function getDes() {
     });
 }
 
-
+function backrest(){
+    var obj;
+    var knowbd = database.ref()
+    knowbd.once('value', function(snapshot) {
+        obj = snapshot.val()
+        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+        $('<a id="link-here" href="data:' + data + '" download="basePromer.json">download JSON</a>').appendTo('.link');
+        $("#link-here").get(0).click()
+        $(".link").empty()
+    });
+}
