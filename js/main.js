@@ -812,7 +812,6 @@ function NosePorqueLoHiceAsi(keyClient, lote) {
 }
 
 function addPago() {
-    console.log(globalKeyLote)
     var mesPago = $("#meses option:selected").text()
     var añoPago = $("#años option:selected").text()
     var montoPago = $("#monto").val()
@@ -1010,3 +1009,108 @@ function cancelUser(){
     $(".user-list").show();
     $(".settings, .add-user").hide()
 }
+
+var arrayAllDesarrollos = []
+
+var pieChartReport = null;
+function getReports() {
+    var allTerrenos = []
+    var cantPagada = []
+    var i;
+    var monto;
+    var getMonth = $("#meses option:selected").attr("value")
+    var getYear = $("#años option:selected").attr("value")
+    var eachLote = database.ref('pagos')
+    eachLote.once('value', function(snapshot2) {
+        var infoL = snapshot2.val()
+        $.each(infoL, function(indice2, valor2) {
+            for (i = 0; i < arrayAllDesarrollos.length; i++) {
+                if (valor2.idLote == arrayAllDesarrollos[i].keyl) {
+                    monto = arrayAllDesarrollos[i].totalPerMonth
+                    var extract = valor2.fecha.substr(0, 3)
+                    var lastPart = valor2.fecha.substr(valor2.fecha.length - 2)
+                    if (getMonth == extract && getYear == lastPart) {
+                        monto = monto + parseInt(valor2.monto)
+                        arrayAllDesarrollos[i].totalPerMonth = monto
+                    }
+
+                }
+            }
+
+        })
+        var getDesarrollo = database.ref('desarrollos')
+        getDesarrollo.once('value', function(snapshot3) {
+            var listD = snapshot3.val()
+            $.each(listD, function(indice3, valor3) {
+                allTerrenos.push(valor3.nombreTerreno)
+                var getL = valor3.lotes
+                var montoT = 0;
+                $.each(getL, function(key, keyL) {
+                    var i;
+                    for (i = 0; i < arrayAllDesarrollos.length; i++) {
+                        if (arrayAllDesarrollos[i].keyl == keyL) {
+                            montoT = montoT + parseInt(arrayAllDesarrollos[i].totalPerMonth);
+                        }
+                    }
+                });
+                cantPagada.push(montoT)
+            });
+
+            $("#list-lotes-reports").empty()
+            var TotalMes = 0;
+            var s;
+            for (s = 0; s < allTerrenos.length; s++) {
+                TotalMes = TotalMes + parseInt(cantPagada[s])
+                var formatCurrency = '$' + parseFloat(cantPagada[s], 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
+                var lis = "<li class='float-left'>" + allTerrenos[s] + " <span class='total-development float-right'> " + formatCurrency + "</span></li>"
+                $("#list-lotes-reports").append(lis)
+            }
+            $(".total-month").text('$' + parseFloat(TotalMes, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+            var oilCanvas = document.getElementById("myChartReport");
+            var oilData = {
+                labels: allTerrenos,
+                datasets: [{
+                    data: cantPagada
+                        /*backgroundColor: [
+                            "#8FAC19",
+                            "#D8D9DA"
+                        ]*/
+                }]
+            };
+            var chartOptions = {
+                legend: {
+                    display: false,
+                },
+                borderColor: '#c6c6c6'
+            };
+            if(pieChartReport != null){
+                console.log("entra")
+                pieChartReport.clear()
+                pieChartReport.destroy()
+            }
+            pieChartReport = new Chart(oilCanvas, {
+                type: 'doughnut',
+                data: oilData,
+                options: chartOptions
+            });
+        });
+
+    });
+
+}
+function getDes() {
+    arrayAllDesarrollos = []
+    var knowEahcDesarrollo = database.ref('lotes')
+    knowEahcDesarrollo.once('value', function(snapshot) {
+        var infoD = snapshot.val()
+        $.each(infoD, function(indice, valor) {
+            arrayAllDesarrollos.push({
+                keyl: indice,
+                totalPerMonth: 0
+            })
+        })
+        getReports()
+    });
+}
+
+

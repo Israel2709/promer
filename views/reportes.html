@@ -7,38 +7,53 @@
     </div>
     <div class="separator"></div>
     <div class="mt-2 mb-2">
-      <span class="lote-selected">Selecciona el mes a consultar:</span>
-      <select name="meses" id="meses" class="select-month"> Seleccionar
-        <option value="enero">Enero</option>
-        <option value="febrero">Febrero</option>
-        <option value="marzo">Marzo</option>
-        <option value="abril">Abril</option>
-        <option value="mayo">Mayo</option>
-        <option value="junio">Junio</option>
-        <option value="julio">Julio</option>
-        <option value="agosto">Agosto</option>
-        <option value="septiembre">Septiembre</option>
-        <option value="octubre">Octubre</option>
-        <option value="noviembre">Noviembre</option>
-        <option value="diciembre">Diciembre</option>
+      <span class="lote-selected">Selecciona el mes y el año a consultar:</span>
+      <select name="meses" id="meses" class="select-month" onchange="getDes()"> Seleccionar
+        <option value="Ene">Enero</option>
+        <option value="Feb">Febrero</option>
+        <option value="Mar">Marzo</option>
+        <option value="Abr">Abril</option>
+        <option value="May">Mayo</option>
+        <option value="Jun">Junio</option>
+        <option value="Jul">Julio</option>
+        <option value="Ago">Agosto</option>
+        <option value="Sep">Septiembre</option>
+        <option value="Oct">Octubre</option>
+        <option value="Nov">Noviembre</option>
+        <option value="Dic">Diciembre</option>
+      </select>
+      <select name="años" id="años" class="select-year" onchange="getDes()"> Seleccionar
+        <option value="16">2016</option>
+        <option value="17">2017</option>
+        <option value="18" selected>2018</option>
       </select>
     </div>
     <div class="row mt-3">
       <div class="col-6">
-        <canvas id="myChartReport"></canvas>
+        <canvas id="myChartReport" ></canvas>
         <div class="label-porcent"></div>
         <p>Ingreso del mes: <span class="total-month">$ 10,0000</span></p>
       </div>
       <div class="col-6">
         <div class="mt-2 d-flex">
           <ul id="list-lotes-reports">
-            <li class="float-left">Prueba 1<span class="total-development float-right">$ 1,000</span></li>
-            <li class="float-left">Prueba 2<span class="total-development float-right">$ 1,000</span></li>
-            <li class="float-left">Prueba 3<span class="total-development float-right">$ 1,000</span></li>
-            <li class="float-left">Prueba 4<span class="total-development float-right">$ 1,000</span></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function(){
+    $("#años").empty()
+    var f = new Date();
+    var yearN = f.getFullYear().toString()
+    var lastY = yearN.substr(yearN.length - 2)
+    var FirsM = f.getMonth();
+    $("#años").append("<option value='"+(lastY-2)+"'>"+(f.getFullYear()-2)+"</option>")
+    $("#años").append("<option value='"+(lastY-1)+"'>"+(f.getFullYear()-1)+"</option>")
+    $("#años").append("<option value='"+lastY+"' selected>"+f.getFullYear()+"</option>")
+    $("#años").append("<option value='"+(lastY+1)+"'>"+(f.getFullYear()+1)+"</option>")
+    $("#meses option:eq("+FirsM+")").prop("selected", true).trigger("change")
+  })
+</script>
