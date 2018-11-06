@@ -179,6 +179,10 @@ p, li, span, label {
       padding-left: 0px; }
     .work-area .add-plus[data-privilegios='N'] {
       display: none !important; }
+  .work-area .backrest {
+    display: block; }
+    .work-area .backrest[data-privilegios='N'] {
+      display: none !important; }
   .work-area .photo {
     cursor: pointer; }
     .work-area .photo .change-photo {

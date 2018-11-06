@@ -235,6 +235,12 @@ p,li,span,label{
 			display: none!important;
 		}
 	}
+	.backrest{
+		display: block;
+		&[data-privilegios='N']{
+			display: none!important;
+		}
+	}
 	.photo{
 		cursor: pointer;
 		.change-photo{

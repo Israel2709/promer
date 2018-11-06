@@ -63,7 +63,7 @@ function changeView(nameView) {
             $("#wrapper-section").load("views/" + nameView)
             setTimeout(function() {
                 getInfoUsers(idUserActive)
-                $(".add-plus").attr("data-privilegios", globalPrivilegios)
+                $(".add-plus, .backrest").attr("data-privilegios", globalPrivilegios)
             }, 100)
             break;
         case 'buscar.html':
@@ -71,8 +71,6 @@ function changeView(nameView) {
             setTimeout(function(){
                 $(".list-desarrollos, .plus-client").attr("data-privilegios", globalPrivilegios)
             }, 100)
-            
-                /*getListDesarrollos()*/
             break;
         case 'cotizador.html':
             $("#wrapper-section").load("views/" + nameView)
