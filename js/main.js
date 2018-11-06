@@ -271,7 +271,7 @@ var globalKeyDesarrollo = null;
 var pays = []
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
-    $(".list-view, .no-properties2").addClass("d-none")
+    $(".list-view, .no-properties2, .error-lotes").addClass("d-none")
     $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
@@ -281,7 +281,9 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
         var dataInfo = snapshot.val()
         var arrayLotesFrom = []
         getClients()  
-        appendIDPays()            
+        appendIDPays()   
+        $("#list-lotes").empty()  
+        console.log(dataInfo)       
         if (dataInfo == null) {
             $(".error-lotes").removeClass("d-none")
         } else {
@@ -291,7 +293,6 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
             var lotesRef = database.ref('lotes/')
             lotesRef.on('value', function(snapshot) {
                 var dataLotes = snapshot.val()
-                $("#list-lotes").empty()
                 var valorPagoM = null;
                 $.each(dataLotes, function(indice3, valor3) {
                     var nameCliente = null;
@@ -316,7 +317,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                         }
                     }
                      if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
-                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"' data-toggle='modal' data-target='#deleteLoteModal'>Borrar</span>" + "</li>"
+                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"' onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span>" + "</li>"
                         }
                     $("#list-lotes").append(liAppend)
                     
@@ -723,7 +724,6 @@ function addClientes() {
     var celular = $("#celular").val()
     var email = $("#email").val()
     var lotes = $("#lotes-by option:selected").attr("value")
-
     if (nombreCliente.length == 0 || telefono.length == 0 || celular.length == 0 || email.length == 0) {
         alert("Llenar todos los campos")
     } else {
@@ -1055,26 +1055,30 @@ function getReports() {
                 });
                 cantPagada.push(montoT)
             });
-
+            var colors = ["#90AC19", "#B0B2B3", "#CCE55F", "#FFFFFF", "#AFCC36", "#ECECEC", "#728C04", "#898E91", "#506400", "#6B757A"]
+            var colorData = []
             $("#list-lotes-reports").empty()
             var TotalMes = 0;
             var s;
+            var ind = 0;
             for (s = 0; s < allTerrenos.length; s++) {
                 TotalMes = TotalMes + parseInt(cantPagada[s])
                 var formatCurrency = '$' + parseFloat(cantPagada[s], 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
                 var lis = "<li class='float-left'>" + allTerrenos[s] + " <span class='total-development float-right'> " + formatCurrency + "</span></li>"
                 $("#list-lotes-reports").append(lis)
+                colorData.push(colors[ind])
+                ind = ind + 1;
+                if(ind == 9){
+                    ind = 0;
+                }
             }
             $(".total-month").text('$' + parseFloat(TotalMes, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
             var oilCanvas = document.getElementById("myChartReport");
             var oilData = {
                 labels: allTerrenos,
                 datasets: [{
-                    data: cantPagada
-                        /*backgroundColor: [
-                            "#8FAC19",
-                            "#D8D9DA"
-                        ]*/
+                    data: cantPagada,
+                    backgroundColor: colorData
                 }]
             };
             var chartOptions = {
@@ -1130,5 +1134,55 @@ function backrest(){
         $('<a id="link-here" href="data:' + data + '" download="basePromer.json">download JSON</a>').appendTo('.link');
         $("#link-here").get(0).click()
         $(".link").empty()
+    });
+}
+
+function deleteLote(idLote) {
+    $("#deleteLoteModal").modal("show")
+    $("#yes-delete").on("click", function() {
+        //DeleteFromLotes
+        firebase.database().ref('lotes/' + idLote).remove();
+        //DeleteFromClientes
+        var delClient = database.ref("clientes")
+        delClient.once('value', function(snapshot) {
+            var objC = snapshot.val()
+            $.each(objC, function(indice, valor) {
+                var getL = valor.lotes
+                $.each(getL, function(key, keyL) {
+                    if (keyL == idLote) {
+                        firebase.database().ref('clientes/' + indice + '/lotes/' + key).remove();
+                    }
+                });
+            });
+
+            //deleteFromDesarrollos
+            var delClient = database.ref("desarrollos")
+            delClient.once('value', function(snapshot2) {
+                var objD = snapshot2.val()
+                $.each(objD, function(indice2, valor2) {
+                    var getL2 = valor2.lotes
+                    $.each(getL2, function(key2, keyL2) {
+                        if (keyL2 == idLote) {
+                            firebase.database().ref('desarrollos/' + indice2 + '/lotes/' + key2).remove();
+                        }
+                    });
+                });
+
+
+                //deleteFromPagos
+                var delClient = database.ref("desarrollos")
+                delClient.once('value', function(snapshot3) {
+                    var objP = snapshot3.val()
+                    $.each(objP, function(indice3, valor3) {
+                        if (valor3.idLote == idLote) {
+                            firebase.database().ref('pagos/' + indice3).remove();
+                        }
+                    });
+                });
+
+            });
+
+        });
+
     });
 }

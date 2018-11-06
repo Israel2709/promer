@@ -280,6 +280,10 @@ p,li,span,label{
 				height: 40px;
 				margin-right: 30px;
 			}
+			&.report{
+				margin-right: 30px;
+    			position: initial;
+			}
 		}
 		.icon{
 			height: 15px;
@@ -622,9 +626,35 @@ p,li,span,label{
 	}
 	.select-month{
 		border-radius: 10px;
-	    width: 150px;
+	    width: 120px;
 	    padding-left: 5px;
 	    margin-left: 5px;
+	    margin-right: 10px;
+	}
+	.select-year{
+		border-radius: 10px;
+	}
+	.report{
+		#myChartReport{
+			width: 245px !important;
+    		height: 125px !important;
+			border: 1px solid #838084;
+			border-radius: 20px;
+		}
+		#list-lotes-reports{
+			list-style: none;
+			padding-inline-start: 0px;
+			overflow-y: scroll;
+			height: 156px;
+			li{
+				font-size: 13px;
+				width: 100%;
+				.total-development{
+					font-weight: bold;
+					margin-right: 10px;
+				}
+			}
+		}
 	}
 }
 
