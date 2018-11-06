@@ -651,7 +651,6 @@ function addTerreno() {
         }
         $("#desarrollo").val("")
         lotesOn = []
-        getListDesarrollos()
         changeViewsAll('buscar.html')
         $("#alert-desarrollo").removeClass("d-none")
         setTimeout(function(){
@@ -691,7 +690,7 @@ function toggleView(vista1, vista2){
 
 var lotesOn = []
 
-function addOnArray(){
+function addOnArray() {
     var lote = $("#lote").val()
     var manzana = $("#manzana").val()
     var calle = $("#calle").val()
@@ -699,21 +698,25 @@ function addOnArray(){
     var delegacion = $("#delegacion").val()
     var metros = $("#metros").val()
     var costoMetro = $("#costo-metro").val()
+    var costoWithin = costoMetro.replace(/\$|\,/g, "");
 
-    lotesOn.push({
-        lote: lote,
-        manzana: manzana,
-        calle: calle,
-        colonia: colonia,
-        delegacion: delegacion,
-        metros: metros,
-        costoMetro: costoMetro
-    })
+    if (lote.length == 0 || manzana.length == 0 || calle.length == 0 || colonia.length == 0 || delegacion.length == 0 || metros.length == 0 || costoMetro.length == 0) {
+        alert("Llenar todos los campos")
+    } else {
+        lotesOn.push({
+            lote: lote,
+            manzana: manzana,
+            calle: calle,
+            colonia: colonia,
+            delegacion: delegacion,
+            metros: metros,
+            costoMetro: costoWithin
+        })
 
-    console.log(lotesOn)
-    $("#list-lotes").append("<li>L"+lote+"M"+manzana+"</li>")
-    toggleView('.add-lotes', '.new-desarrollo')
-    $(".add-lotes input").val("")
+        $("#list-lotes").append("<li>L" + lote + "M" + manzana + "</li>")
+        toggleView('.add-lotes', '.new-desarrollo')
+        $(".add-lotes input").val("")
+    }
 }
 
 
@@ -723,8 +726,11 @@ function addClientes() {
     var telefono = $("#telefono").val()
     var celular = $("#celular").val()
     var email = $("#email").val()
+    var pagos = $("#pagos-new").val()
+    var eng = $("#enganche-new").val()
+    var engWithin = eng.replace(/\$|\,/g, "");
     var lotes = $("#lotes-by option:selected").attr("value")
-    if (nombreCliente.length == 0 || telefono.length == 0 || celular.length == 0 || email.length == 0) {
+    if (nombreCliente.length == 0 || telefono.length == 0 || celular.length == 0 || email.length == 0 || pagos.length == 0 || eng.length == 0) {
         alert("Llenar todos los campos")
     } else {
         var arrayCliente = {
@@ -735,15 +741,27 @@ function addClientes() {
         }
         var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
         firebase.database().ref('clientes/' + keyCliente + "/lotes").push(lotes)
-        addLoteToClient(keyCliente, lotes)
+        addLoteToClient(keyCliente, lotes, pagos, engWithin)
         $("#nombre, #telefono, #celular, #email, #terreno").val("")
         toggleView('.new-client', '.view-client')
     }
 }
 
-function addLoteToClient(keyClient, lote) {
+function addLoteToClient(keyClient, lote, nPagos, enganches) {
+    var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
+    var dates = new Date();
+    var mesActual;
+    for(var i=1; i<meses.length; i++){
+        if(dates.getMonth() == i){
+            mesActual = meses[i]
+        }
+    }
+    var fecha = dates.getDate() + "/" + mesActual + "/" + dates.getFullYear();
     firebase.database().ref('lotes/' + lote).update({
-        propietario: keyClient
+        propietario: keyClient,
+        pagosMensuales: nPagos,
+        fechaCompra: fecha,
+        enganche: enganches
     })
 }
 
@@ -1170,7 +1188,7 @@ function deleteLote(idLote) {
 
 
                 //deleteFromPagos
-                var delClient = database.ref("desarrollos")
+                var delClient = database.ref("pagos")
                 delClient.once('value', function(snapshot3) {
                     var objP = snapshot3.val()
                     $.each(objP, function(indice3, valor3) {
@@ -1178,6 +1196,7 @@ function deleteLote(idLote) {
                             firebase.database().ref('pagos/' + indice3).remove();
                         }
                     });
+                     $("#deleteLoteModal").modal("hide")
                 });
 
             });
