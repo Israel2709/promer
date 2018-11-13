@@ -63,7 +63,7 @@ function changeView(nameView) {
             $("#wrapper-section").load("views/" + nameView)
             setTimeout(function() {
                 getInfoUsers(idUserActive)
-                $(".add-plus, .backrest").attr("data-privilegios", globalPrivilegios)
+                $(".add-plus, .backrest, .upload-back").attr("data-privilegios", globalPrivilegios)
             }, 100)
             break;
         case 'buscar.html':
@@ -315,7 +315,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                         }
                     }
                      if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
-                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"' onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span>" + "</li>"
+                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"'  onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span>" + "</li>"
                         }
                     $("#list-lotes").append(liAppend)
                     
@@ -1151,6 +1151,21 @@ function backrest(){
         $("#link-here").get(0).click()
         $(".link").empty()
     });
+}
+
+function goToFile(element){
+    $(element).siblings().trigger("click")
+}
+function uploadBack(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var obj = JSON.parse(e.target.result);
+            database.ref().set(obj)
+        };
+        reader.readAsText(input.files[0]);
+        $(input).val("");
+    }
 }
 
 function deleteLote(idLote) {

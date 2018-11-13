@@ -1,11 +1,21 @@
 <div class="box-area">
+  <img src="img/logo-principal-v1.png" class="print logo-print">
+  <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span><span class="today d-none print float-right">16 Septiembre 2018</span></p>
   <div class="report">
-    <div class="header mb-3">
+    <div class="header mb-3 no-print">
+      <span class="icon ico-close" id="quoting" onclick="closeQuoting()"></span>
+      <span class="icon ico-print" onclick="printSheet('#cotizadores')"></span>
+      <span class="icon ico-message" data-toggle="modal" data-target="#emailModal"></span>
+      <div class="icon-logo-search detail"></div>
+    </div>
+    <!-- <div class="header mb-3">
       <div class="icon-logo-search report">
         <span class="icon ico-close search float-right" onclick="closeQuoting()"></span>
         <h3 class="title-settings">Reportes</h3>
       </div>
-    </div>
+    </div> -->
+    <div class="separator"></div>
+    <h3 class="title-settings">Reportes</h3>
     <div class="separator"></div>
     <div class="mt-2 mb-2">
       <span class="lote-selected">Selecciona el mes y el año a consultar:</span>
@@ -29,12 +39,12 @@
         <option value="18" selected>2018</option>
       </select>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-2">
       <p class="no-reports d-none text-center w-100"><b>No hay pagos en este mes</b></p>
       <div class="col-6 reports-view">
         <canvas id="myChartReport" ></canvas>
         <div class="label-porcent"></div>
-        <p class="mt-2 text-center">Ingreso del mes: <span class="total-month">$ 10,0000</span></p>
+        <p class="mt-1 text-center">Ingreso del mes: <span class="total-month">$ 10,0000</span></p>
       </div>
       <div class="col-6 reports-view">
         <div class="mt-2 d-flex">
@@ -57,5 +67,8 @@
     $("#años").append("<option value='"+lastY+"' selected>"+f.getFullYear()+"</option>")
     $("#años").append("<option value='"+(lastY+1)+"'>"+(f.getFullYear()+1)+"</option>")
     $("#meses option:eq("+FirsM+")").prop("selected", true).trigger("change")
+    getActualDate();
+    var nombreGlobal = $(".name-login").text()
+    $(".nombre-ejecutivo").text(nombreGlobal)
   })
 </script>

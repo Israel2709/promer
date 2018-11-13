@@ -235,7 +235,7 @@ p,li,span,label{
 			display: none!important;
 		}
 	}
-	.backrest{
+	.backrest, .upload-back{
 		display: block;
 		&[data-privilegios='N']{
 			display: none!important;
@@ -484,27 +484,34 @@ p,li,span,label{
 				
 			}
 			.client-account{
-			    padding-left: 100px;
+			    padding-left: 20px;
 				&:hover{
-				    padding-left: 100px;
+				    padding-left: 20px;
 				}
+			}
+			/* Safari 7.1+ */
+			_::-webkit-full-page-media, _:future, :root .client-account {
+			  padding-left: 0px;
+			  	&.hover{
+			  		padding-left: 0px;
+			  	}
+			}
+			.delete{
+				width: auto;
+			    background-color: #8FAC19;
+			    border-radius: 20px;
+			    display: block;
+			    color: #fff!important;
+			    padding: 0px 10px;
+			    margin-right: 10px;
+			    cursor: pointer;
+			    &[data-type-privilegios='N']{
+			    	display: none!important;
+			    }
 			}
 		}
 		.type-moda{
 			z-index: 2000;
-		}
-		.delete{
-			width: auto;
-		    background-color: #8FAC19;
-		    border-radius: 20px;
-		    display: block;
-		    color: #fff!important;
-		    padding: 0px 10px;
-		    margin-right: 10px;
-		    cursor: pointer;
-		    &[data-type-privilegios='N']{
-				display: none!important;
-		    }
 		}
 	}
 	.number-principal{
@@ -651,7 +658,7 @@ p,li,span,label{
 			list-style: none;
 			padding-inline-start: 0px;
 			overflow-y: scroll;
-			height: 156px;
+			height: 135px;
 			li{
 				font-size: 13px;
 				width: 100%;
@@ -767,4 +774,11 @@ textarea{
 
 .nombre-print{
 	display: none;
+}
+
+.logo-print{
+	display: none; 
+    width: 45%;
+    height: auto;
+    margin-left: 25%;
 }

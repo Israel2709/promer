@@ -20,6 +20,10 @@
           
         </ul>
         <img src="img/add-plus.png" class="add-plus"  onclick="viewAlta()">
+        <div class="float-right">
+          <div class="btn btn-success no-print upload-back" onclick="goToFile(this)">Restaurar base de datos</div>
+          <input id="file-upload" class="d-none" type="file" accept=".json" onchange="uploadBack(this)" /><br/>
+        </div>
         <div class="btn btn-success cotizar backrest no-print float-right" onclick="backrest()">
         Respaldar base de datos</div>
         <div class="link d-none"></div>

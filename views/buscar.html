@@ -128,7 +128,8 @@
 </div>
 
 <div class="box-area " id="impresion">
-  <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span></p>
+  <img src="img/logo-principal-v1.png" class="print logo-print">
+  <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span><span class="today d-none print float-right">16 Septiembre 2018</span></p>
   <div class="list-view">
     <div class="header mb-3">
       <div class="icon-logo-search">
@@ -449,10 +450,11 @@
 <div class="modal-backdrop fade in d-none"></div>
 <script>
   $( document ).ready(function() {
+      getActualDate();
       getListDesarrollos()
       getFormatDate()
       var nombreGlobal = $(".name-login").text()
-     $(".nombre-ejecutivo").text(nombreGlobal)
+      $(".nombre-ejecutivo").text(nombreGlobal)
   });
 
   function removeBigBox(){

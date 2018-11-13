@@ -179,9 +179,9 @@ p, li, span, label {
       padding-left: 0px; }
     .work-area .add-plus[data-privilegios='N'] {
       display: none !important; }
-  .work-area .backrest {
+  .work-area .backrest, .work-area .upload-back {
     display: block; }
-    .work-area .backrest[data-privilegios='N'] {
+    .work-area .backrest[data-privilegios='N'], .work-area .upload-back[data-privilegios='N'] {
       display: none !important; }
   .work-area .photo {
     cursor: pointer; }
@@ -363,26 +363,31 @@ p, li, span, label {
     list-style: none;
     padding-inline-start: 0px;
     cursor: pointer;
-    width: 100%; }
+    width: 100%;
+    /* Safari 7.1+ */ }
     .work-area .search-clients #list-lotes li:hover span {
       color: #8FAC19; }
     .work-area .search-clients #list-lotes .client-account {
-      padding-left: 100px; }
+      padding-left: 20px; }
       .work-area .search-clients #list-lotes .client-account:hover {
-        padding-left: 100px; }
+        padding-left: 20px; }
+    .work-area .search-clients #list-lotes _::-webkit-full-page-media, .work-area .search-clients #list-lotes _:future, .work-area .search-clients #list-lotes :root .client-account {
+      padding-left: 0px; }
+      .work-area .search-clients #list-lotes _::-webkit-full-page-media.hover, .work-area .search-clients #list-lotes _:future.hover, .work-area .search-clients #list-lotes :root .client-account.hover {
+        padding-left: 0px; }
+    .work-area .search-clients #list-lotes .delete {
+      width: auto;
+      background-color: #8FAC19;
+      border-radius: 20px;
+      display: block;
+      color: #fff !important;
+      padding: 0px 10px;
+      margin-right: 10px;
+      cursor: pointer; }
+      .work-area .search-clients #list-lotes .delete[data-type-privilegios='N'] {
+        display: none !important; }
   .work-area .search-clients .type-moda {
     z-index: 2000; }
-  .work-area .search-clients .delete {
-    width: auto;
-    background-color: #8FAC19;
-    border-radius: 20px;
-    display: block;
-    color: #fff !important;
-    padding: 0px 10px;
-    margin-right: 10px;
-    cursor: pointer; }
-    .work-area .search-clients .delete[data-type-privilegios='N'] {
-      display: none !important; }
   .work-area .number-principal {
     background-color: #B0B2B3;
     width: 24px;
@@ -499,7 +504,7 @@ p, li, span, label {
     list-style: none;
     padding-inline-start: 0px;
     overflow-y: scroll;
-    height: 156px; }
+    height: 135px; }
     .work-area .report #list-lotes-reports li {
       font-size: 13px;
       width: 100%; }
@@ -593,5 +598,11 @@ textarea {
 
 .nombre-print {
   display: none; }
+
+.logo-print {
+  display: none;
+  width: 45%;
+  height: auto;
+  margin-left: 25%; }
 
 /*# sourceMappingURL=main.css.map */
