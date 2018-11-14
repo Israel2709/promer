@@ -791,6 +791,7 @@ function appendDesarrollos() {
 
 function appendClientes() {
     $(".box-area").addClass("big-box-clients")
+    $(".ico-close.search").addClass("d-none")
     toggleView('.view-client', '.new-client')
 }
 

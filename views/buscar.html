@@ -291,7 +291,7 @@
           <div class="form-row">
             <div class="form-group col-6 offset-6">
               <div class="wrapper mt-2 float-right">
-                <div class="btn btn-danger" onclick="cleanInputs('.new-client'); toggleView('.new-client', '.view-client')">Cancelar</div>
+                <div class="btn btn-danger" onclick="cleanInputs('.new-client'); toggleView('.new-client', '.view-client'); removeNewClient()">Cancelar</div>
                 <div class="btn btn-success" onclick=" addClientes()">Agregar</div>
               </div>
             </div>
@@ -520,17 +520,11 @@
 
   function removeBigBox(){
     $(".box-area").removeClass("big-box")
-     removeNewClient();
   }
 
   function removeNewClient(){
-    if ($(".new-client").hasClass("d-none")) {
-      $(".box-area").removeClass("big-box-clients")
-    } else {
-      $(".box-area").addClass("big-box-clients");
-      $(".new-client").addClass("d-none")
-      $(".view-client").removeClass("d-none")
-    }
+    $(".box-area").removeClass("big-box-clients")
+    $(".ico-close.search").removeClass("d-none")
   }
 
   function removeBackdrop(){
