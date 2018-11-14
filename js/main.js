@@ -637,23 +637,23 @@ function altaUser() {
 function addTerreno() {
     var nameTerreno = $("#desarrollo").val()
     var lis = $("#list-lotes li")
-    if(nameTerreno.length == 0 || lis.length == 0){
-        alert("Ingrese nombre de desarrollo y al menos un lote")
+    if(nameTerreno.length == 0){
+        alert("Ingrese nombre de desarrollo")
     }
     else{
         var keyNew = firebase.database().ref('desarrollos/').push({
             nombreTerreno: nameTerreno
         }).key
-        for(var i=0; i<lotesOn.length; i++){
+/*        for(var i=0; i<lotesOn.length; i++){
             addLote(keyNew, i)
-        }
+        }*/
         $("#desarrollo").val("")
-        lotesOn = []
-        changeViewsAll('buscar.html')
+       /* lotesOn = []*/
         $("#alert-desarrollo").removeClass("d-none")
         setTimeout(function(){
             $("#alert-desarrollo").addClass("d-none")
         },3000)
+        changeViewsAll('buscar.html')
     }
 }
 
