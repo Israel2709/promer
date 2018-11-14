@@ -12,6 +12,7 @@ var database = firebase.database();
 var usersRegister = []
 var arrayDesarrollos = []
 var idUserActive;
+var globalPrivilegios;
 
 function getUsers() {
     var starCountRef = database.ref('usuarios/');
@@ -21,7 +22,8 @@ function getUsers() {
             usersRegister.push({
                 id: indice,
                 usuario: valor.correo,
-                password: valor.passwordUser
+                password: valor.passwordUser,
+                privilegios: valor.privilegios
             })
         });
         console.log(usersRegister)
@@ -43,6 +45,7 @@ function login() {
     } else {
         if (usersRegister[j].password == passLogin) {
             idUserActive = usersRegister[j].id
+            globalPrivilegios = usersRegister[j].privilegios
             $("#left-nav a").removeClass("no-pointer")
             $("#list-settings-list").trigger("click")
         } else {
@@ -60,13 +63,20 @@ function changeView(nameView) {
             $("#wrapper-section").load("views/" + nameView)
             setTimeout(function() {
                 getInfoUsers(idUserActive)
+                $(".add-plus, .backrest").attr("data-privilegios", globalPrivilegios)
             }, 100)
             break;
         case 'buscar.html':
             $("#wrapper-section").load("views/" + nameView)
-                /*getListDesarrollos()*/
+            setTimeout(function(){
+                $(".list-desarrollos, .plus-client").attr("data-privilegios", globalPrivilegios)
+            }, 100)
             break;
         case 'cotizador.html':
+            $("#wrapper-section").load("views/" + nameView)
+            $(".user-data").removeClass("d-none")
+            break;
+        case 'reportes.html':
             $("#wrapper-section").load("views/" + nameView)
             $(".user-data").removeClass("d-none")
             break;
@@ -100,7 +110,6 @@ function updateUser() {
         var cellphone = $("#cellphone").val()
         var privilegys;
         var collectionImg = $("#picture").prop("files")[0];
-        console.log(collectionImg)
         if (collectionImg == undefined) {
             if ($("#exampleRadios1").is(":checked")) {
                 privilegys = "S"
@@ -225,10 +234,12 @@ function edit(idUser) {
 
 function viewAction(element){
     $(element).find(".edit").removeClass("d-none")
+    $(element).find(".delete").removeClass("d-none")
 }
 
 function hideAction(element){
     $(element).find(".edit").addClass("d-none")
+    $(element).find(".delete").addClass("d-none")
 }
 
 function getListDesarrollos() {
@@ -246,7 +257,7 @@ function getListDesarrollos() {
                 indice: indice,
                 nombre: valor.nombreTerreno
             });
-            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des' onclick=\"clientsByAdmin(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">" +
+            var liFill = "<li class='name-terreno' onmouseover='viewAction(this)' onmouseout='hideAction(this)'><span class='number-principal' >" + i + "</span><span class='titulo-des' onclick=\"clientsBy(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">" +
                 valor.nombreTerreno + "</span><span class='edit float-right d-none' onclick=\"clientsSold(\'" + i + "\', \'" + indice + "\', \'" + valor.nombreTerreno + "\')\">Pagados</span></li>"
             $("#list-desarrollos").append(liFill)
         });
@@ -258,7 +269,7 @@ var globalKeyDesarrollo = null;
 var pays = []
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
-    $(".list-view, .no-properties2").addClass("d-none")
+    $(".list-view, .no-properties2, .error-lotes").addClass("d-none")
     $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
@@ -268,7 +279,9 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
         var dataInfo = snapshot.val()
         var arrayLotesFrom = []
         getClients()  
-        appendIDPays()            
+        appendIDPays()   
+        $("#list-lotes").empty()  
+        console.log(dataInfo)       
         if (dataInfo == null) {
             $(".error-lotes").removeClass("d-none")
         } else {
@@ -278,7 +291,6 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
             var lotesRef = database.ref('lotes/')
             lotesRef.on('value', function(snapshot) {
                 var dataLotes = snapshot.val()
-                $("#list-lotes").empty()
                 var valorPagoM = null;
                 $.each(dataLotes, function(indice3, valor3) {
                     var nameCliente = null;
@@ -303,69 +315,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                         }
                     }
                      if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
-                            var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
-                        }
-                    $("#list-lotes").append(liAppend)
-                    
-                });
-                if($("#list-lotes li").length == 0){
-                    $(".no-properties").removeClass("d-none")
-                }
-                else{
-                    $(".no-properties").addClass("d-none")
-                }
-            })
-        }
-    });
-}
-
-function clientsByAdmin(indice, keyDesarrollo, nameDesarrollo) {
-    $(".list-view, .no-properties2").addClass("d-none")
-    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
-    $(".number-desarrollo").text(indice)
-    $(".name-desarrollo").text(nameDesarrollo)
-    globalKeyDesarrollo = keyDesarrollo;
-    var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
-    starCountRef.on('value', function(snapshot) {
-        var dataInfo = snapshot.val()
-        var arrayLotesFrom = []
-        getClients()  
-        appendIDPays()            
-        if (dataInfo == null) {
-            $(".error-lotes").removeClass("d-none")
-        } else {
-            $.each(dataInfo, function(indice2, valor2) {
-                arrayLotesFrom.push(valor2)
-            });
-            var lotesRef = database.ref('lotes/')
-            lotesRef.on('value', function(snapshot) {
-                var dataLotes = snapshot.val()
-                $("#list-lotes").empty()
-                var valorPagoM = null;
-                $.each(dataLotes, function(indice3, valor3) {
-                    var nameCliente = null;
-                    var claveLote;
-                    var lengthPagados = 0;
-                    var indiceActual = null;
-                    for (var i = 0; i < arrayLotesFrom.length; i++) {
-                        if (arrayLotesFrom[i] == indice3) {
-                            claveLote = valor3.clave
-                            valorPagoM = valor3.pagosMensuales
-                            indiceActual = indice3
-                        }
-                    }
-                    for (var j = 0; j < arrayNameClients.length; j++) {
-                        if (arrayNameClients[j].key == valor3.propietario) {
-                            nameCliente = arrayNameClients[j].name
-                        }
-                    }
-                    for (var k=0; k < pays.length; k++){
-                        if(indiceActual == pays[k]){
-                            lengthPagados = lengthPagados + 1
-                        }
-                    }
-                     if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
-                            var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delet float-right d-none'>Borrar</span>" + "</li>"
+                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"' onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span>" + "</li>"
                         }
                     $("#list-lotes").append(liAppend)
                     
@@ -699,7 +649,6 @@ function addTerreno() {
         }
         $("#desarrollo").val("")
         lotesOn = []
-        getListDesarrollos()
         changeViewsAll('buscar.html')
         $("#alert-desarrollo").removeClass("d-none")
         setTimeout(function(){
@@ -739,7 +688,7 @@ function toggleView(vista1, vista2){
 
 var lotesOn = []
 
-function addOnArray(){
+function addOnArray() {
     var lote = $("#lote").val()
     var manzana = $("#manzana").val()
     var calle = $("#calle").val()
@@ -747,21 +696,25 @@ function addOnArray(){
     var delegacion = $("#delegacion").val()
     var metros = $("#metros").val()
     var costoMetro = $("#costo-metro").val()
+    var costoWithin = costoMetro.replace(/\$|\,/g, "");
 
-    lotesOn.push({
-        lote: lote,
-        manzana: manzana,
-        calle: calle,
-        colonia: colonia,
-        delegacion: delegacion,
-        metros: metros,
-        costoMetro: costoMetro
-    })
+    if (lote.length == 0 || manzana.length == 0 || calle.length == 0 || colonia.length == 0 || delegacion.length == 0 || metros.length == 0 || costoMetro.length == 0) {
+        alert("Llenar todos los campos")
+    } else {
+        lotesOn.push({
+            lote: lote,
+            manzana: manzana,
+            calle: calle,
+            colonia: colonia,
+            delegacion: delegacion,
+            metros: metros,
+            costoMetro: costoWithin
+        })
 
-    console.log(lotesOn)
-    $("#list-lotes").append("<li>L"+lote+"M"+manzana+"</li>")
-    toggleView('.add-lotes', '.new-desarrollo')
-    $(".add-lotes input").val("")
+        $("#list-lotes").append("<li>L" + lote + "M" + manzana + "</li>")
+        toggleView('.add-lotes', '.new-desarrollo')
+        $(".add-lotes input").val("")
+    }
 }
 
 
@@ -771,9 +724,11 @@ function addClientes() {
     var telefono = $("#telefono").val()
     var celular = $("#celular").val()
     var email = $("#email").val()
+    var pagos = $("#pagos-new").val()
+    var eng = $("#enganche-new").val()
+    var engWithin = eng.replace(/\$|\,/g, "");
     var lotes = $("#lotes-by option:selected").attr("value")
-
-    if (nombreCliente.length == 0 || telefono.length == 0 || celular.length == 0 || email.length == 0) {
+    if (nombreCliente.length == 0 || telefono.length == 0 || celular.length == 0 || email.length == 0 || pagos.length == 0 || eng.length == 0) {
         alert("Llenar todos los campos")
     } else {
         var arrayCliente = {
@@ -784,15 +739,27 @@ function addClientes() {
         }
         var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
         firebase.database().ref('clientes/' + keyCliente + "/lotes").push(lotes)
-        addLoteToClient(keyCliente, lotes)
+        addLoteToClient(keyCliente, lotes, pagos, engWithin)
         $("#nombre, #telefono, #celular, #email, #terreno").val("")
         toggleView('.new-client', '.view-client')
     }
 }
 
-function addLoteToClient(keyClient, lote) {
+function addLoteToClient(keyClient, lote, nPagos, enganches) {
+    var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
+    var dates = new Date();
+    var mesActual;
+    for(var i=1; i<meses.length; i++){
+        if(dates.getMonth() == i){
+            mesActual = meses[i]
+        }
+    }
+    var fecha = dates.getDate() + "/" + mesActual + "/" + dates.getFullYear();
     firebase.database().ref('lotes/' + lote).update({
-        propietario: keyClient
+        propietario: keyClient,
+        pagosMensuales: nPagos,
+        fechaCompra: fecha,
+        enganche: enganches
     })
 }
 
@@ -861,7 +828,6 @@ function NosePorqueLoHiceAsi(keyClient, lote) {
 }
 
 function addPago() {
-    console.log(globalKeyLote)
     var mesPago = $("#meses option:selected").text()
     var añoPago = $("#años option:selected").text()
     var montoPago = $("#monto").val()
@@ -954,7 +920,7 @@ $.fn.sortMe = function(type, options) {
         for (var i = 0; i < arrayDesarrollos.length; i++) {
             if (row[index] == arrayDesarrollos[i].nombre || row[index] == arrayDesarrollos[i].id) {
                 $(this).closest("li").html("<span class='number-principal' >" + arrayDesarrollos[i].id + "</span><span class='titulo-des' " +
-                    " onclick=\"clientsByAdmin(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">" +
+                    " onclick=\"clientsBy(\'" + arrayDesarrollos[i].id + "\', \'" + arrayDesarrollos[i].indice + "\', \'" + arrayDesarrollos[i].nombre + "\')\">" +
                     arrayDesarrollos[i].nombre + "</span><span class='edit float-right d-none'>Pagados</span>");
             }
         }
@@ -1013,8 +979,8 @@ function sendEmail(){
     },1300)
 }
 
-function printSheet(){
-    window.print();
+function printSheet(div){
+    window.print()
 }
 
 function cleanInputs(patern){
@@ -1039,4 +1005,201 @@ function getFormatDate(){
     $("#años").append("<option>"+(f.getFullYear()-1)+"</option>")
     $("#años").append("<option>"+f.getFullYear()+"</option>")
     $("#años").append("<option>"+(f.getFullYear()+1)+"</option>")
+}
+
+
+function getActualDate(){
+    var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    var dates = new Date();
+    var mesActual;
+    for(var i=1; i<meses.length; i++){
+        if(dates.getMonth() == i){
+            mesActual = meses[i]
+        }
+    }
+    var fecha = dates.getDate() + " " + mesActual + " " + dates.getFullYear();
+    $(".today").text(fecha)
+}
+
+function cancelUser(){
+    $(".user-list").show();
+    $(".settings, .add-user").hide()
+}
+
+var arrayAllDesarrollos = []
+
+var pieChartReport = null;
+function getReports() {
+    var allTerrenos = []
+    var cantPagada = []
+    var i;
+    var monto;
+    var getMonth = $("#meses option:selected").attr("value")
+    var getYear = $("#años option:selected").attr("value")
+    var eachLote = database.ref('pagos')
+    eachLote.once('value', function(snapshot2) {
+        var infoL = snapshot2.val()
+        $.each(infoL, function(indice2, valor2) {
+            for (i = 0; i < arrayAllDesarrollos.length; i++) {
+                if (valor2.idLote == arrayAllDesarrollos[i].keyl) {
+                    monto = arrayAllDesarrollos[i].totalPerMonth
+                    var extract = valor2.fecha.substr(0, 3)
+                    var lastPart = valor2.fecha.substr(valor2.fecha.length - 2)
+                    if (getMonth == extract && getYear == lastPart) {
+                        monto = monto + parseInt(valor2.monto)
+                        arrayAllDesarrollos[i].totalPerMonth = monto
+                    }
+
+                }
+            }
+
+        })
+        var getDesarrollo = database.ref('desarrollos')
+        getDesarrollo.once('value', function(snapshot3) {
+            var listD = snapshot3.val()
+            $.each(listD, function(indice3, valor3) {
+                allTerrenos.push(valor3.nombreTerreno)
+                var getL = valor3.lotes
+                var montoT = 0;
+                $.each(getL, function(key, keyL) {
+                    var i;
+                    for (i = 0; i < arrayAllDesarrollos.length; i++) {
+                        if (arrayAllDesarrollos[i].keyl == keyL) {
+                            montoT = montoT + parseInt(arrayAllDesarrollos[i].totalPerMonth);
+                        }
+                    }
+                });
+                cantPagada.push(montoT)
+            });
+            var colors = ["#90AC19", "#B0B2B3", "#CCE55F", "#FFFFFF", "#AFCC36", "#ECECEC", "#728C04", "#898E91", "#506400", "#6B757A"]
+            var colorData = []
+            $("#list-lotes-reports").empty()
+            var TotalMes = 0;
+            var s;
+            var ind = 0;
+            for (s = 0; s < allTerrenos.length; s++) {
+                TotalMes = TotalMes + parseInt(cantPagada[s])
+                var formatCurrency = '$' + parseFloat(cantPagada[s], 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
+                var lis = "<li class='float-left'>" + allTerrenos[s] + " <span class='total-development float-right'> " + formatCurrency + "</span></li>"
+                $("#list-lotes-reports").append(lis)
+                colorData.push(colors[ind])
+                ind = ind + 1;
+                if(ind == 9){
+                    ind = 0;
+                }
+            }
+            $(".total-month").text('$' + parseFloat(TotalMes, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+            var oilCanvas = document.getElementById("myChartReport");
+            var oilData = {
+                labels: allTerrenos,
+                datasets: [{
+                    data: cantPagada,
+                    backgroundColor: colorData
+                }]
+            };
+            var chartOptions = {
+                legend: {
+                    display: false,
+                },
+                borderColor: '#c6c6c6'
+            };
+            if(pieChartReport != null){
+                console.log("entra")
+                pieChartReport.clear()
+                pieChartReport.destroy()
+            }
+            pieChartReport = new Chart(oilCanvas, {
+                type: 'doughnut',
+                data: oilData,
+                options: chartOptions
+            });
+            if(TotalMes == 0){
+                $(".no-reports").removeClass("d-none")
+                $(".reports-view").addClass("d-none")
+            }
+            else{
+                $(".no-reports").addClass("d-none")
+                $(".reports-view").removeClass("d-none")
+            }
+        });
+
+    });
+
+}
+function getDes() {
+    arrayAllDesarrollos = []
+    var knowEahcDesarrollo = database.ref('lotes')
+    knowEahcDesarrollo.once('value', function(snapshot) {
+        var infoD = snapshot.val()
+        $.each(infoD, function(indice, valor) {
+            arrayAllDesarrollos.push({
+                keyl: indice,
+                totalPerMonth: 0
+            })
+        })
+        getReports()
+    });
+}
+
+function backrest(){
+    var obj;
+    var knowbd = database.ref()
+    knowbd.once('value', function(snapshot) {
+        obj = snapshot.val()
+        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+        $('<a id="link-here" href="data:' + data + '" download="basePromer.json">download JSON</a>').appendTo('.link');
+        $("#link-here").get(0).click()
+        $(".link").empty()
+    });
+}
+
+function deleteLote(idLote) {
+    $("#deleteLoteModal").modal("show")
+    $("#yes-delete").on("click", function() {
+        //DeleteFromLotes
+        firebase.database().ref('lotes/' + idLote).remove();
+        //DeleteFromClientes
+        var delClient = database.ref("clientes")
+        delClient.once('value', function(snapshot) {
+            var objC = snapshot.val()
+            $.each(objC, function(indice, valor) {
+                var getL = valor.lotes
+                $.each(getL, function(key, keyL) {
+                    if (keyL == idLote) {
+                        firebase.database().ref('clientes/' + indice + '/lotes/' + key).remove();
+                    }
+                });
+            });
+
+            //deleteFromDesarrollos
+            var delClient = database.ref("desarrollos")
+            delClient.once('value', function(snapshot2) {
+                var objD = snapshot2.val()
+                $.each(objD, function(indice2, valor2) {
+                    var getL2 = valor2.lotes
+                    $.each(getL2, function(key2, keyL2) {
+                        if (keyL2 == idLote) {
+                            firebase.database().ref('desarrollos/' + indice2 + '/lotes/' + key2).remove();
+                        }
+                    });
+                });
+
+
+                //deleteFromPagos
+                var delClient = database.ref("pagos")
+                delClient.once('value', function(snapshot3) {
+                    var objP = snapshot3.val()
+                    $.each(objP, function(indice3, valor3) {
+                        if (valor3.idLote == idLote) {
+                            firebase.database().ref('pagos/' + indice3).remove();
+                        }
+                    });
+                     $("#deleteLoteModal").modal("hide")
+                });
+
+            });
+
+        });
+
+    });
 }

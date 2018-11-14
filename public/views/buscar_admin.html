@@ -69,7 +69,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">E-mail</div>
                 </div>
-                <input type="text" class="form-control" id="email2" placeholder="E-mail">
+                <input type="text" class="form-control" id="email" placeholder="E-mail">
               </div>
             </div>
           </div>
@@ -105,31 +105,8 @@
     </div>
   </div>
 </div>
-<!-- Modal Eliminar Lote -->
-<div class="modal fade" id="deleteLoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="title-settings">Eliminar Lote</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>¿Deseas eliminar este lote?</p>
-        <p class="d-none">Se eliminó con éxito el lote.</p>
-      </div>
-      <div class="modal-footer">
-        <div class="btn btn-danger" data-dismiss="modal">No</div>
-        <div class="btn btn-success" id="yes-delete">Si</div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="box-area " id="impresion">
-  <img src="img/logo-principal-v1.png" class="print logo-print">
-  <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span><span class="today d-none print float-right">16 Septiembre 2018</span></p>
+<div class="box-area ">
   <div class="list-view">
     <div class="header mb-3">
       <div class="icon-logo-search">
@@ -155,7 +132,7 @@
         <div class="icon-logo-search desarrollo">
           <span class="number-principal number-desarrollo">1</span>
           <span class="name-desarrollo">Nombre Desarrollo</span>
-          <span class="icon ico-close search float-right" onclick="toggleView('.search-clients', '.list-view'); removeBackdrop(); removeBigBox();"></span>
+          <span class="icon ico-close search float-right" onclick="toggleView('.search-clients', '.list-view'); removeBackdrop()"></span>
         </div>
       </div>
       <div class="separator"></div>
@@ -163,15 +140,17 @@
         <span class="font-weight-bold">Agregar nuevo cliente</span>
         <form class="personalizados mt-2">
           <div class="form-row ">
-            <div class="form-group col-6">
+            <div class="form-group col-12">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Nombre</div>
+                  <div class="input-group-text">Nombre completo</div>
                 </div>
                 <input type="text" class="form-control" id="nombre" placeholder="Nombre">
               </div>
             </div>
-            <div class="form-group col-6">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-12">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <div class="input-group-text">Correo</div>
@@ -202,103 +181,33 @@
             <div class="form-group col-6">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Dirección</div>
-                </div>
-                <input type="text" class="form-control" id="adress" placeholder="Dirección">
-              </div>
-            </div>
-            <div class="form-group col-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">Metros</div>
-                </div>
-                <input type="text" class="form-control" id="metros" placeholder="Metros">
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
                   <div class="input-group-text">Lote</div>
                 </div>
                 <select class="form-control" id="lotes-by">
                 </select>
               </div>
             </div>
-            <div class="form-group col-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">Pagos</div>
-                </div>
-                <input type="text" class="form-control" id="pagos-new" placeholder="Pagos" onkeypress="restrictToNumber(event)" maxlength="5">
-              </div>
-            </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">Fecha</div>
-                </div>
-                <input type="text" class="form-control" id="date" placeholder="Fecha">
-              </div>
-            </div>
-            <div class="form-group col-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">Adeudo</div>
-                </div>
-                <input type="text" class="form-control" id="adeudo" placeholder="Adeudo" onkeypress="restrictToNumber(event)">
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">Costo</div>
-                </div>
-                <input type="text" class="form-control" id="costo" placeholder="Costo" onkeypress="restrictToNumber(event)">
-              </div>
-            </div>
-            <div class="form-group col-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">Enganche</div>
-                </div>
-                <input type="text" class="form-control" id="enganche-new" placeholder="Enganche" onblur="changeToCurrency(this)" onkeypress="restrictToNumber(event)" >
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-6 offset-6">
-              <div class="wrapper mt-2 float-right">
-                <div class="btn btn-danger" onclick="cleanInputs('.new-client'); toggleView('.new-client', '.view-client')">Cancelar</div>
-                <div class="btn btn-success" onclick=" addClientes()">Agregar</div>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="wrapper mt-2">
+          <div class="wrapper mt-2">
             <div class="btn btn-danger" onclick="cleanInputs('.new-client'); toggleView('.new-client', '.view-client')">Cancelar</div>
             <div class="btn btn-success" onclick=" addClientes()">Agregar</div>
-          </div> -->
+          </div>
         </form>
       </div>
       <div class="no-lotes d-none">
-        <p class="text-center"><b>No existen lotes disponibles en este desarrollo</b></p>
+        <p>No existen lotes disponibles en este desarrollo</p>
         <div class="btn btn-success" onclick="toggleView('.no-lotes', '.view-client')">Aceptar</div>
       </div>
       <div class="view-client">
         <div class="d-flex justify-content-center input-group mt-3 pl-4">
           <input type="text" class="btn-input search" id="search" placeholder="Buscar" onkeyup="searchClients()">
-          <div class="icon-add-plus plus-client" onclick="appendClientes()"></div>
+          <div class="icon-add-plus" onclick="appendClientes()"></div>
         </div>
         <p class="note mt-3">Escribe el nombre del cliente o su número de cuenta</p>
         <div class="separator"></div>
-        <p class="error-lotes d-none text-center w-100"><b>No existen lotes en este desarrollo</b></p>
-        <p class="d-none no-properties text-center w-100"><b>No existen propietarios en este desarrollo</b></p>
-        <p class="d-none no-properties2 text-center w-100"><b>No existen clientes con un lote liquidados</b></p>
+        <p class="error-lotes d-none">No existen lotes en este desarrollo</p>
+        <p class="d-none no-properties">No existen propietarios en este desarrollo</p>
+        <p class="d-none no-properties2">No existen clientes con un lote liquidados</p>
         <div class="mt-2 d-flex justify-content-center">
           <ul id="list-lotes">
           </ul>
@@ -307,11 +216,11 @@
     </div>
   </div>
   <div class="detail-develop d-none">
-    <div class="header mb-3 no-print">
+    <div class="header mb-3">
       <span class="icon ico-general active" onclick="viewList()"></span>
       <span class="icon ico-list" onclick="viewList()"></span>
       <span class="icon ico-close" onclick="toggleView('.detail-develop', '.list-view'); removeBigBox()"></span>
-      <span class="icon ico-print" onclick="printSheet('#impresion')"></span>
+      <span class="icon ico-print" onclick="printSheet()"></span>
       <span class="icon ico-message" data-toggle="modal" data-target="#emailModalSearch"></span>
       <div class="icon-logo-search detail"></div>
     </div>
@@ -448,8 +357,8 @@
               <tbody id="pagos-lotes2"></tbody>
             </table>
             <div class="buttons-letters mt-2">
-              <div class="icon-add-plus button-new-pago no-print" data-toggle="modal" data-target="#pagosModal"></div> <!-- data-toggle="modal" 5data-target="#pagosModal" -->
-              <!--div class="btn btn-success" onclick="exportToExcel()">Exportar</div-->
+              <div class="icon-add-plus button-new-pago" data-toggle="modal" data-target="#pagosModal"></div> <!-- data-toggle="modal" 5data-target="#pagosModal" -->
+              <div class="btn btn-success" onclick="exportToExcel()">Exportar</div>
             </div>
           </div>
         </div>
@@ -494,26 +403,12 @@
 <div class="modal-backdrop fade in d-none"></div>
 <script>
   $( document ).ready(function() {
-      getActualDate();
       getListDesarrollos()
       getFormatDate()
-      var nombreGlobal = $(".name-login").text()
-      $(".nombre-ejecutivo").text(nombreGlobal)
   });
 
   function removeBigBox(){
     $(".box-area").removeClass("big-box")
-     removeNewClient();
-  }
-
-  function removeNewClient(){
-    if ($(".new-client").hasClass("d-none")) {
-      $(".box-area").removeClass("big-box-clients")
-    } else {
-      $(".box-area").addClass("big-box-clients");
-      $(".new-client").addClass("d-none")
-      $(".view-client").removeClass("d-none")
-    }
   }
 
   function removeBackdrop(){

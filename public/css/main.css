@@ -1,7 +1,7 @@
 p, li, span, label {
   color: #838084; }
 
-.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes, .quoting {
+.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes, .quoting, .report, .user-list, .settings {
   position: relative;
   z-index: 9999; }
 
@@ -49,6 +49,8 @@ p, li, span, label {
       background-image: url("../img/icon-quoting.png"); }
     .menu .left-nav-wrapper .list-group-item.icon-settings {
       background-image: url("../img/icon-settings.png"); }
+    .menu .left-nav-wrapper .list-group-item.icon-reports {
+      background-image: url("../img/icon-reports.png"); }
   .menu .privacy-policy {
     font-size: 8px;
     color: #fff;
@@ -170,11 +172,17 @@ p, li, span, label {
         border-radius: 50%;
         margin: 3px; }
   .work-area .add-plus {
-    /* padding-left: 5px;
-    padding-top: 5px; */
+    padding-left: 3px;
+    /*padding-top: 5px; */
     cursor: pointer; }
     .work-area .add-plus.list-desarrollos {
       padding-left: 0px; }
+    .work-area .add-plus[data-privilegios='N'] {
+      display: none !important; }
+  .work-area .backrest {
+    display: block; }
+    .work-area .backrest[data-privilegios='N'] {
+      display: none !important; }
   .work-area .photo {
     cursor: pointer; }
     .work-area .photo .change-photo {
@@ -209,6 +217,9 @@ p, li, span, label {
     .work-area .header .icon-logo-search.desarrollo {
       height: 40px;
       margin-right: 30px; }
+    .work-area .header .icon-logo-search.report {
+      margin-right: 30px;
+      position: initial; }
   .work-area .header .icon {
     height: 15px;
     width: 15px;
@@ -351,11 +362,27 @@ p, li, span, label {
   .work-area .search-clients #list-lotes {
     list-style: none;
     padding-inline-start: 0px;
-    cursor: pointer; }
-    .work-area .search-clients #list-lotes li:hover {
+    cursor: pointer;
+    width: 100%; }
+    .work-area .search-clients #list-lotes li:hover span {
       color: #8FAC19; }
+    .work-area .search-clients #list-lotes .client-account {
+      padding-left: 100px; }
+      .work-area .search-clients #list-lotes .client-account:hover {
+        padding-left: 100px; }
   .work-area .search-clients .type-moda {
     z-index: 2000; }
+  .work-area .search-clients .delete {
+    width: auto;
+    background-color: #8FAC19;
+    border-radius: 20px;
+    display: block;
+    color: #fff !important;
+    padding: 0px 10px;
+    margin-right: 10px;
+    cursor: pointer; }
+    .work-area .search-clients .delete[data-type-privilegios='N'] {
+      display: none !important; }
   .work-area .number-principal {
     background-color: #B0B2B3;
     width: 24px;
@@ -389,6 +416,8 @@ p, li, span, label {
       width: 24px;
       height: 24px;
       margin-left: 0px; }
+    .work-area .icon-add-plus[data-privilegios='N'] {
+      display: none !important; }
   .work-area .note {
     font-size: 10px;
     color: #B0B2B3;
@@ -453,9 +482,32 @@ p, li, span, label {
   .work-area .new-desarrollo input {
     z-index: 99999;
     position: relative; }
+  .work-area .select-month {
+    border-radius: 10px;
+    width: 120px;
+    padding-left: 5px;
+    margin-left: 5px;
+    margin-right: 10px; }
+  .work-area .select-year {
+    border-radius: 10px; }
+  .work-area .report #myChartReport {
+    width: 245px !important;
+    height: 125px !important;
+    border: 1px solid #838084;
+    border-radius: 20px; }
+  .work-area .report #list-lotes-reports {
+    list-style: none;
+    padding-inline-start: 0px;
+    overflow-y: scroll;
+    height: 156px; }
+    .work-area .report #list-lotes-reports li {
+      font-size: 13px;
+      width: 100%; }
+      .work-area .report #list-lotes-reports li .total-development {
+        font-weight: bold;
+        margin-right: 10px; }
 
-/* 
-Radios costumizados */
+/*Radios costumizados */
 /* Customize the label (the container) */
 .form-check {
   display: block;
@@ -538,5 +590,8 @@ textarea {
 
 .modal-footer.quoting {
   margin-top: 70px; }
+
+.nombre-print {
+  display: none; }
 
 /*# sourceMappingURL=main.css.map */

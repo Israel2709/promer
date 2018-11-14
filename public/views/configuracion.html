@@ -19,7 +19,10 @@
         <ul class="secondary-users">
           
         </ul>
-        <img src="img/add-plus.png" class="add-plus" onclick="viewAlta()">
+        <img src="img/add-plus.png" class="add-plus"  onclick="viewAlta()">
+        <div class="btn btn-success cotizar backrest no-print float-right" onclick="backrest()">
+        Respaldar base de datos</div>
+        <div class="link d-none"></div>
       </div>
     </div>
   </div>
@@ -77,6 +80,7 @@
             <span class="checkmark"></span>
           </div>
           <div class="btn btn-success" onclick="updateUser()" id="save-edit">Guardar</div>
+          <div class="btn btn-danger" onclick="cancelUser()">Cancelar</div>
         </form>
       </div>
     </div>
@@ -134,7 +138,8 @@
             </label>
             <span class="checkmark"></span>
           </div>
-          <div class="btn btn-success" onclick="altaUser()" id="save-edit">Guardar</div>
+          <div class="btn btn-success" onclick="altaUser()"  id="save-edit">Guardar</div>
+          <div class="btn btn-danger" onclick="cancelUser()">Cancelar</div>
         </form>
       </div>
     </div>

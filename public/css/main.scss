@@ -8,7 +8,7 @@ $grayTrans: #E4E4E5;
 p,li,span,label{
 	color: $grayStrong;
 }
-.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes, .quoting{
+.search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes, .quoting, .report, .user-list, .settings{
 	position: relative;
 	z-index: 9999;
 }
@@ -66,6 +66,9 @@ p,li,span,label{
 			}
 			&.icon-settings{
 				background-image: url('../img/icon-settings.png');
+			}
+			&.icon-reports{
+				background-image: url('../img/icon-reports.png');
 			}
 		}
 	}
@@ -222,11 +225,20 @@ p,li,span,label{
 		}
 	}
 	.add-plus{
-		/* padding-left: 5px;
-		padding-top: 5px; */
+		padding-left: 3px;
+		/*padding-top: 5px; */
 		cursor: pointer;
 		&.list-desarrollos{
 			padding-left: 0px;
+		}
+		&[data-privilegios='N']{
+			display: none!important;
+		}
+	}
+	.backrest{
+		display: block;
+		&[data-privilegios='N']{
+			display: none!important;
 		}
 	}
 	.photo{
@@ -273,6 +285,10 @@ p,li,span,label{
 			&.desarrollo{
 				height: 40px;
 				margin-right: 30px;
+			}
+			&.report{
+				margin-right: 30px;
+    			position: initial;
 			}
 		}
 		.icon{
@@ -460,8 +476,18 @@ p,li,span,label{
 			list-style: none;
 			padding-inline-start: 0px;
 			cursor: pointer;
+			width: 100%;
 			li:hover{
-				color: $green;
+				span{
+					color: $green;
+				}
+				
+			}
+			.client-account{
+			    padding-left: 100px;
+				&:hover{
+				    padding-left: 100px;
+				}
 			}
 		}
 		.type-moda{
@@ -472,10 +498,13 @@ p,li,span,label{
 		    background-color: #8FAC19;
 		    border-radius: 20px;
 		    display: block;
-		    color: #fff;
+		    color: #fff!important;
 		    padding: 0px 10px;
 		    margin-right: 10px;
 		    cursor: pointer;
+		    &[data-type-privilegios='N']{
+				display: none!important;
+		    }
 		}
 	}
 	.number-principal{
@@ -515,6 +544,9 @@ p,li,span,label{
     		height: 24px;
     		margin-left: 0px;
     	}
+    	&[data-privilegios='N']{
+			display: none!important;
+		}
 	}
 	.note{
 		font-size: 10px;
@@ -598,12 +630,41 @@ p,li,span,label{
 			position: relative;
 		}
 	}
+	.select-month{
+		border-radius: 10px;
+	    width: 120px;
+	    padding-left: 5px;
+	    margin-left: 5px;
+	    margin-right: 10px;
+	}
+	.select-year{
+		border-radius: 10px;
+	}
+	.report{
+		#myChartReport{
+			width: 245px !important;
+    		height: 125px !important;
+			border: 1px solid #838084;
+			border-radius: 20px;
+		}
+		#list-lotes-reports{
+			list-style: none;
+			padding-inline-start: 0px;
+			overflow-y: scroll;
+			height: 156px;
+			li{
+				font-size: 13px;
+				width: 100%;
+				.total-development{
+					font-weight: bold;
+					margin-right: 10px;
+				}
+			}
+		}
+	}
 }
 
-
-
-/* 
-Radios costumizados */
+/*Radios costumizados */
 
 /* Customize the label (the container) */
 .form-check {
@@ -702,4 +763,8 @@ textarea{
 	&.quoting{
 		margin-top: 70px;
 	}
+}
+
+.nombre-print{
+	display: none;
 }

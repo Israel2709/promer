@@ -1,0 +1,61 @@
+<div class="box-area">
+  <div class="report">
+    <div class="header mb-3">
+      <div class="icon-logo-search report">
+        <span class="icon ico-close search float-right" onclick="closeQuoting()"></span>
+        <h3 class="title-settings">Reportes</h3>
+      </div>
+    </div>
+    <div class="separator"></div>
+    <div class="mt-2 mb-2">
+      <span class="lote-selected">Selecciona el mes y el año a consultar:</span>
+      <select name="meses" id="meses" class="select-month" onchange="getDes()"> Seleccionar
+        <option value="Ene">Enero</option>
+        <option value="Feb">Febrero</option>
+        <option value="Mar">Marzo</option>
+        <option value="Abr">Abril</option>
+        <option value="May">Mayo</option>
+        <option value="Jun">Junio</option>
+        <option value="Jul">Julio</option>
+        <option value="Ago">Agosto</option>
+        <option value="Sep">Septiembre</option>
+        <option value="Oct">Octubre</option>
+        <option value="Nov">Noviembre</option>
+        <option value="Dic">Diciembre</option>
+      </select>
+      <select name="años" id="años" class="select-year" onchange="getDes()"> Seleccionar
+        <option value="16">2016</option>
+        <option value="17">2017</option>
+        <option value="18" selected>2018</option>
+      </select>
+    </div>
+    <div class="row mt-3">
+      <p class="no-reports d-none text-center w-100"><b>No hay pagos en este mes</b></p>
+      <div class="col-6 reports-view">
+        <canvas id="myChartReport" ></canvas>
+        <div class="label-porcent"></div>
+        <p class="mt-2 text-center">Ingreso del mes: <span class="total-month">$ 10,0000</span></p>
+      </div>
+      <div class="col-6 reports-view">
+        <div class="mt-2 d-flex">
+          <ul id="list-lotes-reports">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $("#años").empty()
+    var f = new Date();
+    var yearN = f.getFullYear().toString()
+    var lastY = yearN.substr(yearN.length - 2)
+    var FirsM = f.getMonth();
+    $("#años").append("<option value='"+(lastY-2)+"'>"+(f.getFullYear()-2)+"</option>")
+    $("#años").append("<option value='"+(lastY-1)+"'>"+(f.getFullYear()-1)+"</option>")
+    $("#años").append("<option value='"+lastY+"' selected>"+f.getFullYear()+"</option>")
+    $("#años").append("<option value='"+(lastY+1)+"'>"+(f.getFullYear()+1)+"</option>")
+    $("#meses option:eq("+FirsM+")").prop("selected", true).trigger("change")
+  })
+</script>
