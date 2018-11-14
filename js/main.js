@@ -720,17 +720,30 @@ function addOnArray() {
 
 
 function addClientes() {
-    var nombreCliente = $("#nombre").val()
-    var telefono = $("#telefono").val()
-    var celular = $("#celular").val()
-    var email = $("#email").val()
-    var pagos = $("#pagos-new").val()
-    var eng = $("#enganche-new").val()
-    var engWithin = eng.replace(/\$|\,/g, "");
-    var lotes = $("#lotes-by option:selected").attr("value")
-    if (nombreCliente.length == 0 || telefono.length == 0 || celular.length == 0 || email.length == 0 || pagos.length == 0 || eng.length == 0) {
-        alert("Llenar todos los campos")
-    } else {
+    var vacios = 0;
+    $("#add-new input").each(function(){
+        if($(this).val() == ""){
+            vacios = vacios + 1;
+        }
+    })
+    if(vacios == 0){
+        var nombreCliente = $("#nombre").val()
+        var telefono = $("#telefono").val()
+        var celular = $("#celular").val()
+        var email = $("#email").val()
+        var lote = $("#lote").val()
+        var manzana = $("#manzana").val()
+        var calle = $("#calle").val()
+        var colonia = $("#colonia").val()
+        var delegacion = $("#delegacion").val()
+        var metros = $("#metros-new").val()
+        var costo = $("#costo").val()
+        var coWithin = costo.replace(/\$|\,/g, "");
+        var fecha = $("#fecha").val()
+        var enganche = $("#enganche").val()
+        var engWithin = enganche.replace(/\$|\,/g, "");
+        var pagos = $("#pagos").val()
+        var pWithin = pagos.replace(/\$|\,/g, "");
         var arrayCliente = {
             nombre: nombreCliente,
             telefono: telefono,
@@ -738,29 +751,30 @@ function addClientes() {
             email: email
         }
         var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
-        firebase.database().ref('clientes/' + keyCliente + "/lotes").push(lotes)
-        addLoteToClient(keyCliente, lotes, pagos, engWithin)
-        $("#nombre, #telefono, #celular, #email, #terreno").val("")
+        var arrayLote = {
+            calle: calle,
+            clave: "L"+lote+"M"+manzana,
+            colonia: colonia,
+            costoMetro: coWithin,
+            delegacion: delegacion,
+            enganche: engWithin,
+            fechaCompra: fecha,
+            lote: lote,
+            manzana: manzana,
+            metros: metros,
+            pagosMensuales: pagos,
+            propietario: keyCliente
+        }
+        var keyLotes = firebase.database().ref('lotes').push(arrayLote).key;
+        firebase.database().ref('desarrollos/'+globalKeyDesarrollo+'/lotes').push(keyLotes)
+        firebase.database().ref('clientes/' + keyCliente + "/lotes").push(keyLotes)
+        $("#add-new input").val("")
+        $("#fecha").val(fecha)
         toggleView('.new-client', '.view-client')
     }
-}
-
-function addLoteToClient(keyClient, lote, nPagos, enganches) {
-    var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
-    var dates = new Date();
-    var mesActual;
-    for(var i=1; i<meses.length; i++){
-        if(dates.getMonth() == i){
-            mesActual = meses[i]
-        }
+    else{
+        alert("Llena todos los campos")
     }
-    var fecha = dates.getDate() + "/" + mesActual + "/" + dates.getFullYear();
-    firebase.database().ref('lotes/' + lote).update({
-        propietario: keyClient,
-        pagosMensuales: nPagos,
-        fechaCompra: fecha,
-        enganche: enganches
-    })
 }
 
 function appendDesarrollos() {
@@ -777,36 +791,7 @@ function appendDesarrollos() {
 
 function appendClientes() {
     $(".box-area").addClass("big-box-clients")
-    $("#lotes-by").empty()
-    var arrayLotesBy = []
-    var numLotesAdd = 0;
-    var starCountRef = database.ref('desarrollos/'+globalKeyDesarrollo+'/lotes');
-    starCountRef.once('value', function(snapshot) {
-        var dataInfo = snapshot.val()
-         $.each(dataInfo, function(indice, valor) {
-           arrayLotesBy.push(valor)
-        });
-         console.log(arrayLotesBy)
-        var lotesCountRef = database.ref('lotes/');
-        lotesCountRef.once('value', function(snapshot) {
-            var dataInfo2 = snapshot.val()
-            $.each(dataInfo2, function(indice2, valor2) {
-                for(var i=0; i<arrayLotesBy.length; i++){
-                    if(arrayLotesBy[i] == indice2 && valor2.propietario == "S/N"){
-                        numLotesAdd = numLotesAdd + 1;
-                        var selectOption = "<option value='" + indice2 + "'>" + valor2.clave + "</option>"
-                        $("#lotes-by").append(selectOption)
-                    }
-                }
-            });
-            if(numLotesAdd == 0){
-                toggleView('.view-client', '.no-lotes')
-            }
-            else{
-                toggleView('.view-client', '.new-client')
-            }
-        });
-    });
+    toggleView('.view-client', '.new-client')
 }
 
 function NosePorqueLoHiceAsi(keyClient, lote) {
@@ -998,14 +983,19 @@ function cleanInputs(patern){
 function getFormatDate(){
     $("#meses, #años").empty()
     var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
+    var mesActual;
+    var f = new Date();
     for(var i=0; i < meses.length; i++){
         var addMonth = "<option>"+meses[i]+"</option>"
         $("#meses").append(addMonth)
+        if(f.getMonth() == i){
+            mesActual = meses[i]
+        }
     }
-    var f = new Date();
     $("#años").append("<option>"+(f.getFullYear()-1)+"</option>")
     $("#años").append("<option>"+f.getFullYear()+"</option>")
     $("#años").append("<option>"+(f.getFullYear()+1)+"</option>")
+    $("#fecha").val(f.getDate()+"/"+mesActual+"/"+f.getFullYear())
 }
 
 
@@ -1182,7 +1172,7 @@ function deleteLote(idLote) {
                 var getL = valor.lotes
                 $.each(getL, function(key, keyL) {
                     if (keyL == idLote) {
-                        firebase.database().ref('clientes/' + indice + '/lotes/' + key).remove();
+                        firebase.database().ref('clientes/' + indice).remove();
                     }
                 });
             });
