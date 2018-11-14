@@ -80,10 +80,10 @@ p, li, span, label {
         height: 470px !important; }
     .work-area .box-area.big-box-clients {
       width: 620px !important;
-      height: 370px !important; }
+      height: 405px !important; }
       .work-area .box-area.big-box-clients::before {
         width: 620px !important;
-        height: 370px !important; }
+        height: 405px !important; }
     .work-area .box-area::before {
       content: "";
       background-color: rgba(255, 255, 255, 0.2);
