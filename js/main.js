@@ -776,6 +776,7 @@ function appendDesarrollos() {
 }
 
 function appendClientes() {
+    $(".box-area").addClass("big-box-clients")
     $("#lotes-by").empty()
     var arrayLotesBy = []
     var numLotesAdd = 0;

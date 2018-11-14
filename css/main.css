@@ -78,6 +78,12 @@ p, li, span, label {
       .work-area .box-area.big-box::before {
         width: 880px !important;
         height: 470px !important; }
+    .work-area .box-area.big-box-clients {
+      width: 620px !important;
+      height: 370px !important; }
+      .work-area .box-area.big-box-clients::before {
+        width: 620px !important;
+        height: 370px !important; }
     .work-area .box-area::before {
       content: "";
       background-color: rgba(255, 255, 255, 0.2);
@@ -198,6 +204,10 @@ p, li, span, label {
     .work-area .btn-success :hover {
       background-color: #8FAC19;
       border-color: #8FAC19; }
+    .work-area .btn-success.gray {
+      background-color: #838084;
+      border-color: #838084;
+      margin-right: 15px; }
   .work-area .btn-danger {
     border-radius: 20px;
     cursor: pointer;
