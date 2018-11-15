@@ -270,7 +270,7 @@ var pays = []
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     $(".list-view, .no-properties2, .error-lotes").addClass("d-none")
-    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
+    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago, .plus-client").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
     globalKeyDesarrollo = keyDesarrollo;
