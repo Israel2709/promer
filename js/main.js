@@ -770,6 +770,8 @@ function addClientes() {
         firebase.database().ref('clientes/' + keyCliente + "/lotes").push(keyLotes)
         $("#add-new input").val("")
         $("#fecha").val(fecha)
+        $(".error-lotes").addClass("d-none")
+        $(".box-area").removeClass("big-box-clients")
         toggleView('.new-client', '.view-client')
     }
     else{
