@@ -361,7 +361,8 @@ function getClients() {
 
 function clientsSold(indice, keyDesarrollo, nameDesarrollo) {
     appendIDPays()
-    $(".list-view").addClass("d-none")
+    $(".list-view, .error-lotes, .plus-client").addClass("d-none")
+    $("#list-lotes").empty()
     $(".search-clients, .user-data, .modal-backdrop").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
@@ -372,7 +373,7 @@ function clientsSold(indice, keyDesarrollo, nameDesarrollo) {
         var arrayLotesFrom = []
         getClients()              
         if (dataInfo == null) {
-            $(".error-lotes").removeClass("d-none")
+            $(".no-properties2").removeClass("d-none")
         } else {
             $.each(dataInfo, function(indice2, valor2) {
                 arrayLotesFrom.push(valor2)
