@@ -1157,6 +1157,10 @@ function uploadBack(input) {
         reader.onload = function(e) {
             var obj = JSON.parse(e.target.result);
             database.ref().set(obj)
+            $("#alert-back").removeClass("d-none")
+            setTimeout(function(){
+                $("#alert-back").addClass("d-none")
+            }, 3000)
         };
         reader.readAsText(input.files[0]);
         $(input).val("");
