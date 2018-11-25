@@ -524,14 +524,16 @@ function viewPagos(adeudo) {
             }
             $("#pagos-lotes-export").append(addRow)
             if (lengthPagados <= 12) {
-                $("#table-principal").removeClass("d-none")
+                $("#table-principal, #add-two").removeClass("d-none")
+                $("#add-one").addClass("d-none")
                 $("#pagos-lotes").append(addRow)
             } else {
                 $(".second-table").removeClass("d-none")
                 $("#pagos-lotes2").append(addRow)
             }
             if(lengthPagados == 0){
-                $("#table-principal").addClass("d-none")
+                $("#table-principal, #add-two").addClass("d-none")
+                $("#add-one").removeClass("d-none")
             }
         });
         $("#letters-payments").val(lengthPagados)
