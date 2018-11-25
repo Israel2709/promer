@@ -124,14 +124,27 @@
   $(document).ready(function(){
     $("#años").empty()
     var f = new Date();
+    var FirsM = f.getMonth();
     var yearN = f.getFullYear().toString()
     var lastY = yearN.substr(yearN.length - 2)
-    var FirsM = f.getMonth();
-    $("#años").append("<option value='"+(lastY-2)+"'>"+(f.getFullYear()-2)+"</option>")
+    /*$("#años").append("<option value='"+(lastY-2)+"'>"+(f.getFullYear()-2)+"</option>")
     $("#años").append("<option value='"+(lastY-1)+"'>"+(f.getFullYear()-1)+"</option>")
     $("#años").append("<option value='"+lastY+"' selected>"+f.getFullYear()+"</option>")
-    $("#años").append("<option value='"+(lastY+1)+"'>"+(f.getFullYear()+1)+"</option>")
+    $("#años").append("<option value='"+(lastY+1)+"'>"+(f.getFullYear()+1)+"</option>")*/
+    var valueAño = 0;
+    var numAño = 2000;
+    for(var i=0; i < 51; i++){
+        if(valueAño <= 9){
+            $("#años").append("<option value='0"+valueAño+"'>"+numAño+"</option>")
+        }
+        else{
+            $("#años").append("<option value='"+valueAño+"'>"+numAño+"</option>")
+        }
+        numAño = numAño + 1;
+        valueAño = valueAño + 1
+    }
     $("#meses option:eq("+FirsM+")").prop("selected", true).trigger("change")
+    $("#años option[value="+lastY+"]").prop("selected", true).trigger("change")
     getActualDate();
     var nombreGlobal = $(".name-login").text()
     $(".nombre-ejecutivo").text(nombreGlobal)

@@ -514,7 +514,8 @@ p, li, span, label {
     list-style: none;
     padding-inline-start: 0px;
     overflow-y: scroll;
-    height: 135px; }
+    height: 135px;
+    width: 100%; }
     .work-area .report #list-lotes-reports li {
       font-size: 13px;
       width: 100%; }

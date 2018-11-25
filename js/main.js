@@ -509,6 +509,7 @@ function viewPagos(adeudo) {
     knowPagos.on('value', function(snapshot) {
         var totalPagado = 0;
         var lengthPagados = 0;
+        $(".button-new-pago").removeClass("d-none")
         $("#pagos-lotes2, #pagos-lotes").empty()
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
@@ -523,10 +524,14 @@ function viewPagos(adeudo) {
             }
             $("#pagos-lotes-export").append(addRow)
             if (lengthPagados <= 12) {
+                $("#table-principal").removeClass("d-none")
                 $("#pagos-lotes").append(addRow)
             } else {
                 $(".second-table").removeClass("d-none")
                 $("#pagos-lotes2").append(addRow)
+            }
+            if(lengthPagados == 0){
+                $("#table-principal").addClass("d-none")
             }
         });
         $("#letters-payments").val(lengthPagados)
@@ -996,9 +1001,21 @@ function getFormatDate(){
             mesActual = meses[i]
         }
     }
-    $("#años").append("<option>"+(f.getFullYear()-1)+"</option>")
-    $("#años").append("<option>"+f.getFullYear()+"</option>")
-    $("#años").append("<option>"+(f.getFullYear()+1)+"</option>")
+    var numAño = 0;
+    for(var i=0; i < 51; i++){
+        if(numAño <= 9){
+            $("#años").append("<option>0"+numAño+"</option>")
+        }
+        else{
+            $("#años").append("<option>"+numAño+"</option>")
+        }
+        numAño = numAño + 1;
+    }
+    /*var yearN = f.getFullYear().toString()
+    var lastY = yearN.substr(yearN.length - 2)
+    $("#años").append("<option>"+(lastY-1)+"</option>")
+    $("#años").append("<option>"+(lastY)+"</option>")
+    $("#años").append("<option>"+(parseInt(lastY)+1)+"</option>")*/
     $("#fecha").val(f.getDate()+"/"+mesActual+"/"+f.getFullYear())
 }
 
@@ -1075,12 +1092,17 @@ function getReports() {
             for (s = 0; s < allTerrenos.length; s++) {
                 TotalMes = TotalMes + parseInt(cantPagada[s])
                 var formatCurrency = '$' + parseFloat(cantPagada[s], 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
-                var lis = "<li class='float-left'>" + allTerrenos[s] + " <span class='total-development float-right'> " + formatCurrency + "</span></li>"
-                $("#list-lotes-reports").append(lis)
-                colorData.push(colors[ind])
-                ind = ind + 1;
-                if(ind == 9){
-                    ind = 0;
+                if(cantPagada[s] == 0){
+                    console.log("aqui no aplica")
+                }
+                else{
+                    var lis = "<li class='float-left'>" + allTerrenos[s] + " <span class='total-development float-right'> " + formatCurrency + "</span></li>"
+                    $("#list-lotes-reports").append(lis)
+                    colorData.push(colors[ind])
+                    ind = ind + 1;
+                    if(ind == 9){
+                        ind = 0;
+                    }
                 }
             }
             $(".total-month").text('$' + parseFloat(TotalMes, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
@@ -1216,4 +1238,15 @@ function deleteLote(idLote) {
         });
 
     });
+}
+
+function deleteUser(){
+    var idUser = $("#save-edit").attr("value")
+    firebase.database().ref('usuarios/' + idUser).remove();
+    $(".user-list").show()
+    $(".settings").hide()
+    $("#alert-remove").removeClass("d-none")
+    setTimeout( function(){
+        $("#alert-remove").addClass("d-none")
+    },3000)
 }
