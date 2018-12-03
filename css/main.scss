@@ -92,8 +92,8 @@ p,li,span,label{
 	.box-area{
 		background-color: #fff;
 		border-radius: 20px;
-		width: 520px;
-		height: 310px;
+		width: 550px;
+		min-height: 310px;
 		padding: 20px;
 		z-index: 999;
     	position: relative;
@@ -117,7 +117,7 @@ p,li,span,label{
 			content: "";
 		    background-color: rgba(255,255,255,.2);
 			border-radius: 20px;
-			width: 520px;
+			width: 550px;
 			height: 310px;
 			transform: rotate(-10deg);
 			position: absolute;
@@ -372,7 +372,7 @@ p,li,span,label{
 		.input-group{
 			height: 30px;
 			&.letters{
-				width: 26%;
+				width: 30%;
 				margin-right: 30px;
 			}
 			select{
