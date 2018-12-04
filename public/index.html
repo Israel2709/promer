@@ -11,11 +11,20 @@
     <link rel="stylesheet" href="css/main.css" type="text/css">
     <title>Promer</title>
     <style type="text/css" media="print"> 
+    @page { size: landscape; margin: 0; padding: 15px; }
     .no-print{ 
         display:none!important; 
     }
     .print{
       display: block!important;
+    }
+    .box-area::before{
+      display: none!important;
+    }
+
+    #list-lotes-reports{
+      height: auto!important;
+      overflow-y: hidden!important;
     }
 
     </style> 
@@ -23,7 +32,7 @@
   <body>
     <div class="container-fluid">
       <div class="row no-gutters">
-        <div class="col-2 menu d-flex flex-column ">
+        <div class="col-2 menu d-flex flex-column no-print">
           <div class="wrapper-menu-left  justify-content-between ">
             <div class="logo-menu mt-5 mb-5"></div>
             <div class="left-nav-wrapper no-print">
@@ -36,7 +45,7 @@
               </div>
             </div>
           </div>
-          <div class="privacy-policy">© PROMER / Politica de privacidad</div>
+          <div class="privacy-policy">© PROMER</div>
         </div>
         <div class="col-10 d-flex work-area">
           <div class="row align-items-center">

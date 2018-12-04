@@ -674,6 +674,9 @@ p,li,span,label{
 			overflow-y: scroll;
 			height: 135px;
 			width: 100%;
+			::-webkit-scrollbar-track {
+			      background-color: #b46868;
+			} 
 			li{
 				font-size: 13px;
 				width: 100%;

@@ -4,8 +4,11 @@
 <div class="alert alert-success d-none" id="alert-edit" role="alert">
   Se ha modificado el usuario <span class="edit-name"></span>
 </div>
+<div class="alert alert-success d-none" id="alert-back" role="alert">
+  La base de datos se ha restaurado.
+</div>
 <div class="alert alert-success d-none" id="alert-remove" role="alert">
-  El usuario ha sido eliminado exitosamente.
+  El usuario ha sido eliminado.
 </div>
 <div class="box-area">
   <div class="user-list">
@@ -23,9 +26,12 @@
           
         </ul>
         <img src="img/add-plus.png" class="add-plus"  onclick="viewAlta()">
-        <div class="btn btn-success cotizar backrest no-print float-right" onclick="backrest()">
-        Respaldar base de datos</div>
+        <div class="btn btn-success cotizar backrest no-print float-right" onclick="backrest()">Respaldar base de datos</div>
         <div class="link d-none"></div>
+        <div class="float-right">
+          <div class="btn btn-success gray no-print upload-back" onclick="goToFile(this)">Restaurar base de datos</div>
+          <input id="file-upload" class="d-none" type="file" accept=".json" onchange="uploadBack(this)" /><br/>
+        </div>
       </div>
     </div>
   </div>

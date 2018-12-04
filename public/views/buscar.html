@@ -128,7 +128,8 @@
 </div>
 
 <div class="box-area " id="impresion">
-  <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span></p>
+  <img src="img/logo-principal-v1.png" class="print logo-print">
+  <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span><span class="today d-none print float-right">16 Septiembre 2018</span></p>
   <div class="list-view">
     <div class="header mb-3">
       <div class="icon-logo-search">
@@ -154,25 +155,23 @@
         <div class="icon-logo-search desarrollo">
           <span class="number-principal number-desarrollo">1</span>
           <span class="name-desarrollo">Nombre Desarrollo</span>
-          <span class="icon ico-close search float-right" onclick="toggleView('.search-clients', '.list-view'); removeBackdrop()"></span>
+          <span class="icon ico-close search float-right" onclick="toggleView('.search-clients', '.list-view'); removeBackdrop(); removeBigBox();"></span>
         </div>
       </div>
       <div class="separator"></div>
       <div class="new-client d-none">
         <span class="font-weight-bold">Agregar nuevo cliente</span>
-        <form class="personalizados mt-2">
+        <form class="personalizados mt-2" id="add-new">
           <div class="form-row ">
-            <div class="form-group col-12">
+            <div class="form-group col-6">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Nombre completo</div>
+                  <div class="input-group-text">Nombre</div>
                 </div>
                 <input type="text" class="form-control" id="nombre" placeholder="Nombre">
               </div>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-12">
+            <div class="form-group col-6">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <div class="input-group-text">Correo</div>
@@ -205,16 +204,69 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Lote</div>
                 </div>
-                <select class="form-control" id="lotes-by">
-                </select>
+                <input type="text" class="form-control" id="lote" placeholder="Lote" onkeypress="restrictToNumber(event)" maxlength="3">
               </div>
             </div>
             <div class="form-group col-6">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Pagos</div>
+                  <div class="input-group-text">Manzana</div>
                 </div>
-                <input type="text" class="form-control" id="pagos-new" placeholder="Pagos" onkeypress="restrictToNumber(event)" maxlength="5">
+                <input type="text" class="form-control" id="manzana" placeholder="Manzana" onkeypress="restrictToNumber(event)" maxlength="3">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Calle</div>
+                </div>
+                <input type="text" class="form-control" id="calle" placeholder="Calle">
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Colonia</div>
+                </div>
+                <input type="text" class="form-control" id="colonia" placeholder="Colonia">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Delegación</div>
+                </div>
+                <input type="text" class="form-control" id="delegacion" placeholder="Delegación">
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Metros</div>
+                </div>
+                <input type="text" class="form-control" id="metros-new" placeholder="Metros" onkeypress="restrictToNumber(event)">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Costo</div>
+                </div>
+                <input type="text" class="form-control" id="costo" placeholder="Costo" onkeypress="restrictToNumber(event)" onblur="changeToCurrency(this)">
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Fecha</div>
+                </div>
+                <input type="text" class="form-control" id="fecha" placeholder="Fecha" readonly >
               </div>
             </div>
           </div>
@@ -224,12 +276,22 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Enganche</div>
                 </div>
-                <input type="text" class="form-control" id="enganche-new" placeholder="Enganche" onblur="changeToCurrency(this)" onkeypress="restrictToNumber(event)" >
+                <input type="text" class="form-control" id="enganche" placeholder="Enganche" onkeypress="restrictToNumber(event)" onblur="changeToCurrency(this)">
               </div>
             </div>
             <div class="form-group col-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Letras</div>
+                </div>
+                <input type="text" class="form-control" id="pagos" placeholder="Letras" onkeypress="restrictToNumber(event)" maxlength="5">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6 offset-6">
               <div class="wrapper mt-2 float-right">
-                <div class="btn btn-danger" onclick="cleanInputs('.new-client'); toggleView('.new-client', '.view-client')">Cancelar</div>
+                <div class="btn btn-danger" onclick="cleanInputs('.new-client'); toggleView('.new-client', '.view-client'); removeNewClient()">Cancelar</div>
                 <div class="btn btn-success" onclick=" addClientes()">Agregar</div>
               </div>
             </div>
@@ -380,7 +442,7 @@
       <div class="col-8">
         <div class="row">
           <div class="col-5">
-            <table class="list-letters table-bordered">
+            <table class="list-letters table-bordered" id="table-principal">
               <thead>
                 <tr>
                   <th>Letra</th>
@@ -390,6 +452,9 @@
               </thead>
               <tbody id="pagos-lotes"></tbody>
             </table>
+            <div class="buttons-letters mt-2">
+              <div class="icon-add-plus button-new-pago no-print" id="add-one" data-toggle="modal" data-target="#pagosModal"></div>
+            </div>
           </div>
           <div class="col-5 ml-5">
             <table class="list-letters second-table d-none table-bordered">
@@ -403,7 +468,7 @@
               <tbody id="pagos-lotes2"></tbody>
             </table>
             <div class="buttons-letters mt-2">
-              <div class="icon-add-plus button-new-pago no-print" data-toggle="modal" data-target="#pagosModal"></div> <!-- data-toggle="modal" 5data-target="#pagosModal" -->
+              <div class="icon-add-plus button-new-pago no-print" id="add-two" data-toggle="modal" data-target="#pagosModal"></div> <!-- data-toggle="modal" 5data-target="#pagosModal" -->
               <!--div class="btn btn-success" onclick="exportToExcel()">Exportar</div-->
             </div>
           </div>
@@ -449,14 +514,20 @@
 <div class="modal-backdrop fade in d-none"></div>
 <script>
   $( document ).ready(function() {
+      getActualDate();
       getListDesarrollos()
       getFormatDate()
       var nombreGlobal = $(".name-login").text()
-     $(".nombre-ejecutivo").text(nombreGlobal)
+      $(".nombre-ejecutivo").text(nombreGlobal)
   });
 
   function removeBigBox(){
     $(".box-area").removeClass("big-box")
+  }
+
+  function removeNewClient(){
+    $(".box-area").removeClass("big-box-clients")
+    $(".ico-close.search").removeClass("d-none")
   }
 
   function removeBackdrop(){
