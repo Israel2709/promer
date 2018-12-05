@@ -269,13 +269,13 @@ var globalKeyDesarrollo = null;
 var pays = []
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
-    $(".list-view, .no-properties2, .error-lotes").addClass("d-none")
-    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago, .plus-client").removeClass("d-none")
-    $(".number-desarrollo").text(indice)
-    $(".name-desarrollo").text(nameDesarrollo)
-    globalKeyDesarrollo = keyDesarrollo;
     var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
     starCountRef.on('value', function(snapshot) {
+        $(".list-view, .no-properties2, .error-lotes").addClass("d-none")
+        $(".search-clients, .user-data, .modal-backdrop, .button-new-pago, .plus-client, .ico-close.search").removeClass("d-none")
+        $(".number-desarrollo").text(indice)
+        $(".name-desarrollo").text(nameDesarrollo)
+        globalKeyDesarrollo = keyDesarrollo;
         var dataInfo = snapshot.val()
         var arrayLotesFrom = []
         getClients()  
@@ -315,7 +315,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                         }
                     }
                      if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
-                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"'  onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span>" + "</li>"
+                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"'  onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span></li>"
                         }
                     $("#list-lotes").append(liAppend)
                     
@@ -360,15 +360,15 @@ function getClients() {
 }
 
 function clientsSold(indice, keyDesarrollo, nameDesarrollo) {
-    appendIDPays()
-    $(".list-view, .error-lotes, .plus-client").addClass("d-none")
-    $("#list-lotes").empty()
-    $(".search-clients, .user-data, .modal-backdrop").removeClass("d-none")
-    $(".number-desarrollo").text(indice)
-    $(".name-desarrollo").text(nameDesarrollo)
-    globalKeyDesarrollo = keyDesarrollo;
     var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
     starCountRef.on('value', function(snapshot) {
+        appendIDPays()
+        $(".list-view, .error-lotes, .plus-client").addClass("d-none")
+        $("#list-lotes").empty()
+        $(".search-clients, .user-data, .modal-backdrop").removeClass("d-none")
+        $(".number-desarrollo").text(indice)
+        $(".name-desarrollo").text(nameDesarrollo)
+        globalKeyDesarrollo = keyDesarrollo;
         var dataInfo = snapshot.val()
         var arrayLotesFrom = []
         getClients()              
@@ -406,7 +406,7 @@ function clientsSold(indice, keyDesarrollo, nameDesarrollo) {
                         }
                     }
                     if (nameCliente != null && claveLote != null && valorPagoM == lengthPagados) {
-                        var liAppend = "<li class=\"client-account\" onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente + "</li>"
+                        var liAppend = "<li class=\"client-account\" onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span class='solded' onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"'  onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span></li>"
                     }
                     $("#list-lotes").append(liAppend)
                 });
@@ -458,9 +458,17 @@ function getInfoLote(keyLote, keyPropietario, valueLi) {
         $("#reg-lote").val('$' + parseFloat(dataInfo.regulacion, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         $("#fecha-compra").val(dataInfo.fechaCompra)
         var adeudoTotal = (dataInfo.metros * dataInfo.costoMetro) - dataInfo.enganche;
+        var payPerMonth = adeudoTotal / dataInfo.pagosMensuales
+        $("#monto").val('$' + parseFloat(payPerMonth, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         $("#adeudo-lote").val('$' + parseFloat(adeudoTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         $(".total-letras").text(dataInfo.pagosMensuales)
-        viewPagos(adeudoTotal)
+        if ($(valueLi).hasClass("solded")){
+            viewPagos(adeudoTotal, true)
+        }
+        else{
+            viewPagos(adeudoTotal, false)
+        }
+        
     });
 }
    
@@ -504,11 +512,9 @@ function changeToCurrency(input) {
     }
 }
 
-function viewPagos(adeudo) {
-    debugger
+function viewPagos(adeudo, statusSolded) {
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
-        console.log(snapshot.val().length)
         $(".payments-body").empty();
         var totalPagado = 0;
         var lengthPagados = 0;
@@ -530,7 +536,7 @@ function viewPagos(adeudo) {
             console.log(indice + 1)
             if (valor.idLote == globalKeyLote) {
                 var formatCurrency = '$' + parseFloat(valor.monto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
-                totalPagado = totalPagado + parseInt(valor.monto)
+                totalPagado = totalPagado + parseFloat(valor.monto)
                 addRow = "<tr><td>" + valor.numero + "</td>" +
                     "<td>" + valor.fecha + "</td>" +
                     "<td>" + formatCurrency + "</td></tr>"
@@ -559,6 +565,13 @@ function viewPagos(adeudo) {
         var adeudoRestante = adeudo - totalPagado;
         if(adeudoRestante == 0){
             $("#add-one").addClass("d-none")
+            if(statusSolded == false){
+                $("#alert-fill-lote").removeClass("d-none")
+                setTimeout(function(){
+                    $("#alert-fill-lote").addClass("d-none")
+                    $(".detail-develop").find(".ico-close").trigger("click")
+                },3000)
+            }
         }
         else{
             $("#add-one").removeClass("d-none")
@@ -852,7 +865,8 @@ function addPago() {
     var mesPago = $("#meses option:selected").text()
     var añoPago = $("#años option:selected").text()
     var montoPago = $("#monto").val()
-
+    var montoWithin = montoPago.replace(/\$|\,/g, "");
+    console.log(montoWithin)
     if (montoPago.length == 0) {
         alert("Llenar todos los campos")
     } else {
@@ -876,11 +890,10 @@ function addPago() {
             firebase.database().ref('pagos/').push({
                 idLote: globalKeyLote,
                 fecha: mesPago+"-"+añoPago,
-                monto: montoPago,
+                monto: montoWithin,
                 numero: numeroPago
             });
             $("#pagosModal").modal("hide")
-            $("#monto").val("")
         });
     }
 }
