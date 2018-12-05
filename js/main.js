@@ -654,7 +654,7 @@ function altaUser() {
                 $("#alert-new").removeClass("d-none");
                 setTimeout(function() {
                     $("#alert-new").addClass("d-none");
-                }, 3000);
+                }, 6000);
             });
         });
     }

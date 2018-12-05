@@ -2,6 +2,25 @@ p, li, span, label {
   color: #838084;
 }
 
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #D8D9DA;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #B0B2B3;
+  border-radius: 10px;
+}
+
 .search-clients, .detail-develop, .add-user, .payment-list, .new-desarrollo, .add-lotes, .quoting, .report, .user-list, .settings {
   position: relative;
   z-index: 9999;
@@ -214,6 +233,7 @@ p, li, span, label {
 .work-area .secondary-users li {
   list-style: none;
   cursor: pointer;
+  margin-right: 10px;
 }
 .work-area .secondary-users li .edit {
   color: #8FAC19;
@@ -662,6 +682,7 @@ p, li, span, label {
 .work-area .report #list-lotes-reports li {
   font-size: 13px;
   width: 100%;
+  margin-right: 10px;
 }
 .work-area .report #list-lotes-reports li .total-development {
   font-weight: bold;

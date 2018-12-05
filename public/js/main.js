@@ -63,7 +63,7 @@ function changeView(nameView) {
             $("#wrapper-section").load("views/" + nameView)
             setTimeout(function() {
                 getInfoUsers(idUserActive)
-                $(".add-plus, .backrest").attr("data-privilegios", globalPrivilegios)
+                $(".add-plus, .backrest, .upload-back").attr("data-privilegios", globalPrivilegios)
             }, 100)
             break;
         case 'buscar.html':
@@ -270,7 +270,7 @@ var pays = []
 
 function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
     $(".list-view, .no-properties2, .error-lotes").addClass("d-none")
-    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago").removeClass("d-none")
+    $(".search-clients, .user-data, .modal-backdrop, .button-new-pago, .plus-client").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
     globalKeyDesarrollo = keyDesarrollo;
@@ -315,7 +315,7 @@ function clientsBy(indice, keyDesarrollo, nameDesarrollo) {
                         }
                     }
                      if (nameCliente != null && claveLote != null && valorPagoM != lengthPagados) {
-                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"' onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span>" + "</li>"
+                            var liAppend = "<li class=\"client-account admin\"  onmouseover=\"viewAction(this)\" onmouseout=\"hideAction(this)\"><span onclick=\"getInfoLote(\'" + indice3 + "\', \'" + valor3.propietario + "\', this)\">" + claveLote + " - " + nameCliente +  "</span><span class='delete float-right d-none' data-type-privilegios='"+globalPrivilegios+"'  onclick=\"deleteLote(\'"+indice3+"\')\">Borrar</span>" + "</li>"
                         }
                     $("#list-lotes").append(liAppend)
                     
@@ -361,7 +361,8 @@ function getClients() {
 
 function clientsSold(indice, keyDesarrollo, nameDesarrollo) {
     appendIDPays()
-    $(".list-view").addClass("d-none")
+    $(".list-view, .error-lotes, .plus-client").addClass("d-none")
+    $("#list-lotes").empty()
     $(".search-clients, .user-data, .modal-backdrop").removeClass("d-none")
     $(".number-desarrollo").text(indice)
     $(".name-desarrollo").text(nameDesarrollo)
@@ -372,7 +373,7 @@ function clientsSold(indice, keyDesarrollo, nameDesarrollo) {
         var arrayLotesFrom = []
         getClients()              
         if (dataInfo == null) {
-            $(".error-lotes").removeClass("d-none")
+            $(".no-properties2").removeClass("d-none")
         } else {
             $.each(dataInfo, function(indice2, valor2) {
                 arrayLotesFrom.push(valor2)
@@ -508,6 +509,7 @@ function viewPagos(adeudo) {
     knowPagos.on('value', function(snapshot) {
         var totalPagado = 0;
         var lengthPagados = 0;
+        $(".button-new-pago").removeClass("d-none")
         $("#pagos-lotes2, #pagos-lotes").empty()
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
@@ -522,10 +524,16 @@ function viewPagos(adeudo) {
             }
             $("#pagos-lotes-export").append(addRow)
             if (lengthPagados <= 12) {
+                $("#table-principal, #add-two").removeClass("d-none")
+                $("#add-one").addClass("d-none")
                 $("#pagos-lotes").append(addRow)
             } else {
                 $(".second-table").removeClass("d-none")
                 $("#pagos-lotes2").append(addRow)
+            }
+            if(lengthPagados == 0){
+                $("#table-principal, #add-two").addClass("d-none")
+                $("#add-one").removeClass("d-none")
             }
         });
         $("#letters-payments").val(lengthPagados)
@@ -637,23 +645,23 @@ function altaUser() {
 function addTerreno() {
     var nameTerreno = $("#desarrollo").val()
     var lis = $("#list-lotes li")
-    if(nameTerreno.length == 0 || lis.length == 0){
-        alert("Ingrese nombre de desarrollo y al menos un lote")
+    if(nameTerreno.length == 0){
+        alert("Ingrese nombre de desarrollo")
     }
     else{
         var keyNew = firebase.database().ref('desarrollos/').push({
             nombreTerreno: nameTerreno
         }).key
-        for(var i=0; i<lotesOn.length; i++){
+/*        for(var i=0; i<lotesOn.length; i++){
             addLote(keyNew, i)
-        }
+        }*/
         $("#desarrollo").val("")
-        lotesOn = []
-        changeViewsAll('buscar.html')
+       /* lotesOn = []*/
         $("#alert-desarrollo").removeClass("d-none")
         setTimeout(function(){
             $("#alert-desarrollo").addClass("d-none")
         },3000)
+        changeViewsAll('buscar.html')
     }
 }
 
@@ -720,17 +728,30 @@ function addOnArray() {
 
 
 function addClientes() {
-    var nombreCliente = $("#nombre").val()
-    var telefono = $("#telefono").val()
-    var celular = $("#celular").val()
-    var email = $("#email").val()
-    var pagos = $("#pagos-new").val()
-    var eng = $("#enganche-new").val()
-    var engWithin = eng.replace(/\$|\,/g, "");
-    var lotes = $("#lotes-by option:selected").attr("value")
-    if (nombreCliente.length == 0 || telefono.length == 0 || celular.length == 0 || email.length == 0 || pagos.length == 0 || eng.length == 0) {
-        alert("Llenar todos los campos")
-    } else {
+    var vacios = 0;
+    $("#add-new input").each(function(){
+        if($(this).val() == ""){
+            vacios = vacios + 1;
+        }
+    })
+    if(vacios == 0){
+        var nombreCliente = $("#nombre").val()
+        var telefono = $("#telefono").val()
+        var celular = $("#celular").val()
+        var email = $("#email").val()
+        var lote = $("#lote").val()
+        var manzana = $("#manzana").val()
+        var calle = $("#calle").val()
+        var colonia = $("#colonia").val()
+        var delegacion = $("#delegacion").val()
+        var metros = $("#metros-new").val()
+        var costo = $("#costo").val()
+        var coWithin = costo.replace(/\$|\,/g, "");
+        var fecha = $("#fecha").val()
+        var enganche = $("#enganche").val()
+        var engWithin = enganche.replace(/\$|\,/g, "");
+        var pagos = $("#pagos").val()
+        var pWithin = pagos.replace(/\$|\,/g, "");
         var arrayCliente = {
             nombre: nombreCliente,
             telefono: telefono,
@@ -738,29 +759,32 @@ function addClientes() {
             email: email
         }
         var keyCliente = firebase.database().ref('clientes').push(arrayCliente).key;
-        firebase.database().ref('clientes/' + keyCliente + "/lotes").push(lotes)
-        addLoteToClient(keyCliente, lotes, pagos, engWithin)
-        $("#nombre, #telefono, #celular, #email, #terreno").val("")
+        var arrayLote = {
+            calle: calle,
+            clave: "L"+lote+"M"+manzana,
+            colonia: colonia,
+            costoMetro: coWithin,
+            delegacion: delegacion,
+            enganche: engWithin,
+            fechaCompra: fecha,
+            lote: lote,
+            manzana: manzana,
+            metros: metros,
+            pagosMensuales: pagos,
+            propietario: keyCliente
+        }
+        var keyLotes = firebase.database().ref('lotes').push(arrayLote).key;
+        firebase.database().ref('desarrollos/'+globalKeyDesarrollo+'/lotes').push(keyLotes)
+        firebase.database().ref('clientes/' + keyCliente + "/lotes").push(keyLotes)
+        $("#add-new input").val("")
+        $("#fecha").val(fecha)
+        $(".error-lotes").addClass("d-none")
+        $(".box-area").removeClass("big-box-clients")
         toggleView('.new-client', '.view-client')
     }
-}
-
-function addLoteToClient(keyClient, lote, nPagos, enganches) {
-    var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
-    var dates = new Date();
-    var mesActual;
-    for(var i=1; i<meses.length; i++){
-        if(dates.getMonth() == i){
-            mesActual = meses[i]
-        }
+    else{
+        alert("Llena todos los campos")
     }
-    var fecha = dates.getDate() + "/" + mesActual + "/" + dates.getFullYear();
-    firebase.database().ref('lotes/' + lote).update({
-        propietario: keyClient,
-        pagosMensuales: nPagos,
-        fechaCompra: fecha,
-        enganche: enganches
-    })
 }
 
 function appendDesarrollos() {
@@ -776,36 +800,9 @@ function appendDesarrollos() {
 }
 
 function appendClientes() {
-    $("#lotes-by").empty()
-    var arrayLotesBy = []
-    var numLotesAdd = 0;
-    var starCountRef = database.ref('desarrollos/'+globalKeyDesarrollo+'/lotes');
-    starCountRef.once('value', function(snapshot) {
-        var dataInfo = snapshot.val()
-         $.each(dataInfo, function(indice, valor) {
-           arrayLotesBy.push(valor)
-        });
-         console.log(arrayLotesBy)
-        var lotesCountRef = database.ref('lotes/');
-        lotesCountRef.once('value', function(snapshot) {
-            var dataInfo2 = snapshot.val()
-            $.each(dataInfo2, function(indice2, valor2) {
-                for(var i=0; i<arrayLotesBy.length; i++){
-                    if(arrayLotesBy[i] == indice2 && valor2.propietario == "S/N"){
-                        numLotesAdd = numLotesAdd + 1;
-                        var selectOption = "<option value='" + indice2 + "'>" + valor2.clave + "</option>"
-                        $("#lotes-by").append(selectOption)
-                    }
-                }
-            });
-            if(numLotesAdd == 0){
-                toggleView('.view-client', '.no-lotes')
-            }
-            else{
-                toggleView('.view-client', '.new-client')
-            }
-        });
-    });
+    $(".box-area").addClass("big-box-clients")
+    $(".ico-close.search").addClass("d-none")
+    toggleView('.view-client', '.new-client')
 }
 
 function NosePorqueLoHiceAsi(keyClient, lote) {
@@ -997,14 +994,31 @@ function cleanInputs(patern){
 function getFormatDate(){
     $("#meses, #años").empty()
     var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
+    var mesActual;
+    var f = new Date();
     for(var i=0; i < meses.length; i++){
         var addMonth = "<option>"+meses[i]+"</option>"
         $("#meses").append(addMonth)
+        if(f.getMonth() == i){
+            mesActual = meses[i]
+        }
     }
-    var f = new Date();
-    $("#años").append("<option>"+(f.getFullYear()-1)+"</option>")
-    $("#años").append("<option>"+f.getFullYear()+"</option>")
-    $("#años").append("<option>"+(f.getFullYear()+1)+"</option>")
+    var numAño = 0;
+    for(var i=0; i < 51; i++){
+        if(numAño <= 9){
+            $("#años").append("<option>0"+numAño+"</option>")
+        }
+        else{
+            $("#años").append("<option>"+numAño+"</option>")
+        }
+        numAño = numAño + 1;
+    }
+    /*var yearN = f.getFullYear().toString()
+    var lastY = yearN.substr(yearN.length - 2)
+    $("#años").append("<option>"+(lastY-1)+"</option>")
+    $("#años").append("<option>"+(lastY)+"</option>")
+    $("#años").append("<option>"+(parseInt(lastY)+1)+"</option>")*/
+    $("#fecha").val(f.getDate()+"/"+mesActual+"/"+f.getFullYear())
 }
 
 
@@ -1080,12 +1094,17 @@ function getReports() {
             for (s = 0; s < allTerrenos.length; s++) {
                 TotalMes = TotalMes + parseInt(cantPagada[s])
                 var formatCurrency = '$' + parseFloat(cantPagada[s], 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
-                var lis = "<li class='float-left'>" + allTerrenos[s] + " <span class='total-development float-right'> " + formatCurrency + "</span></li>"
-                $("#list-lotes-reports").append(lis)
-                colorData.push(colors[ind])
-                ind = ind + 1;
-                if(ind == 9){
-                    ind = 0;
+                if(cantPagada[s] == 0){
+                    console.log("aqui no aplica")
+                }
+                else{
+                    var lis = "<li class='float-left'>" + allTerrenos[s] + " <span class='total-development float-right'> " + formatCurrency + "</span></li>"
+                    $("#list-lotes-reports").append(lis)
+                    colorData.push(colors[ind])
+                    ind = ind + 1;
+                    if(ind == 9){
+                        ind = 0;
+                    }
                 }
             }
             $(".total-month").text('$' + parseFloat(TotalMes, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
@@ -1153,6 +1172,25 @@ function backrest(){
     });
 }
 
+function goToFile(element){
+    $(element).siblings().trigger("click")
+}
+function uploadBack(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var obj = JSON.parse(e.target.result);
+            database.ref().set(obj)
+            $("#alert-back").removeClass("d-none")
+            setTimeout(function(){
+                $("#alert-back").addClass("d-none")
+            }, 3000)
+        };
+        reader.readAsText(input.files[0]);
+        $(input).val("");
+    }
+}
+
 function deleteLote(idLote) {
     $("#deleteLoteModal").modal("show")
     $("#yes-delete").on("click", function() {
@@ -1166,7 +1204,7 @@ function deleteLote(idLote) {
                 var getL = valor.lotes
                 $.each(getL, function(key, keyL) {
                     if (keyL == idLote) {
-                        firebase.database().ref('clientes/' + indice + '/lotes/' + key).remove();
+                        firebase.database().ref('clientes/' + indice).remove();
                     }
                 });
             });
@@ -1202,4 +1240,15 @@ function deleteLote(idLote) {
         });
 
     });
+}
+
+function deleteUser(){
+    var idUser = $("#save-edit").attr("value")
+    firebase.database().ref('usuarios/' + idUser).remove();
+    $(".user-list").show()
+    $(".settings").hide()
+    $("#alert-remove").removeClass("d-none")
+    setTimeout( function(){
+        $("#alert-remove").addClass("d-none")
+    },3000)
 }
