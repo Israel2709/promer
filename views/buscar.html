@@ -27,7 +27,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Monto</div>
                 </div>
-                <input type="text" class="form-control" id="monto" placeholder="Monto" onkeypress="restrictToNumber(event)">
+                <input type="text" class="form-control" id="monto" readonly placeholder="Monto" onkeypress="restrictToNumber(event)">
               </div>
             </div>
           </div>
@@ -148,6 +148,9 @@
   </div>
 </div>
 
+<div class="alert alert-success d-none" id="alert-fill-lote" role="alert">
+      ¡Felicidades, se ha liquidado este lote!
+    </div>
 <div class="box-area " id="impresion">
   <img src="img/logo-principal-v1.png" class="print logo-print">
   <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span><span class="today d-none print float-right">16 Septiembre 2018</span></p>
