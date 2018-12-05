@@ -127,6 +127,27 @@
   </div>
 </div>
 
+<div class="modal fade" id="delete-payment-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="title-settings">Eliminar Pago</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Deseas eliminar este pago?</p>
+        <p class="d-none">Se eliminó con éxito el pago.</p>
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-danger" data-dismiss="modal">No</div>
+        <div class="btn btn-success" onclick="deletePayment(this)" id="btn-delete-payment">Si</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="box-area " id="impresion">
   <img src="img/logo-principal-v1.png" class="print logo-print">
   <p class="nombre-print print">Ejecutivo<br/><span class="nombre-ejecutivo"></span><span class="today d-none print float-right">16 Septiembre 2018</span></p>
@@ -449,6 +470,7 @@
                     <th>Letra</th>
                     <th>Mes</th>
                     <th>Monto</th>
+                    <th>&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody class="payments-body"></tbody>

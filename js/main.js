@@ -505,7 +505,6 @@ function changeToCurrency(input) {
 }
 
 function viewPagos(adeudo) {
-    debugger
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
         console.log(snapshot.val().length)
@@ -519,6 +518,7 @@ function viewPagos(adeudo) {
                                     <th>Letra</th>
                                     <th>Mes</th>
                                     <th>Monto</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody class="payments-body"></tbody>
@@ -533,7 +533,8 @@ function viewPagos(adeudo) {
                 totalPagado = totalPagado + parseInt(valor.monto)
                 addRow = "<tr><td>" + valor.numero + "</td>" +
                     "<td>" + valor.fecha + "</td>" +
-                    "<td>" + formatCurrency + "</td></tr>"
+                    "<td>" + formatCurrency + "</td>"+
+                    "<td><div class='btn btn-danger' data-assigned-payment='"+indice+"' onclick='assignDeletePayment(this)'>Eliminar pago</div></td></tr>"
                /* if (lengthPagados - 1 % 12 == 0 && lengthPagados != 0) {
                     tableIndex = +1;
                     console.log(tableIndex)
@@ -1269,4 +1270,15 @@ function deleteUser(){
     setTimeout( function(){
         $("#alert-remove").addClass("d-none")
     },3000)
+}
+
+var paymentKey;
+const assignDeletePayment = (selectedPayment) => {
+    paymentKey = $(selectedPayment).data("assigned-payment");
+    $("#delete-payment-modal").modal("show");
+}
+
+const deletePayment = () =>{
+    firebase.database().ref('pagos/' + paymentKey).remove();
+    $("#delete-payment-modal").modal("hide");
 }

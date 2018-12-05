@@ -825,3 +825,8 @@ textarea{
     height: auto;
     margin-left: 25%;
 }
+
+.payments-wrapper{
+    max-height: 40vh;
+    overflow-y: scroll;
+}
