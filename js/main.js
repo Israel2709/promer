@@ -505,37 +505,55 @@ function changeToCurrency(input) {
 }
 
 function viewPagos(adeudo) {
+    debugger
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
+        console.log(snapshot.val().length)
+        $(".payments-body").empty();
         var totalPagado = 0;
         var lengthPagados = 0;
-        $(".button-new-pago").removeClass("d-none")
-        $("#pagos-lotes2, #pagos-lotes").empty()
+        let tableIndex = 0;
+        let tableHtml = `<table class="list-letters table-bordered letters-block" id="table-principal">
+                            <thead>
+                                <tr>
+                                    <th>Letra</th>
+                                    <th>Mes</th>
+                                    <th>Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody class="payments-body"></tbody>
+                        </table>`
         var dataInfo = snapshot.val()
         $.each(dataInfo, function(indice, valor) {
             var addRow;
+            var currentTables = 0;
+            console.log(indice + 1)
             if (valor.idLote == globalKeyLote) {
-                lengthPagados = lengthPagados + 1;
                 var formatCurrency = '$' + parseFloat(valor.monto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
                 totalPagado = totalPagado + parseInt(valor.monto)
                 addRow = "<tr><td>" + valor.numero + "</td>" +
                     "<td>" + valor.fecha + "</td>" +
                     "<td>" + formatCurrency + "</td></tr>"
-            }
-            $("#pagos-lotes-export").append(addRow)
-            if (lengthPagados <= 12) {
-                $("#table-principal, #add-two").removeClass("d-none")
-                $("#add-one").addClass("d-none")
-                $("#pagos-lotes").append(addRow)
-            } else {
+               /* if (lengthPagados - 1 % 12 == 0 && lengthPagados != 0) {
+                    tableIndex = +1;
+                    console.log(tableIndex)
+                    console.log("newBlock")
+                    $(".payments-wrapper").append(tableHtml);
+                }*/
+                $("#pagos-lotes-export").append(addRow)
                 $(".second-table").removeClass("d-none")
-                $("#pagos-lotes2").append(addRow)
+                $(".letters-block:eq(" + tableIndex + ")").find(".payments-body").append(addRow)
+                lengthPagados = lengthPagados + 1;
+
             }
-            if(lengthPagados == 0){
-                $("#table-principal, #add-two").addClass("d-none")
+            if (lengthPagados == 0) {
+                $(".payments-wrapper, #add-two").addClass("d-none")
                 $("#add-one").removeClass("d-none")
             }
         });
+        $(".button-new-pago").removeClass("d-none")
+        $(".payments-wrapper").removeClass("d-none")
+        $("#add-one").removeClass("d-none")
         $("#letters-payments").val(lengthPagados)
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var adeudoRestante = adeudo - totalPagado;

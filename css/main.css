@@ -94,11 +94,11 @@ p, li, span, label {
 }
 .work-area .box-area.big-box {
   width: 880px !important;
-  height: 470px !important;
+  min-height: 470px !important;
 }
 .work-area .box-area.big-box::before {
   width: 880px !important;
-  height: 470px !important;
+  min-height: 470px !important;
 }
 .work-area .box-area.big-box-clients {
   width: 620px !important;
@@ -572,6 +572,14 @@ p, li, span, label {
   border-collapse: collapse;
   width: auto;
   height: auto;
+  margin: 10px;
+  flex-grow: 1;
+}
+.work-area .list-letters:nth-of-type(odd) {
+  margin-left: 0px;
+}
+.work-area .list-letters:nth-of-type(even) {
+  margin-right: 0px;
 }
 .work-area .list-letters td {
   padding: 0px 12px;

@@ -99,10 +99,10 @@ p,li,span,label{
     	position: relative;
 		&.big-box{
 			width: 880px!important;
-			height: 470px!important;
+			min-height: 470px!important;
 			&::before{
 				width: 880px!important;
-				height: 470px!important;
+				min-height: 470px!important;
 			}
 		}
 		&.big-box-clients{
@@ -593,6 +593,14 @@ p,li,span,label{
 		border-collapse: collapse;
 		width: auto;
 		height: auto;
+		margin:10px;
+		flex-grow:1;
+		&:nth-of-type(odd){
+			margin-left:0px;
+		}
+		&:nth-of-type(even){
+			margin-right:0px;
+		}
 		td{
 			padding: 0px 12px;
 			&:nth-child(3){
