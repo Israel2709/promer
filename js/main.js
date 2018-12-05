@@ -457,7 +457,7 @@ function getInfoLote(keyLote, keyPropietario, valueLi) {
         $("#pagos-lote").val(dataInfo.pagosMensuales)
         $("#reg-lote").val('$' + parseFloat(dataInfo.regulacion, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         $("#fecha-compra").val(dataInfo.fechaCompra)
-        var adeudoTotal = dataInfo.metros * dataInfo.costoMetro;
+        var adeudoTotal = (dataInfo.metros * dataInfo.costoMetro) - dataInfo.enganche;
         $("#adeudo-lote").val('$' + parseFloat(adeudoTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         $(".total-letras").text(dataInfo.pagosMensuales)
         viewPagos(adeudoTotal)
@@ -557,6 +557,12 @@ function viewPagos(adeudo) {
         $("#letters-payments").val(lengthPagados)
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var adeudoRestante = adeudo - totalPagado;
+        if(adeudoRestante == 0){
+            $("#add-one").addClass("d-none")
+        }
+        else{
+            $("#add-one").removeClass("d-none")
+        }
         $("#total-adeudo").val('$' + parseFloat(adeudoRestante, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var porcentPagado = (totalPagado * 100) / (adeudo)
         var porcentAdeudo = 100 - porcentPagado
