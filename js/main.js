@@ -1166,7 +1166,7 @@ function getReports() {
                     display: false,
                 },
                 borderColor: '#c6c6c6',
-                tooltips: {enabled: false},
+               /* tooltips: {enabled: false},*/
                 hover: {mode: null}
             };
             if(pieChartReport != null){
