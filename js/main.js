@@ -525,7 +525,7 @@ function viewPagos(adeudo, statusSolded) {
                                     <th>Letra</th>
                                     <th>Mes</th>
                                     <th>Monto</th>
-                                    <th>&nbsp;</th>
+                                    <th class='privilegys no-print'>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody class="payments-body"></tbody>
@@ -541,7 +541,7 @@ function viewPagos(adeudo, statusSolded) {
                 addRow = "<tr><td>" + valor.numero + "</td>" +
                     "<td>" + valor.fecha + "</td>" +
                     "<td>" + formatCurrency + "</td>"+
-                    "<td><div class='btn btn-danger' data-assigned-payment='"+indice+"' onclick='assignDeletePayment(this)'>Eliminar pago</div></td></tr>"
+                    "<td class='privilegys no-print'><div class='btn btn-danger' data-assigned-payment='"+indice+"' onclick='assignDeletePayment(this)'>Eliminar pago</div></td></tr>"
                /* if (lengthPagados - 1 % 12 == 0 && lengthPagados != 0) {
                     tableIndex = +1;
                     console.log(tableIndex)
@@ -562,6 +562,10 @@ function viewPagos(adeudo, statusSolded) {
         $(".button-new-pago").removeClass("d-none")
         $(".payments-wrapper").removeClass("d-none")
         $("#add-one").removeClass("d-none")
+        var dataPriv = $("#add-one").data("privilegios")
+        if(dataPriv == "N"){
+            $(".privilegys").addClass("d-none")
+        }
         $("#letters-payments").val(lengthPagados)
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var adeudoRestante = adeudo - totalPagado;
