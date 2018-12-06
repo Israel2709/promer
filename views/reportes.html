@@ -144,7 +144,10 @@
         valueAño = valueAño + 1
     }
     $("#meses option:eq("+FirsM+")").prop("selected", true).trigger("change")
-    $("#años option[value="+lastY+"]").prop("selected", true).trigger("change")
+    setTimeout(function(){
+      $("#años option[value="+lastY+"]").prop("selected", true).trigger("change")
+    }, 100)
+    
     getActualDate();
     var nombreGlobal = $(".name-login").text()
     $(".nombre-ejecutivo").text(nombreGlobal)
