@@ -632,6 +632,9 @@ p,li,span,label{
 		.icon-add-plus{
 			margin-left: 0px;
 			margin-right: 10px;
+			&[data-privilegios='N']{
+				display: none!important;
+			}
 		}
 	}
 	.user-data{

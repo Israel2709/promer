@@ -69,7 +69,7 @@ function changeView(nameView) {
         case 'buscar.html':
             $("#wrapper-section").load("views/" + nameView)
             setTimeout(function(){
-                $(".list-desarrollos, .plus-client").attr("data-privilegios", globalPrivilegios)
+                $(".list-desarrollos, .plus-client, #add-one").attr("data-privilegios", globalPrivilegios)
             }, 100)
             break;
         case 'cotizador.html':
