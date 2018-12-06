@@ -609,7 +609,9 @@ function viewPagos(adeudo, statusSolded) {
             legend: {
                 display: false,
             },
-            borderColor: '#c6c6c6'
+            borderColor: '#c6c6c6',
+            tooltips: {enabled: false},
+            hover: {mode: null}
         };
         var pieChart = new Chart(oilCanvas, {
             type: 'pie',
@@ -1163,7 +1165,9 @@ function getReports() {
                 legend: {
                     display: false,
                 },
-                borderColor: '#c6c6c6'
+                borderColor: '#c6c6c6',
+                tooltips: {enabled: false},
+                hover: {mode: null}
             };
             if(pieChartReport != null){
                 console.log("entra")
