@@ -188,12 +188,8 @@ p, li, span, label {
       margin-right: 10px; }
       .work-area .secondary-users li .edit {
         color: #8FAC19; }
-        .work-area .secondary-users li .edit[data-privilegios='N'] {
-          display: none !important; }
       .work-area .secondary-users li:hover {
         color: #8FAC19; }
-        .work-area .secondary-users li:hover[data-privilegios='N'] {
-          display: none !important; }
       .work-area .secondary-users li img {
         border-radius: 50%;
         margin: 3px; }

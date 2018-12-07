@@ -65,6 +65,9 @@ function changeView(nameView) {
                 getInfoUsers(idUserActive)
                 $(".add-plus, .backrest, .upload-back").attr("data-privilegios", globalPrivilegios)
             }, 100)
+            setTimeout(function(){
+                $(".secondary-users .edit").attr("data-privilegios", globalPrivilegios)
+            },1000)
             break;
         case 'buscar.html':
             $("#wrapper-section").load("views/" + nameView)
@@ -233,12 +236,18 @@ function edit(idUser) {
 
 
 function viewAction(element){
-    $(element).find(".edit").removeClass("d-none")
-    $(element).find(".delete").removeClass("d-none")
-    setTimeout(function() {
+    var priv = $(element).find(".edit").data("privilegios")
+    if(priv == "N"){
+        console.log("sin privilegios")
+    }
+    else{
+        $(element).find(".edit").removeClass("d-none")
+        $(element).find(".delete").removeClass("d-none")
+    }
+   /* setTimeout(function() {
         getInfoUsers(idUserActive)
         $(".edit").attr("data-privilegios", globalPrivilegios)
-    }, 10)
+    }, 10)*/
 }
 
 function hideAction(element){
