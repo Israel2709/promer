@@ -516,6 +516,7 @@ function viewPagos(adeudo, statusSolded) {
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
         $(".payments-body").empty();
+        var numPago = 0;
         var totalPagado = 0;
         var lengthPagados = 0;
         let tableIndex = 0;
@@ -536,9 +537,16 @@ function viewPagos(adeudo, statusSolded) {
             var currentTables = 0;
             console.log(indice + 1)
             if (valor.idLote == globalKeyLote) {
+                numPago = numPago + 1;
+                 if (numPago <= 9) {
+                    var newnumPago = "0" + numPago;
+                }
+                else{
+                    newnumPago = numPago
+                }
                 var formatCurrency = '$' + parseFloat(valor.monto, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString()
                 totalPagado = totalPagado + parseFloat(valor.monto)
-                addRow = "<tr><td>" + valor.numero + "</td>" +
+                addRow = "<tr><td>" + newnumPago + "</td>" +
                     "<td>" + valor.fecha + "</td>" +
                     "<td>" + formatCurrency + "</td>"+
                     "<td class='privilegys no-print'><div class='btn btn-danger' data-assigned-payment='"+indice+"' onclick='assignDeletePayment(this)'>Eliminar pago</div></td></tr>"
@@ -569,7 +577,8 @@ function viewPagos(adeudo, statusSolded) {
         $("#letters-payments").val(lengthPagados)
         $("#total-pagado").val('$' + parseFloat(totalPagado, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
         var adeudoRestante = adeudo - totalPagado;
-        if(adeudoRestante == 0){
+        if(adeudoRestante == 0 || adeudoRestante < 0){
+            adeudoRestante = 0
             $("#add-one").addClass("d-none")
             if(statusSolded == false){
                 $("#alert-fill-lote").removeClass("d-none")
@@ -898,8 +907,8 @@ function addPago() {
             firebase.database().ref('pagos/').push({
                 idLote: globalKeyLote,
                 fecha: mesPago+"-"+añoPago,
-                monto: montoWithin,
-                numero: numeroPago
+                monto: montoWithin
+                /*numero: numeroPago*/
             });
             $("#pagosModal").modal("hide")
         });

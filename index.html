@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/main.css" type="text/css">
     <title>Promer</title>
     <style type="text/css" media="print"> 
-    @page { size: landscape; margin: 0; padding: 15px; }
+    @page { size: landscape; margin: 0; }
     .no-print{ 
         display:none!important; 
     }
@@ -21,10 +21,13 @@
     .box-area::before{
       display: none!important;
     }
-
-    #list-lotes-reports, #table-principal{
+    #list-lotes-reports{
       height: auto!important;
       overflow-y: hidden!important;
+    }
+    .payments-wrapper{
+      max-height: none;
+      overflow-y: hidden;
     }
 
     </style> 
