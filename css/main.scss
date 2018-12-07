@@ -242,9 +242,15 @@ p,li,span,label{
 			margin-right: 10px;
 			.edit{
 				color: $green;
+				&[data-privilegios='N']{
+					display: none!important;
+				}
 			}
 			&:hover{
 				color: $green;
+				&[data-privilegios='N']{
+					display: none!important;
+				}
 			}
 			img{
 			    border-radius: 50%;
@@ -298,6 +304,12 @@ p,li,span,label{
 		cursor: pointer;
 		z-index: 9999;
 		position: relative;
+	}
+	.btn-secondary{
+		border-radius: 20px;
+		cursor: pointer;
+		z-index: 9999;
+		position: relative;	
 	}
 	.form-group{
 		input{

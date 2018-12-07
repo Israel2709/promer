@@ -188,8 +188,12 @@ p, li, span, label {
       margin-right: 10px; }
       .work-area .secondary-users li .edit {
         color: #8FAC19; }
+        .work-area .secondary-users li .edit[data-privilegios='N'] {
+          display: none !important; }
       .work-area .secondary-users li:hover {
         color: #8FAC19; }
+        .work-area .secondary-users li:hover[data-privilegios='N'] {
+          display: none !important; }
       .work-area .secondary-users li img {
         border-radius: 50%;
         margin: 3px; }
@@ -225,6 +229,11 @@ p, li, span, label {
       border-color: #838084;
       margin-right: 15px; }
   .work-area .btn-danger {
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 9999;
+    position: relative; }
+  .work-area .btn-secondary {
     border-radius: 20px;
     cursor: pointer;
     z-index: 9999;
