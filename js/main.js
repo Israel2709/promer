@@ -235,6 +235,10 @@ function edit(idUser) {
 function viewAction(element){
     $(element).find(".edit").removeClass("d-none")
     $(element).find(".delete").removeClass("d-none")
+    setTimeout(function() {
+        getInfoUsers(idUserActive)
+        $(".edit").attr("data-privilegios", globalPrivilegios)
+    }, 10)
 }
 
 function hideAction(element){
