@@ -376,7 +376,7 @@ function clientsSold(indice, keyDesarrollo, nameDesarrollo) {
     var starCountRef = database.ref('desarrollos/' + keyDesarrollo + "/lotes");
     starCountRef.on('value', function(snapshot) {
         appendIDPays()
-        $(".list-view, .error-lotes, .plus-client").addClass("d-none")
+        $(".list-view, .error-lotes, .plus-client, .no-properties2, .no-properties").addClass("d-none")
         $("#list-lotes").empty()
         $(".search-clients, .user-data, .modal-backdrop").removeClass("d-none")
         $(".number-desarrollo").text(indice)
@@ -525,6 +525,7 @@ function changeToCurrency(input) {
     }
 }
 
+var pieChart = null;
 function viewPagos(adeudo, statusSolded) {
     var knowPagos = database.ref('pagos/');
     knowPagos.on('value', function(snapshot) {
@@ -635,7 +636,13 @@ function viewPagos(adeudo, statusSolded) {
             tooltips: {enabled: false},
             hover: {mode: null}
         };
-        var pieChart = new Chart(oilCanvas, {
+
+        if(pieChart != null){
+            pieChart.clear()
+            pieChart.destroy()
+        }
+
+        pieChart = new Chart(oilCanvas, {
             type: 'pie',
             data: oilData,
             options: chartOptions
